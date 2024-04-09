@@ -1,5 +1,6 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
+import Login from "./components/Login";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -8,7 +9,9 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
-      <GlobalStyle>{/* 여기에 다른 컴포넌트들이 들어옵니다! */}</GlobalStyle>
+      <GlobalStyle />
+      <Login />
+      {/* 여기밑에 라우터가 와요  */}
     </>
   );
 }
