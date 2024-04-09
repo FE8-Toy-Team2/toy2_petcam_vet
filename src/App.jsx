@@ -8,7 +8,8 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
-      <GlobalStyle>{/* 여기에 다른 컴포넌트들이 들어옵니다! */}</GlobalStyle>
+      <GlobalStyle />
+      {/* 여기밑에 라우터가 와요  */}
     </>
   );
 }
