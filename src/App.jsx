@@ -1,5 +1,6 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
+import Layout from "./components/Layout/Layout";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -9,7 +10,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      {/* 여기밑에 라우터가 와요  */}
+      <Layout />
     </>
   );
 }
