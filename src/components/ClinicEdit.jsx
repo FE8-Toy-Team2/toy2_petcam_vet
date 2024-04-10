@@ -25,6 +25,7 @@ const EditContainer = styled.div`
   flex-grow: 1;
   margin-right: 30px;
   flex-basis: 0;
+  overflow: hidden;
 
   @media (max-width: 900px) {
     min-width: 300px;
@@ -47,6 +48,11 @@ const EditArea = styled.div`
   box-sizing: border-box;
   border: 2px solid #3D3939;
   font-family: "Pretendard";
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 
   p{
     margin-bottom: 10px;

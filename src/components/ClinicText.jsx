@@ -15,7 +15,7 @@ export default ClinicText
 const TextContainer = styled.div`
   flex-grow: 1;  
   box-sizing: border-box;
-  flex-basis: 0;
+  flex-basis: 0;  
 
   @media (max-width: 900px) {
     min-width: 300px;
@@ -37,5 +37,10 @@ const TextArea = styled.textarea`
   height: calc(100% - 34px);
   box-sizing: border-box;  
   border: 2px solid #3D3939;
-  font-family: "Pretendard";
+  font-family: "Pretendard";  
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar{
+    display: none;
+  }
 `

@@ -5,7 +5,9 @@ const PhotoAndChart = () => {
   return (
     <>
       <PhotoAndChartContainer>
-        <PhotoBox src="https://i.natgeofe.com/n/5f35194b-af37-4f45-a14d-60925b280986/NationalGeographic_2731043_3x4.jpg" />
+        <PhotoBox>
+          <img src="https://i.natgeofe.com/n/5f35194b-af37-4f45-a14d-60925b280986/NationalGeographic_2731043_3x4.jpg" />
+        </PhotoBox>
         <Chart>
           <li>
             <span>보호자</span> <textarea placeholder='성명'></textarea>
@@ -40,13 +42,20 @@ const PhotoAndChartContainer = styled.div`
   display: flex;
   margin-bottom: 30px;
   `
-const PhotoBox = styled.img`
-  --width: 180px;
+const PhotoBox = styled.div`
+  --width: 240px;
   width: var(--width);
-  height: calc(var(--width) / 3 * 4);
+  height: var(--width);
+  display: flex;
+  justify-content: center;
   background-color: red;
   margin-right: 20px;
   border-radius: 10px;
+  overflow: hidden;
+  
+  img{
+    height: 100%;
+  }
   `
 const Chart = styled.ul`  
   width: 100%;

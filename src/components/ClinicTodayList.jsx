@@ -12,7 +12,22 @@ const ClinicTodayList = () => {
         <TodayListItem>내용(보호자명)</TodayListItem>
         <TodayListItem>내용(보호자명)</TodayListItem>
         <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>        
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
       </TodayListArea>
     </TodayListContainer>
   )
@@ -38,14 +53,18 @@ font-family: "Pretendard";
 `
 
 const TodayListArea = styled.div`
-  background-color: #EEEEEE;
+  background-color: #EEEEEE;  
   border-radius: 10px;
   margin-top: 14px;  
   padding: 20px 10px;
   height: calc(100% - 34px);
   box-sizing: border-box; 
   border: 2px solid #3D3939;
-
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 `
 const TodayListItem = styled.a`
   display: block;
