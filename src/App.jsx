@@ -1,7 +1,6 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-import ClinicLog from "./conponents/ClinicLog";
-
+import ClinicLog from "./components/ClinicLog";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
