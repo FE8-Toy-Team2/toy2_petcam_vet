@@ -15,7 +15,6 @@ const ClinicLog = () => {
         <ClinicText></ClinicText>
       </ClinicContainer>
       <ClinicButtons />
-
     </>
   )
 }
@@ -23,9 +22,8 @@ const ClinicLog = () => {
 export default ClinicLog
 
 const ClinicContainer = styled.div`
-  display: flex;  
+  display: flex;
   max-width: 1440px;
   height: 90vh;
-  background-color: gray;
   margin: auto;
 `

@@ -4,7 +4,8 @@ import styled from 'styled-components'
 const ClinicText = () => {
   return (
     <TextContainer>
-      <TextEditor></TextEditor>
+      <TextTitle>진료 내용</TextTitle>
+      <TextArea></TextArea>
     </TextContainer>
   )
 }
@@ -12,25 +13,28 @@ const ClinicText = () => {
 export default ClinicText
 
 const TextContainer = styled.div`
-  background-color: yellow;
-  border-radius: 10px;
-  flex-grow: 1;
-  position: relative;
-  margin-left: 30px;
+  flex-grow: 1;  
   box-sizing: border-box;
+  flex-basis: 0;
 
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     min-width: 300px;
   }
 `
-const TextEditor = styled.textarea`
-  border-radius: 10px;
-  border: none;
-  position: absolute;
-  background-color: bisque;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+
+const TextTitle = styled.div`
   font-size: 20px;
+  font-weight: 700;
+  font-family: "Pretendard";
+`    
+  
+const TextArea = styled.textarea`
+  background-color: #ffffff;
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 14px;  
+  padding: 20px 10px;
+  height: calc(100% - 34px);
+  box-sizing: border-box;  
+  border: 2px solid #3D3939;
 `
