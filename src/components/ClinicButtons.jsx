@@ -17,7 +17,6 @@ const ClinicButtons = () => {
 export default ClinicButtons
 
 const ClinicButtonArea = styled.div`
-  background-color: red;
   display: flex;  
   max-width: 1440px;
   margin: auto;

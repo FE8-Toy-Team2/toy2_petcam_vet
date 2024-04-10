@@ -5,7 +5,7 @@ const ClinicText = () => {
   return (
     <TextContainer>
       <TextTitle>진료 내용</TextTitle>
-      <TextArea></TextArea>
+      <TextArea placeholder='진료 내용 입력' />
     </TextContainer>
   )
 }
@@ -29,13 +29,13 @@ const TextTitle = styled.div`
 `    
   
 const TextArea = styled.textarea`
-  background-color: #ffffff;
   width: 100%;
   font-size: 18px;
   border-radius: 10px;
   margin-top: 14px;  
-  padding: 20px 10px;
+  padding: 20px;
   height: calc(100% - 34px);
   box-sizing: border-box;  
   border: 2px solid #3D3939;
+  font-family: "Pretendard";
 `

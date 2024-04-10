@@ -6,12 +6,13 @@ const ClinicTodayList = () => {
     <TodayListContainer>
       <TodayListTitle>오늘의 진료 목록</TodayListTitle>
       <TodayListArea>
-        <TodayListItem>내용</TodayListItem>
-        <TodayListItem>내용</TodayListItem>
-        <TodayListItem>내용</TodayListItem>
-        <TodayListItem>내용</TodayListItem>
-        <TodayListItem>내용</TodayListItem>
-        <TodayListItem>내용</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>
+        <TodayListItem>내용(보호자명)</TodayListItem>        
       </TodayListArea>
     </TodayListContainer>
   )

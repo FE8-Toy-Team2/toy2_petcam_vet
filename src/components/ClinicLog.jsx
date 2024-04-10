@@ -10,9 +10,9 @@ const ClinicLog = () => {
   return (
     <>
       <ClinicContainer className='clinic-container'>
-        <ClinicTodayList></ClinicTodayList>
-        <ClinicEdit></ClinicEdit>
-        <ClinicText></ClinicText>
+        <ClinicTodayList />
+        <ClinicEdit />
+        <ClinicText />
       </ClinicContainer>
       <ClinicButtons />
     </>
