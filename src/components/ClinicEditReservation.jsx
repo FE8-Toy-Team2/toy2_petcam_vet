@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Reservation = () => {
+const ClinicEditReservation = () => {
   return (
     <ReservationContainer>
       <ul>
@@ -26,7 +26,7 @@ const Reservation = () => {
   )
 }
 
-export default Reservation
+export default ClinicEditReservation
 
 const ReservationContainer = styled.div`
 

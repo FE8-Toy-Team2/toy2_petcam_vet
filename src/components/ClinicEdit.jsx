@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import ClinicEditTimer from './ClinicEditTimer'
-import PhotoAndChart from './PhotoAndChart'
-import Reservation from './Reservation'
+import ClinicEditPhotoAndChart from './ClinicEditPhotoAndChart'
+import ClinicEditReservation from './ClinicEditReservation'
 
 const ClinicEdit = () => {
   return (
@@ -11,9 +11,9 @@ const ClinicEdit = () => {
       <EditArea>
         <ClinicEditTimer />
         <p>프로필</p>
-        <PhotoAndChart />
+        <ClinicEditPhotoAndChart />
         <p>예약</p>
-        <Reservation />
+        <ClinicEditReservation />
       </EditArea>
     </EditContainer>
   )

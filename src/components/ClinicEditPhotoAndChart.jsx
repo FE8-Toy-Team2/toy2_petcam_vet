@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const PhotoAndChart = () => {
+const ClinicEditPhotoAndChart = () => {
   return (
     <>
       <PhotoAndChartContainer>
@@ -36,7 +36,7 @@ const PhotoAndChart = () => {
   )
 }
 
-export default PhotoAndChart
+export default ClinicEditPhotoAndChart
 
 const PhotoAndChartContainer = styled.div`
   display: flex;
@@ -80,6 +80,7 @@ const Chart = styled.ul`
     margin-right: 10px;    
     font-family: "Pretendard";
     font-size: 16px;
+    resize: none;
   }
 
   textarea:focus{

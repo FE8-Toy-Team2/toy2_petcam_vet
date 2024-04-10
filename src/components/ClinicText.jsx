@@ -38,6 +38,7 @@ const TextArea = styled.textarea`
   box-sizing: border-box;  
   border: 2px solid #3D3939;
   font-family: "Pretendard";  
+  resize: none;
   -ms-overflow-style: none;
 
   &::-webkit-scrollbar{
