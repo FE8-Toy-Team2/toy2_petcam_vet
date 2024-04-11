@@ -1,6 +1,9 @@
 :root {
   /* 섁상 */
+	--bgcolor: #e0e0e0;
   --yellow: #ffcd29;
+	--lightgray: #f4f4f4;
+	--darkgray: #999999;
 
   /* 글꼴 */
 	--pre-reg: "Pretendard-Regular", sans-serif;

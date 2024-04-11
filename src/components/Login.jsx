@@ -1,18 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import "./Login.css";
+import "./common.css";
 
 function Login () {
 	return (
 		<Container>
-      <LoginForm>
-				<LoginInput type="text" placeholder="이메일"></LoginInput>
-				<LoginInput type="password" placeholder="비밀번호"></LoginInput>
-				<LoginButton type="submit">로그인</LoginButton>
+      <Form>
+				<Logo></Logo>
+				<Input type="text" placeholder="이메일"></Input>
+				<Input type="password" placeholder="비밀번호"></Input>
+				<Button type="submit">로그인</Button>
 				<Divider></Divider>
 				<LoginGoogle type="submit">Google 계정으로 로그인</LoginGoogle>
 				<SignupButton type="submit">회원가입</SignupButton>
-			</LoginForm>
+			</Form>
     </Container>
 	)
 }
@@ -25,19 +26,25 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-	background-color: #e0e0e0;
+	background-color: var(--bgcolor);
 `
-const LoginForm = styled.form`
+const Form = styled.form`
 	width: 300px;
 	height: 415px;	
 	background-color: #fff;
 	border-radius: 10px;
 	justify-content: center;
 	align-items: center;
-	box-shadow: 1px 1px 10px #999999;
-	
+	box-shadow: 1px 1px 10px var(--darkgray);	
 `
-const LoginInput = styled.input`
+const Logo = styled.div`
+	vertical-align: middle;
+	height: 18px;
+	margin: 48px auto;
+	background: url("../img/petcam_logo.svg") no-repeat center center;
+`
+
+const Input = styled.input`
 	width: 250px;
 	height: 40px;
 	margin: 5px 20px;
@@ -47,7 +54,7 @@ const LoginInput = styled.input`
 	font-size: 14px;
 	font-family: var(--pre-reg);
 `
-const LoginButton = styled.button`
+const Button = styled.button`
 	width: 256px;
 	height: 44px;
 	margin: 5px 20px;
@@ -63,7 +70,7 @@ const Divider = styled.div`
 width: 256px;
 height: 1px;
 margin: 10px 20px;
-background-color: #999999;
+background-color: var(--darkgray);
 `
 const LoginGoogle = styled.button`
 	width: 256px;
@@ -71,8 +78,8 @@ const LoginGoogle = styled.button`
 	margin: 5px 20px;
 	border-radius: 10px;
 	border: none;
-	color: #999999;
-	background-color: #f4f4f4;
+	color: var(--darkgray);
+	background-color: var(--lightgray);
 	text-align: center;
 	font-family: var(--pre-reg);
 	cursor: pointer;
@@ -93,8 +100,8 @@ const SignupButton = styled.button`
 	margin: 5px 20px;
 	border-radius: 10px;
 	border: none;
-	color: #999999;
-	background-color: #f4f4f4;
+	color: var(--darkgray);
+	background-color: var(--lightgray);
 	text-align: center;
 	font-family: var(--pre-reg);
 	cursor: pointer;

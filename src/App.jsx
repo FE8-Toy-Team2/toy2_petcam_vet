@@ -13,6 +13,7 @@ function App() {
     <>
       <GlobalStyle />
       <Login />
+      <Signup />
       {/* 여기밑에 라우터가 와요  */}
     </>
   );
