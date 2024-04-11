@@ -1,44 +1,33 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import "./common.css";
-import { Navigate, Link }	from 'react-router-dom';
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../auth';
-import { useAuth } from '../contexts/authContext'
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+// import { Navigate, Link }	from 'react-router-dom';
+// import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../auth';
+// import { useAuth } from '../contexts/authContext'
 
 const Login = () => {
-	// const { userLoggedIn } = useAuth()
-	// const [email, setEmail] = useState('');
-	// const [password, setPassword] = useState('');
-	// const [isSigningIn, setIsSigningIn] = useState(false)
-	// const [errorMessage, setErrorMessage] = useState('');
 
-	// const onSubmit = async (e) => {
-	// 	e.preventDefault() 
-	// 	if(!isSigningIn) {
-	// 		setIsSigningIn(true)
-	// 		await doSignInWithEmailAndPassword(email, password)
-	// 	}
-	// }
-	// const OnGoogleSignIn = (e) => {
-	// 	e.preventDefault()
-	// 	if(!isSigningIn) {
-	// 		setIsSigningIn(true)
-  //     doSignInWithGoogle().catch(err => {
-	// 			setIsSigningIn(false)
-	// 		})
-	// 	}
-	// }
+	const auth = getAuth()
+	const provider = new GoogleAuthProvider()
+
+	const handleAuth = () => {
+		signInWithPopup(auth, provider)
+		.then(result => {})
+		.catch(error => {
+			console.log(error)
+		})
+	}
 
 	return (
 		<Container>
-			{/* {userLoggedIn && (<Navigate to={'/home'} replace={true} />)} */}
       <Form>
 				<Logo></Logo>
 				<Input type="text" placeholder="이메일"></Input>
 				<Input type="password" placeholder="비밀번호"></Input>
 				<Button type="submit">로그인</Button>
 				<Divider></Divider>
-				<LoginGoogle type="submit">Google 계정으로 로그인</LoginGoogle>
+				<LoginGoogle onClick={handleAuth} type="submit">Google 계정으로 로그인</LoginGoogle>
 				<SignupButton type="submit">회원가입</SignupButton>
 			</Form>
     </Container>
@@ -58,6 +47,7 @@ const Container = styled.div`
 const Form = styled.form`
 	width: 300px;
 	height: 415px;	
+	// margin-top: 50px;
 	background-color: #fff;
 	border-radius: 10px;
 	justify-content: center;

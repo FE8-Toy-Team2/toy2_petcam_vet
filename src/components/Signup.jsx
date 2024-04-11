@@ -1,27 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import "./common.css";
-import { Navigate, Link, useNavigate } from 'react-router-dom';
-import { doCreateUserWithEmailAndPassword } from '../auth';
-import { useAuth } from '../contexts/authContext'
+// import { Navigate, Link, useNavigate } from 'react-router-dom';
+// import { doCreateUserWithEmailAndPassword } from '../auth';
+// import { useAuth } from '../contexts/authContext'
 
 const Signup = () => {
 
-	// const navigate = useNavigate()
-	// const [email, setEmail] = useState('')
-	// const [password, setPassword] = useState('')
-	// const [confirmPassword, setConfirmPassword] = useState('')
-	// const [isRegistering, setIsRegistering] = useState(false)
-	// const [errorMessage, setErrorMessage] = useState('')
-	
-	// const onSubmit = async (e) => {
-	// 	e.preventDefault()
-	// }
-
-
 	return (
 		<Container>
-			{/* {userLoggedIn && (<Navigate to={'/home'} replace={true} />)} */}
       <Form>
 				<Logo></Logo>
 				<Input type="text" placeholder="이메일"></Input>
@@ -35,6 +22,7 @@ const Signup = () => {
     </Container>
 	)
 }
+
 
 export default Signup
 
