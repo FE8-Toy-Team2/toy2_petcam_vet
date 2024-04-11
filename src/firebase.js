@@ -23,3 +23,5 @@ export const auth = getAuth(app);
 //DB에 관련된 것
 export const storage = getStorage(app);
 export const dataBase = getFirestore(app);
+
+export default app
