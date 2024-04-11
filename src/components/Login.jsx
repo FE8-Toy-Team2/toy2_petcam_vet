@@ -47,7 +47,7 @@ const Container = styled.div`
 const Form = styled.form`
 	width: 300px;
 	height: 415px;	
-	// margin-top: 50px;
+	margin-top: 60px;
 	background-color: #fff;
 	border-radius: 10px;
 	justify-content: center;
@@ -82,6 +82,11 @@ const Button = styled.button`
 	font-size: 14px;
 	font-family: var(--pre-reg);
 	cursor: pointer;
+	transition: .3s;
+
+	&:hover {
+		background-color: var(--hoveryellow);
+	}
 `
 const Divider = styled.div`
 width: 256px;

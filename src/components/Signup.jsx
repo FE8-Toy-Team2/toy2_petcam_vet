@@ -71,7 +71,13 @@ const Button = styled.button`
 	font-size: 14px;
 	font-family: var(--pre-reg);
 	cursor: pointer;
+	transition: .3s;
+
+	&:hover {
+		background-color: var(--hoveryellow);
+	}
 `
+	
 const Divider = styled.div`
 width: 256px;
 height: 1px;
