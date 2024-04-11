@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import "./common.css";
+import { Navigate, Link }	from 'react-router-dom';
+import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../auth';
+import { useAuth } from '../contexts/authContext'
 
-function Login () {
+const Login = () => {
+	// const { userLoggedIn } = useAuth()
+	// const [email, setEmail] = useState('');
+	// const [password, setPassword] = useState('');
+	// const [isSigningIn, setIsSigningIn] = useState(false)
+	// const [errorMessage, setErrorMessage] = useState('');
+
+	// const onSubmit = async (e) => {
+	// 	e.preventDefault() 
+	// 	if(!isSigningIn) {
+	// 		setIsSigningIn(true)
+	// 		await doSignInWithEmailAndPassword(email, password)
+	// 	}
+	// }
+	// const OnGoogleSignIn = (e) => {
+	// 	e.preventDefault()
+	// 	if(!isSigningIn) {
+	// 		setIsSigningIn(true)
+  //     doSignInWithGoogle().catch(err => {
+	// 			setIsSigningIn(false)
+	// 		})
+	// 	}
+	// }
+
 	return (
 		<Container>
+			{/* {userLoggedIn && (<Navigate to={'/home'} replace={true} />)} */}
       <Form>
 				<Logo></Logo>
 				<Input type="text" placeholder="이메일"></Input>
