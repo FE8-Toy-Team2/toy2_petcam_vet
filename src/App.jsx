@@ -4,12 +4,12 @@ import Layout from "./components/Layout/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./components/Home";
 import ChartList from "./components/ChartList";
+import "./font/font.css";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
-  a{
-    text-decoration: none;
-    color: inherit;
+  body{
+    font-family: "Pretendard";
   }
 `;
 
