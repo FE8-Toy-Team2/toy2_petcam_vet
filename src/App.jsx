@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import Layout from "./components/Layout/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./components/Home";
+import ChartList from "./components/ChartList";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+      },
+      {
+        path: "chartlist",
+        element: <ChartList />,
       },
     ],
   },
