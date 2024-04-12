@@ -1,8 +1,12 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
+import "./font/font.css";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+  body{
+    font-family: "Pretendard";
+  }
 `;
 
 function App() {
