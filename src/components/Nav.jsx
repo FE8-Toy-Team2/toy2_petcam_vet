@@ -67,7 +67,6 @@ const LoginButton = styled.button`
 	}
 	`
 	
-
 const Navbar = styled.div`
 	width: 100%;
 	height: 60px;

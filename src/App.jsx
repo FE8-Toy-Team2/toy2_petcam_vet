@@ -5,6 +5,8 @@ import Signup from "./components/Signup";
 import Nav from "./components/Nav"
 import app from "./firebase"
 
+
+
 const GlobalStyle = createGlobalStyle`
   ${reset}
 `;
@@ -20,5 +22,7 @@ function App() {
     </>
   );
 }
+
+
 
 export default App;

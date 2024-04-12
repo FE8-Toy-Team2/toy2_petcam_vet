@@ -1,19 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import "./common.css";
-// import { Navigate, Link, useNavigate } from 'react-router-dom';
-// import { doCreateUserWithEmailAndPassword } from '../auth';
-// import { useAuth } from '../contexts/authContext'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 
 const Signup = () => {
 
+	const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignup = async (event) => {
+    event.preventDefault();
+    const auth = getAuth();
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      alert(`${email}님은 회원으로 등록되셨습니다`)
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(`다시 입력해주세요`)
+    }
+  };
+
 	return (
 		<Container>
-      <Form>
+      <Form onSubmit={handleSignup}>
 				<Logo></Logo>
-				<Input type="text" placeholder="이메일"></Input>
-				<Input type="password" placeholder="비밀번호"></Input>
-				<Input type="password" placeholder="비밀번호 확인"></Input>
+				<Input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="이메일"
+        />
+        <Input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="비밀번호"
+        />				
 				<Button type="submit">회원가입</Button>
 				<Divider></Divider>
 				<LoginGoogle type="submit">Google 계정으로 로그인</LoginGoogle>
@@ -22,6 +47,7 @@ const Signup = () => {
     </Container>
 	)
 }
+
 
 
 export default Signup

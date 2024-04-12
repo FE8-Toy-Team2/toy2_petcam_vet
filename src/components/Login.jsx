@@ -1,38 +1,56 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import "./common.css";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-// import { Navigate, Link }	from 'react-router-dom';
-// import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../auth';
-// import { useAuth } from '../contexts/authContext'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import reset from 'styled-reset';
+
+
 
 const Login = () => {
 
-	const auth = getAuth()
-	const provider = new GoogleAuthProvider()
+	const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-	const handleAuth = () => {
-		signInWithPopup(auth, provider)
-		.then(result => {})
-		.catch(error => {
-			console.log(error)
-		})
-	}
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const auth = getAuth();
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      alert(`${email}님은 로그인하셨습니다`)
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(`등록되지 않은 사용자입니다`)
+    }		
+  };
 
 	return (
 		<Container>
-      <Form>
+      <Form onSubmit={handleLogin}>
 				<Logo></Logo>
-				<Input type="text" placeholder="이메일"></Input>
-				<Input type="password" placeholder="비밀번호"></Input>
+				<Input
+					type="email"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					placeholder="이메일"
+				/>
+				<Input
+					type="password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					placeholder="비밀번호"
+				/>
 				<Button type="submit">로그인</Button>
 				<Divider></Divider>
-				<LoginGoogle onClick={handleAuth} type="submit">Google 계정으로 로그인</LoginGoogle>
+				<LoginGoogle type="submit">Google 계정으로 로그인</LoginGoogle>
 				<SignupButton type="submit">회원가입</SignupButton>
 			</Form>
     </Container>
 	)
 }
+
+
 
 export default Login;
 
