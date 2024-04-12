@@ -1,41 +1,26 @@
+// App.jsx 복사
 
+import reset from "styled-reset";
+import { createGlobalStyle } from "styled-components";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Nav from "./components/Nav"
+import app from "./firebase"
 
-  const handleGoogleLogin = async () => {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-    try {
-      const userCredential = await signInWithPopup(auth, provider);
-      const user = userCredential.user;
-      // Handle successful Google login
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // Handle Google login error
-    }
-  };
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+`;
 
+function App() {
   return (
-    <Container>
-      <Form onSubmit={handleLogin}>
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="이메일"
-        />
-        <Input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="비밀번호"
-        />
-        <Button type="submit">로그인</Button>
-        <Divider></Divider>
-        <LoginGoogle onClick={handleGoogleLogin}>Google 계정으로 로그인</LoginGoogle>
-        {/* Link to signup page */}
-      </Form>
-    </Container>
+    <>
+      <GlobalStyle />
+      <Nav />
+      <Login />
+      <Signup />
+      {/* 여기밑에 라우터가 와요  */}
+    </>
   );
-};
+}
 
-export default Login;
+export default App;
