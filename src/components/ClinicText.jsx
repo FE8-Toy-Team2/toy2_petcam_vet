@@ -1,11 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const ClinicText = () => {
+const ClinicText = ({ chartDatas }) => {
+
+  const [clinicText, setClinicText] = useState(chartDatas)
+  const handleChange = (e) => {
+    setClinicText(e.target.chartDatas)
+  }
+
+
   return (
     <TextContainer>
       <TextTitle>진료 내용</TextTitle>
-      <TextArea placeholder='진료 내용 입력' />
+      {chartDatas.map(item => (
+        <TextArea
+          key={item.id}
+          placeholder='진료 내용 입력'
+          value={item.clinic_text}
+          onChange={handleChange}
+        />
+      ))}
     </TextContainer>
   )
 }
@@ -26,11 +40,11 @@ const TextTitle = styled.div`
   font-size: 20px;
   font-weight: 700;
   font-family: "Pretendard";
-`    
-  
+`
+
 const TextArea = styled.textarea`
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
   border-radius: 10px;
   margin-top: 14px;  
   padding: 20px;

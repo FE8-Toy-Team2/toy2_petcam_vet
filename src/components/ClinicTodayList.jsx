@@ -1,33 +1,14 @@
-import React from 'react'
+import { } from 'react'
 import styled from 'styled-components'
 
-const ClinicTodayList = () => {
+const ClinicTodayList = ({ chartDatas }) => {
   return (
     <TodayListContainer>
       <TodayListTitle>오늘의 진료 목록</TodayListTitle>
       <TodayListArea>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
-        <TodayListItem>내용(보호자명)</TodayListItem>
+        {chartDatas.map(item => (
+          <TodayListItem key={item.id}>{item.name}({item.guardian})</TodayListItem>
+        ))}
       </TodayListArea>
     </TodayListContainer>
   )

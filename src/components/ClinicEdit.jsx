@@ -4,16 +4,17 @@ import ClinicEditTimer from './ClinicEditTimer'
 import ClinicEditPhotoAndChart from './ClinicEditPhotoAndChart'
 import ClinicEditReservation from './ClinicEditReservation'
 
-const ClinicEdit = () => {
+
+const ClinicEdit = ({ chartDatas }) => {
   return (
     <EditContainer>
       <EditTitle>차트</EditTitle>
       <EditArea>
         <ClinicEditTimer />
         <p>프로필</p>
-        <ClinicEditPhotoAndChart />
+        <ClinicEditPhotoAndChart chartDatas={chartDatas} />
         <p>예약</p>
-        <ClinicEditReservation />
+        <ClinicEditReservation chartDatas={chartDatas} />
       </EditArea>
     </EditContainer>
   )
