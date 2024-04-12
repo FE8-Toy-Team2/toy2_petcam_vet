@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import "./common.css";
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import reset from 'styled-reset';
-
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
 
 const Login = () => {
@@ -25,6 +23,20 @@ const Login = () => {
     }		
   };
 
+	const handleGoogleLogin = async () => {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+    try {
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+      alert(`${email}님은 로그인하셨습니다`)
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(`등록되지 않은 사용자입니다`)
+    }
+  };
+
 	return (
 		<Container>
       <Form onSubmit={handleLogin}>
@@ -43,7 +55,7 @@ const Login = () => {
 				/>
 				<Button type="submit">로그인</Button>
 				<Divider></Divider>
-				<LoginGoogle type="submit">Google 계정으로 로그인</LoginGoogle>
+				<LoginGoogle onClick={handleGoogleLogin} type="submit">Google 계정으로 로그인</LoginGoogle>
 				<SignupButton type="submit">회원가입</SignupButton>
 			</Form>
     </Container>

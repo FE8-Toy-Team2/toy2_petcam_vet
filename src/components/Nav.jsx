@@ -7,7 +7,7 @@ const Nav = () => {
 		<Header>
 			<Buttons>
 				<SignUpButton>회원가입</SignUpButton>
-				<LoginButton>로그인</LoginButton>
+        <LoginButton>로그인</LoginButton>
 			</Buttons>
     	<Navbar>
 				<TextBox>
