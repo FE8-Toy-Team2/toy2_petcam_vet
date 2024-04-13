@@ -18,10 +18,7 @@ const Nav = () => {
 			</Navbar>
     </Header>
 	)
-}
-				
-        
-		
+}		
 
 export default Nav
 
