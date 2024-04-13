@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import Layout from "./components/Layout/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./components/Home";
-import ChartList from "./components/ChartList";
+import ChartList from "./components/ChartList/ChartList";
 import "./font/font.css";
 
 const GlobalStyle = createGlobalStyle`
