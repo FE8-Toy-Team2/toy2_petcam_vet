@@ -8,9 +8,16 @@ const Signup = () => {
 
 	const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSignup = async (event) => {
     event.preventDefault();
+		
+		if (password !== confirmPassword) {
+      alert('비밀번호가 일치하지 않습니다');
+      return;
+    }
+
     const auth = getAuth();
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -21,6 +28,9 @@ const Signup = () => {
       const errorMessage = error.message;
       alert(`다시 입력해주세요`)
     }
+		setEmail('')
+		setPassword('')	
+		setConfirmPassword('');
   };
 
 	const handleGoogleLogin = async () => {
@@ -52,7 +62,13 @@ const Signup = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="비밀번호"
-        />				
+        />
+        <Input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="비밀번호 확인"
+        />			
 				<Button type="submit">회원가입</Button>
 				<Divider></Divider>
 				<LoginGoogle onClick={handleGoogleLogin} type="submit">Google 계정으로 로그인</LoginGoogle>
@@ -89,7 +105,6 @@ const Logo = styled.div`
 	margin: 48px auto;
 	background: url("../img/petcam_logo.svg") no-repeat center center;
 `
-
 const Input = styled.input`
 	width: 250px;
 	height: 40px;
@@ -117,7 +132,6 @@ const Button = styled.button`
 		background-color: var(--hoveryellow);
 	}
 `
-	
 const Divider = styled.div`
 width: 256px;
 height: 1px;

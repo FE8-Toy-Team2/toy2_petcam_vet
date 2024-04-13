@@ -20,7 +20,9 @@ const Login = () => {
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(`등록되지 않은 사용자입니다`)
-    }		
+    }
+		setEmail('')
+		setPassword('')		
   };
 
 	const handleGoogleLogin = async () => {
@@ -90,7 +92,6 @@ const Logo = styled.div`
 	margin: 48px auto;
 	background: url("../img/petcam_logo.svg") no-repeat center center;
 `
-
 const Input = styled.input`
 	width: 250px;
 	height: 40px;
