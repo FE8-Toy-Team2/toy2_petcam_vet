@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import "./common.css";
 import Clock from './Clock';
 
-const Nav = () => {
+const Nav = ({ onLoginButtonClick }) => {
 	return (
 		<Header>
 			<Buttons>
@@ -47,7 +47,7 @@ const SignUpButton = styled.p`
 	}
 `
 const LoginButton = styled.button`
-	width: 55px;
+	width: 60px;
 	height: 20px;
 	margin: 5px 20px;
 	border-radius: 5px;

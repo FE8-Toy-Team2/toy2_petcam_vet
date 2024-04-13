@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
 import Login from "./components/Login";
@@ -11,14 +12,14 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+
   return (
     <>
       <GlobalStyle />
       <Nav />
       <Login />
-      <Signup />
+      {/* <Signup /> */}
       <Footer />
-      {/* 여기밑에 라우터가 와요  */}
     </>
   );
 }

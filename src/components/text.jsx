@@ -184,6 +184,107 @@ export default Signup;
     </Container>
   );
 
+// router 만들기
+  
+
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+
+function App() {
+  return (
+    <Router>
+      <GlobalStyle />
+      <Nav />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/signup">
+          <Signup />
+        </Route>
+        {/* Add more routes for other pages */}
+      </Switch>
+      <Footer />
+    </Router>
+  );
+}
+
+
+// Nav.jsx
+
+const Nav = ({ onLoginButtonClick }) => {
+  return (
+    <Header>
+      <Buttons>
+        {/* Trigger onLoginButtonClick function when LoginButton is clicked */}
+        <LoginButton onClick={onLoginButtonClick}>로그인</LoginButton>
+      </Buttons>
+      {/* Your other navigation elements */}
+    </Header>
+  );
+};
+
+const Nav = () => {
+	return (
+		<Header>
+			<Buttons>
+				<Clock />				
+				<SignUpButton>회원가입</SignUpButton>
+        <LoginButton>로그인</LoginButton>
+			</Buttons>
+    	<Navbar>
+				<TextBox>
+					<Text>입원/퇴원 관리</Text>
+					<Text>동물등록</Text>
+					<Text>공지사항</Text>
+				</TextBox>
+			</Navbar>
+    </Header>
+	)
+}	
+
+
+// App.jsx
+
+function App() {
+  const [showLogin, setShowLogin] = useState(false);
+
+  const handleLoginButtonClick = () => {
+    setShowLogin(true);
+  };
+
+  return (
+    <>
+      <GlobalStyle />
+      <Nav onLoginButtonClick={handleLoginButtonClick} />
+      {showLogin && <Login />}
+      <Signup />
+      <Footer />
+    </>
+  );
+}
+
+
+function App() {
+  return (
+    <>
+      <GlobalStyle />
+      <Nav />
+      <Login />
+      <Signup />
+      <Footer />
+      {/* 여기밑에 라우터가 와요  */}
+    </>
+  );
+}
+
+
+
+
+
 
 
 // heeyongi@abc.com
