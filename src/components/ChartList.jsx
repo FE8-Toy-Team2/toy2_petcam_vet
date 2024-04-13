@@ -1,15 +1,22 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import fadb from "../db";
+import { SmallButton } from "./Buttons.jsx";
 
 const Container = styled.div`
   width: 100%;
+
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  gap: 2rem;
 `;
 
 const ChartNav = styled.nav`
+  width: 90%;
+  margin-top: 2rem;
+
+  border-bottom: 1px solid red;
   display: flex;
 `;
 
@@ -19,28 +26,47 @@ const ChartNavUl = styled.ul`
 `;
 
 const ChartNavLi = styled.li`
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem;
 `;
 
 const ChartListUl = styled.ul`
   width: 80%;
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
 `;
 
 const ChartListLi = styled.li`
-  width: 100%;
+  height: 3rem;
+  padding: 1rem;
+
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: white;
+
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px rgba(51, 51, 51, 0.2);
 `;
 
 const ListLiLeft = styled.div`
   display: flex;
+  align-items: center;
   gap: 1rem;
+`;
+
+const ListLiLeftImg = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px rgba(51, 51, 51, 0.2);
 `;
 
 const ListLiRight = styled.div`
   display: flex;
+  align-items: center;
   gap: 1rem;
 `;
 
@@ -62,18 +88,20 @@ function ChartList() {
           {fadb.map((pet) => (
             <ChartListLi key={pet.id}>
               <ListLiLeft>
-                <div>동물이미지</div>
+                <ListLiLeftImg
+                  src="../public/image/title_logo.gif"
+                  alt="테스트 이미지"
+                />
                 <div>
-                  <span>{pet.name}</span> <span>{pet.spic}</span>
+                  <div>{pet.name}</div> <div>{pet.spic}</div>
                 </div>
               </ListLiLeft>
               <ListLiRight>
+                {<SmallButton btnColor="#FFC603">{pet.state}</SmallButton>}
+
                 <div>
-                  <button>입원</button>
-                </div>
-                <div>
-                  <span>{pet.date}</span>
-                  <span>{pet.time}</span>
+                  <div>{pet.date}</div>
+                  <div>{pet.time}</div>
                 </div>
               </ListLiRight>
             </ChartListLi>
