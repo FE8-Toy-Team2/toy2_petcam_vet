@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from 'styled-components';
 import "./common.css";
+import Clock from './Clock';
 
 const Nav = () => {
 	return (
 		<Header>
 			<Buttons>
+				<Clock />				
 				<SignUpButton>회원가입</SignUpButton>
         <LoginButton>로그인</LoginButton>
 			</Buttons>
@@ -32,9 +34,7 @@ const Buttons = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	// padding-bottom: 20px;
 `
-
 const SignUpButton = styled.p`
 	color: var(--darkgray);
 	font-size: 13px;
@@ -62,8 +62,7 @@ const LoginButton = styled.button`
 	&:hover {
 		background-color: var(--hoveryellow);
 	}
-	`
-	
+	`	
 const Navbar = styled.div`
 	width: 100%;
 	height: 60px;
@@ -82,12 +81,10 @@ const Navbar = styled.div`
     background: url("../img/petcam_logo.svg") no-repeat center center;
 	}
 `
-
 const TextBox = styled.div`
 	display: flex;
 	margin-left: 40px;
 `
-
 const Text = styled.p`
 	font-family: var(--pre-bold); 
 	color: var(--darkheader);
