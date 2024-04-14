@@ -1,4 +1,29 @@
 import { useState } from "react";
+import styled from "styled-components";
+
+const SearchWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+
+const SearchInput = styled.input`
+  width: 272px;
+  height: 24px;
+`;
+
+const SearchButton = styled.button`
+  position: absolute;
+  top: 6px;
+  right: 4px;
+  padding: 0;
+  border: none;
+  background-color: inherit;
+  & > img {
+    width: 18px;
+    height: 18px;
+  }
+`;
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -12,12 +37,17 @@ const Search = () => {
   };
 
   return (
-    <>
-      <input type="text" value={query} onChange={handleChange} />
-      <button type="button" onClick={handleClick} >
-        S
-      </button>
-    </>
+    <SearchWrapper>
+      <SearchInput 
+        type="text" 
+        value={query} 
+        placeholder="검색"
+        onChange={handleChange}
+      />
+      <SearchButton type="button" onClick={handleClick} >
+        <img src="/search.svg" alt="Search" />
+      </SearchButton>
+    </SearchWrapper>
   );
 };
 
