@@ -3,6 +3,7 @@ import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
 import Announcement from "./components/Announcement";
 import "./font/font.css";
+// TODO: 폰트 적용 안되는 오류 수정
 
 const GlobalStyle = createGlobalStyle`
   ${reset}

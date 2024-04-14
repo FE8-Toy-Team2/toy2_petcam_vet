@@ -1,4 +1,5 @@
 import styled from "styled-components";
+// TODO: svg dynamic import 구현
 
 const PostButtonStyle = styled.button`
   padding: 3px;

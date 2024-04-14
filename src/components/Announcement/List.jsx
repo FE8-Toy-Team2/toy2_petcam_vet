@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import ListItem from "./ListItem";
+// TODO: table에서 grid 사용으로 업데이트
 
 const ListTable = styled.table`
   width: 832px;
@@ -35,7 +36,6 @@ const List = ({ announcements, page }) => {
     setSearchParams(searchParams);
   }
   
-  const totalPage = announcements.length;
   const currentList = announcements.slice(5 * (page - 1), 5 * (page - 1) + 5);
 
   return (

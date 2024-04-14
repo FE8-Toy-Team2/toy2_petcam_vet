@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+// TODO: Search 컴포넌트 로직 구현
 
 const SearchWrapper = styled.div`
   position: relative;
