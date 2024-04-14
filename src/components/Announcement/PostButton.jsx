@@ -5,6 +5,7 @@ const PostButtonStyle = styled.button`
   border: none;
   border-radius: 5px;
   background-color: #504239;
+  cursor: pointer;
   & > img {
     width: 28px;
     height: 28px;

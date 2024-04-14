@@ -6,6 +6,7 @@ import Content from "./Content";
 
 const AnnouncementWrapper = styled.main`
   width: 1080px;
+  margin: 0 auto;
 `;
 
 const Announcement = () => {

@@ -19,6 +19,7 @@ const SearchButton = styled.button`
   padding: 0;
   border: none;
   background-color: inherit;
+  cursor: pointer;
   & > img {
     width: 18px;
     height: 18px;
