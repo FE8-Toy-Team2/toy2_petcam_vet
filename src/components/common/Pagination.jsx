@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import ArrowPrev from "../../../public/arrow-prev.svg";
 import ArrowNext from "../../../public/arrow-next.svg";
 
@@ -104,5 +105,13 @@ const Pagination = ({ currentPage, totalPosts, setPage, postBlock, pageBlock }) 
     </PaginationNav>
   );
 };
+
+Pagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  totalPosts: PropTypes.number.isRequired,
+  setPage: PropTypes.func.isRequired,
+  postBlock: PropTypes.number.isRequired,
+  pageBlock: PropTypes.number.isRequired
+}
 
 export default Pagination;

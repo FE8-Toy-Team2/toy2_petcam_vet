@@ -1,6 +1,5 @@
-import { useContext } from "react";
 import { useSearchParams } from "react-router-dom";
-import { AnnouncementListContext } from "../../context/AnnouncementListContext";
+import PropTypes from "prop-types";
 import ListItem from "./ListItem";
 
 const List = ({ announcements, page }) => {
@@ -34,6 +33,11 @@ const List = ({ announcements, page }) => {
       </tbody>
     </table>
   );
+};
+
+List.propTypes = {
+  announcements: PropTypes.object.isRequired,
+  page: PropTypes.number.isRequired
 };
 
 export default List;
