@@ -1,17 +1,22 @@
 import { useContext } from "react";
 import { AnnouncementListContext } from "../../context/AnnouncementListContext";
+import styled from "styled-components";
 import Header from "./Header";
 import Content from "./Content";
+
+const AnnouncementWrapper = styled.main`
+  width: 1080px;
+`;
 
 const Announcement = () => {
   const announcements = useContext(AnnouncementListContext);
 
   return (
     <AnnouncementListContext.Provider value={announcements}>
-      <main className="announcement">
+      <AnnouncementWrapper className="announcement">
         <Header />
         <Content />
-      </main>
+      </AnnouncementWrapper>
     </AnnouncementListContext.Provider>
   );
 };

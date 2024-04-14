@@ -7,7 +7,7 @@ import "./font/font.css";
 const GlobalStyle = createGlobalStyle`
   ${reset}
   body{
-    font-family: "Pretendard";
+    font-family: "Pretendard", sans-serif;
   }
 `;
 

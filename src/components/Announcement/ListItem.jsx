@@ -1,8 +1,29 @@
+import styled from "styled-components";
 import PropTypes from "prop-types";
+
+const ListRowStyle = styled.tr`
+  position: relative;
+  &::after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    position: absolute;
+    left: 0;
+    bottom: -24px;
+  }  
+  & td a {
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
 
 const ListItem = ({ date, title, author }) => {
   return (
-    <tr>
+    <ListRowStyle>
         <td>
           {date}
         </td>
@@ -14,7 +35,7 @@ const ListItem = ({ date, title, author }) => {
         <td>
           {author}
         </td>
-    </tr>
+    </ListRowStyle>
   );
 };
 
