@@ -1,8 +1,10 @@
 import { useContext } from "react";
+import { Routes, Route } from "react-router-dom";
 import { AnnouncementListContext } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 import Header from "./Header";
 import Content from "./Content";
+import Write from "./Write";
 
 const AnnouncementWrapper = styled.main`
   width: 1080px;
@@ -15,8 +17,21 @@ const Announcement = () => {
   return (
     <AnnouncementListContext.Provider value={announcements}>
       <AnnouncementWrapper className="announcement">
-        <Header />
-        <Content />
+        <Routes>
+          <Route 
+            path="" 
+            element={
+              <>
+                <Header />
+                <Content />
+              </>
+            } 
+          />
+          <Route 
+            path="write"
+            element={<Write />}
+          />
+        </Routes>
       </AnnouncementWrapper>
     </AnnouncementListContext.Provider>
   );

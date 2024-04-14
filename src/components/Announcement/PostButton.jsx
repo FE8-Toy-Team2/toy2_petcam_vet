@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 // TODO: svg dynamic import 구현
 
@@ -14,8 +15,16 @@ const PostButtonStyle = styled.button`
 `;
 
 const PostButton = () => {
+  const navigate = useNavigate();
+
+  const navigateToCreate = () => {
+    navigate("/announcement/write");
+  }
   return (
-    <PostButtonStyle type="button">
+    <PostButtonStyle 
+      type="button"
+      onClick={navigateToCreate}
+    >
       <img src="/pencil.svg" alt="Post" />
     </PostButtonStyle>
   );
