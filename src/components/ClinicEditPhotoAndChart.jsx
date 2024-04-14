@@ -2,9 +2,43 @@ import { useState } from 'react'
 import styled from 'styled-components'
 
 const ClinicEditPhotoAndChart = ({ chartDatas }) => {
-  const [sex, setSex] = useState(chartDatas.sex)
-  const [neutering, setNeutering] = useState(true)
+  // const [sex, setSex] = useState(chartDatas.sex)
+  // const [neutering, setNeutering] = useState(true)
+  const [chartData, setChartData] = useState(chartDatas);
 
+  const handleSexChange = (index, newSex) => {
+    const updatedChartDatas = [...chartDatas];
+    updatedChartDatas[index].sex = newSex;
+    setChartData(updatedChartDatas);
+  };
+  const handleNeuteringChange = (index, newNeutering) => {
+    const updatedChartDatas = [...chartDatas];
+    updatedChartDatas[index].neutering = newNeutering;
+    setChartData(updatedChartDatas);
+  };
+
+  // const handleAgeChange = (index, newAge) => {
+  //   const updatedChartData = [...chartData];
+  //   updatedChartData[index].age = newAge;
+  //   setChartData(updatedChartData);
+  // };
+
+  // const handleWeightChange = (index, newWeight) => {
+  //   const updatedChartData = [...chartData];
+  //   updatedChartData[index].weight = newWeight;
+  //   setChartData(updatedChartData);
+  // };
+
+  // const handleGuardianChange = (index, newGuardian) => {
+  //   const updatedChartData = [...chartData];
+  //   updatedChartData[index].guardian = newGuardian;
+  //   setChartData(updatedChartData);
+  // }
+  // const handleNameChange = (index, newName) => {
+  //   const updatedChartData = [...chartData];
+  //   updatedChartData[index].name = newName;
+  //   setChartData(updatedChartData);
+  // }
 
 
   return (
@@ -15,10 +49,20 @@ const ClinicEditPhotoAndChart = ({ chartDatas }) => {
       {chartDatas.map((item, index) => (
         <ChartDetails key={index}>
           <li>
-            <span>보호자</span> <textarea placeholder='성명'>{item.guardian}</textarea>
+            <span>보호자</span>
+            <textarea
+              placeholder='성명'
+            // value={item.guardian}
+            // onChange={(e) => handleGuardianChange(index, e.target.value)}
+            >{item.guardian}
+            </textarea>
           </li>
           <li>
-            <span>이름</span> <textarea placeholder='반려동물 이름'>{item.name}</textarea>
+            <span>이름</span>
+            <textarea
+              placeholder='반려동물 이름'
+            >{item.name}
+            </textarea>
           </li>
           <li>
             <span>종</span> <textarea placeholder='종 이름'>{item.species}</textarea>
@@ -31,7 +75,7 @@ const ClinicEditPhotoAndChart = ({ chartDatas }) => {
                 type='radio'
                 name='sex'
                 checked={item.sex === true}
-                // onChange={() => setSex(true)}
+                onChange={() => handleSexChange(index, true)}
               />
             </label>
             <label>
@@ -40,15 +84,24 @@ const ClinicEditPhotoAndChart = ({ chartDatas }) => {
                 type='radio'
                 name='sex'
                 checked={item.sex === false}
-                // onChange={() => setSex(false)}
+                onChange={() => handleSexChange(index, false)}
               />
             </label>
           </li>
           <li>
-            <span>나이</span> <textarea placeholder='나이 기입'>{item.age}</textarea> 개월
+            <span>나이</span>
+            <textarea
+              style={{ width: '40px' }}
+              placeholder='나이 기입'
+            >{item.age}</textarea> 개월
           </li>
           <li>
-            <span>체중</span> <textarea placeholder='체중 기입'>{item.weight}</textarea> kg
+            <span>체중</span>
+            <textarea
+              style={{ width: '40px' }}
+              placeholder='체중 기입'
+            >{item.weight}
+            </textarea> kg
           </li>
           <li>
             <span>중성화</span>
@@ -58,7 +111,7 @@ const ClinicEditPhotoAndChart = ({ chartDatas }) => {
                 type='radio'
                 name='neutering'
                 checked={item.neutering === true}
-                // onChange={() => setNeutering(true)}
+                onChange={() => handleNeuteringChange(index, true)}
               />
             </label>
             <label>
@@ -67,7 +120,7 @@ const ClinicEditPhotoAndChart = ({ chartDatas }) => {
                 type='radio'
                 name='neutering'
                 checked={item.neutering === false}
-                // onChange={() => setNeutering(false)}
+                onChange={() => handleNeuteringChange(index, false)}
               />
             </label>
           </li>
@@ -90,7 +143,7 @@ const PhotoBox = styled.div`
   height: var(--width);
   display: flex;
   justify-content: center;
-  background-color: red;
+  background-color: #D9D9D9;
   margin-right: 20px;
   border-radius: 10px;
   overflow: hidden;
@@ -118,8 +171,8 @@ const ChartDetails = styled.ul`
   textarea{
     border: none;
     height: 20px;
-    background-color: #EEEEEE;
-    margin-right: 10px;    
+    background-color: #D9D9D9;
+    margin-right: 5px;    
     font-family: "Pretendard";
     font-size: 16px;
     resize: none;

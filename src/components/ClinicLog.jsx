@@ -48,13 +48,20 @@ const ClinicLog = () => {
   }, []);
 
 
-  const updateChartData = async (id, age, clinic_text) => {
+  const updateChartData = async (id, age, guardian, name, neutering, reservation_next, sex, species, weight, admit_to_hospital, clinic_text) => {
     const chartDataDoc = doc(dataBase, 'chartDatas', id);
     const newAge = { age: age };
+    const newGuardian = { guardian: guardian };
+    const newName = { name: name };
+    const newNeutering = { neutering: neutering };
+    const newReservation_next = { reservation_next: reservation_next };
+    const newSex = { sex: sex };
+    const newSpecies = { species: species };
+    const newWeight = { weight: weight };
+    const newAdmit_to_hospital = { admit_to_hospital: admit_to_hospital };
     const newClinicText = { clinic_text: clinic_text };
-    await updateDoc(chartDataDoc, newAge, newClinicText);
+    await updateDoc(chartDataDoc, newAge, newName, newGuardian, newNeutering, newReservation_next, newSex, newSpecies, newWeight, newAdmit_to_hospital, newClinicText)
   }
-
 
   return (
     <>

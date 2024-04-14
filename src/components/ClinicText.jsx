@@ -16,9 +16,9 @@ const ClinicText = ({ chartDatas }) => {
         <TextArea
           key={item.id}
           placeholder='진료 내용 입력'
-          value={item.clinic_text}
-          onChange={handleChange}
-        />
+          // value={item.clinic_text}
+          // onChange={handleChange}
+        >{item.clinic_text}</TextArea>
       ))}
     </TextContainer>
   )

@@ -6,13 +6,23 @@ const ClinicTodayList = ({ chartDatas }) => {
     <TodayListContainer>
       <TodayListTitle>오늘의 진료 목록</TodayListTitle>
       <TodayListArea>
-        {chartDatas.map(item => (
-          <TodayListItem key={item.id}>{item.name}({item.guardian})</TodayListItem>
-        ))}
+        {chartDatas.map(item => {
+          const timestamp = item.reservation_next.toDate(); // 파이어베이스 타임스탬프 변환
+          const hours = timestamp.getHours();           // 시간, 분을 문자열로
+          const minutes = timestamp.getMinutes();
+          const timeString = `${hours}시 ${minutes < 10 ? '0' : ''}${minutes}분`;
+          // 이름, 보호자, 시간 정보 표시하기
+          return (
+            <TodayListItem key={item.id}>
+              {item.name}({item.guardian})({timeString}) 
+            </TodayListItem>
+          );
+        })}
       </TodayListArea>
     </TodayListContainer>
-  )
-}
+  );
+};
+
 
 export default ClinicTodayList
 
