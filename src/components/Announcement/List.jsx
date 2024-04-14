@@ -62,7 +62,7 @@ const List = ({ announcements, page }) => {
 };
 
 List.propTypes = {
-  announcements: PropTypes.object.isRequired,
+  announcements: PropTypes.array.isRequired,
   page: PropTypes.number.isRequired
 };
 
