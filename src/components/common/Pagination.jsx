@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import ArrowPrev from "../../../public/arrow-prev.svg";
-import ArrowNext from "../../../public/arrow-next.svg";
 
 const PaginationNav = styled.nav`
   display: flex;
@@ -74,7 +72,7 @@ const Pagination = ({ currentPage, totalPosts, setPage, postBlock, pageBlock }) 
         type="button"
         onClick={() => { toPageBlock(-1); }} 
       >
-        <img src={ArrowPrev} alt="Prev" />
+        <img src="/arrow-prev.svg" alt="Prev" />
       </PaginationArrowButtons>
       <PaginationList>
         {pageArray.map(index =>
@@ -100,7 +98,7 @@ const Pagination = ({ currentPage, totalPosts, setPage, postBlock, pageBlock }) 
         type="button"
         onClick={() => { toPageBlock(1); }}
       >
-        <img src={ArrowNext} alt="Next" />
+        <img src="/arrow-next.svg" alt="Next" />
       </PaginationArrowButtons>
     </PaginationNav>
   );
