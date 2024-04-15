@@ -11,17 +11,12 @@ const Login = ({ onLogin }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+		
     const auth = getAuth();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      alert(`${email}님은 로그인하셨습니다`)
-			// Swal.fire({				
-			// 	icon: "success",
-			// 	title: "`${email}님은 로그인하셨습니다`",
-			// 	showConfirmButton: false,
-			// 	timer: 1500
-			// });
+      alert(`${email}님이 로그인하셨습니다`)			
 			onLogin()
     } catch (error) {
       const errorCode = error.code;
@@ -32,13 +27,15 @@ const Login = ({ onLogin }) => {
 		setPassword('')		
   };
 
-	const handleGoogleLogin = async () => {
+	const handleGoogleLogin = async (event) => {
+		event.preventDefault();
+
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
-      alert(`${email}님은 로그인하셨습니다`)
+      alert(`${email}님이 로그인하셨습니다`)
 			onLogin()
     } catch (error) {
       const errorCode = error.code;

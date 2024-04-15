@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import Nav from "./components/Nav"
 import Footer from "./components/Footer"
 import app from "./firebase"
+import { getAuth, signOut } from 'firebase/auth';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -16,10 +17,18 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
   const handleLogin = () => {
-    setIsLoggedIn(true);
+    setIsLoggedIn(true);    
   };
-  const handleLogout = () => {
-    setIsLoggedIn(false);
+
+  const handleLogout = () => {    
+    const auth = getAuth();
+    
+    signOut(auth).then(() => {      
+      setIsLoggedIn(false);
+      alert('로그아웃하셨습니다');      
+    }).catch((error) => {
+      alert('에러 발생', error);
+    });
   };
 
   return (

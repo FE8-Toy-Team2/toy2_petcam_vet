@@ -22,7 +22,6 @@ const Signup = ({ onLogin }) => {
       alert('비밀번호가 일치하지 않습니다');
       return;
     }
-
 		if (!validatePassword(password)) {
       alert('비밀번호는 최소 8자 이상이어야 하며, 대소문자, 숫자, 특수문자를 포함해야 합니다.');
       return;
@@ -32,7 +31,7 @@ const Signup = ({ onLogin }) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      alert(`${email}님은 회원으로 등록되셨습니다`)
+      alert(`${email}님이 회원으로 등록되셨습니다`)
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -49,7 +48,7 @@ const Signup = ({ onLogin }) => {
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
-      alert(`${user.email}님은 로그인하셨습니다`)
+      alert(`${user.email}님이 로그인하셨습니다`)
 			onLogin()
     } catch (error) {
       const errorCode = error.code;

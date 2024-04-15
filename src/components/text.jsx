@@ -377,7 +377,7 @@ const Nav = ({ isLoggedIn, onLoginButtonClick }) => {
   );
 };
 
-export default Nav;
+
 
 // 로그인 제안
 
@@ -422,7 +422,67 @@ const Nav = ({ isLoggedIn, onLogout }) => {
 
 export default Nav;
 
+// 이미 로그인 되었을 때 로그인 시 경고 
 
+const Login = ({ onLogin, isLoggedIn }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    if (isLoggedIn) {
+      // If already logged in, show alert message and return
+      alert('이미 로그인되어 있습니다.');
+      return;
+    }
+    const auth = getAuth();
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      alert(`${email}님은 로그인하셨습니다`);
+      onLogin();
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(`등록되지 않은 사용자입니다`);
+    }
+    setEmail('');
+    setPassword('');
+  };
+
+  //로그아웃 기능
+
+  const App = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  
+    const handleLogin = () => {
+      setIsLoggedIn(true);
+    };
+    
+    const handleLogout = () => {
+      // Get the authentication instance
+      const auth = getAuth();
+      
+      // Sign out the user
+      signOut(auth).then(() => {
+        // Update the state after successful sign-out
+        setIsLoggedIn(false);
+        console.log('User signed out successfully');
+      }).catch((error) => {
+        console.error('Error signing out:', error);
+      });
+    };
+  
+    return (
+      <>
+        <GlobalStyle />
+        <Nav isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+        <Login onLogin={handleLogin} />
+        <Signup onLogin={handleLogin} />
+        <Footer />
+      </>
+    );
+  };
 
 
 
