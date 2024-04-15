@@ -2,31 +2,37 @@ import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import ListItem from "./ListItem";
-// TODO: table에서 grid 사용으로 업데이트
 
-const ListTable = styled.table`
+const ListHeader = styled.header`
   width: 832px;
-  position: relative;
-  border-collapse: separate;
-  border-spacing: 16px 64px;
-  &::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 48px;
-    background-color: #FFCD29;
-    top: 48px;
-    left: 0;
-    border-radius: 10px;
-    z-index: -10;
+  padding: 16px;
+  background-color: var(--color-prime);
+  border-radius: 10px;
+`;
+
+const ListHeaderList = styled.ul`
+  font-weight: 600;
+  display: flex;
+  & > li:first-child {
+    flex-basis: 10rem;
+    flex-grow: 0;
+  }
+  & > li:nth-child(2) {
+    flex-grow: 1;
+  }
+  & > li:last-child {
+    flex-basis: 5rem;
+    flex-grow: 0;
+    display: flex;
+    justify-content: flex-end;
   }
 `;
 
-const ListHeader = styled.thead`
-`;
-
-const ListHeaderRow = styled.tr`
-  font-weight: 600;
+const ListItemsWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin: 32px 0 64px;
 `;
 
 const List = ({ announcements, page }) => {
@@ -39,25 +45,26 @@ const List = ({ announcements, page }) => {
   const currentList = announcements.slice(5 * (page - 1), 5 * (page - 1) + 5);
 
   return (
-    <ListTable align="left">
+    <>
       <ListHeader>
-        <ListHeaderRow align="left">
-          <th scope="row">작성일</th>
-          <th scope="row">제목</th>
-          <th scope="row">작성자</th>
-        </ListHeaderRow>
+        <ListHeaderList>
+          <li><h3>작성일</h3></li>
+          <li><h3>제목</h3></li>
+          <li><h3>작성자</h3></li>
+        </ListHeaderList>
       </ListHeader>
-      <tbody>
+      <ListItemsWrapper>
         {currentList.map((announcement, index) => 
-          <ListItem
-            date={announcement.date}
-            title={announcement.title}
-            author={announcement.author}
-            key={announcement.title + new Date().toString() + index}
-          />
+          <li key={announcement.title + new Date().toString() + index}>
+            <ListItem
+              date={announcement.date}
+              title={announcement.title}
+              author={announcement.author}
+            />
+          </li>
         )}
-      </tbody>
-    </ListTable>
+      </ListItemsWrapper>
+    </>
   );
 };
 

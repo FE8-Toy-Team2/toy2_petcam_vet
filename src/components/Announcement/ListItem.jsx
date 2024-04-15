@@ -1,18 +1,37 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const ListRowStyle = styled.tr`
+const ListRowStyle = styled.ul`
   position: relative;
+  width: 832px;
+  display: flex;
   &::after {
     content: "";
-    width: 100%;
+    width: calc(100% + 1rem);
     height: 1px;
     background-color: #000;
     position: absolute;
-    left: 0;
+    left: -0.5rem;
     bottom: -24px;
   }  
-  & td a {
+  & > li:first-child {
+    flex-basis: 10rem;
+    flex-grow: 0;
+  }
+  & > li:nth-child(2) {
+    flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
+  & > li:last-child {
+    flex-basis: 5rem;
+    flex-grow: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  & li a {
     color: inherit;
     text-decoration: none;
     &:hover {
@@ -24,17 +43,17 @@ const ListRowStyle = styled.tr`
 const ListItem = ({ date, title, author }) => {
   return (
     <ListRowStyle>
-        <td>
+        <li>
           {date}
-        </td>
-        <td>
+        </li>
+        <li>
           <a href="#">
             {title}
           </a>
-        </td>
-        <td>
+        </li>
+        <li>
           {author}
-        </td>
+        </li>
     </ListRowStyle>
   );
 };
