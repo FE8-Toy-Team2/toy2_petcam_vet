@@ -1,28 +1,39 @@
-import { } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 const ClinicTodayList = ({ chartDatas }) => {
+  const today = new Date(); // 현재 날짜 및 시간을 가져옴
+
   return (
     <TodayListContainer>
       <TodayListTitle>오늘의 진료 목록</TodayListTitle>
       <TodayListArea>
         {chartDatas.map(item => {
-          const timestamp = item.reservation_next.toDate(); // 파이어베이스 타임스탬프 변환
+          const timestamp = item.clinic_today.toDate(); // 파이어베이스 타임스탬프 변환
           const hours = timestamp.getHours();           // 시간, 분을 문자열로
           const minutes = timestamp.getMinutes();
           const timeString = `${hours}시 ${minutes < 10 ? '0' : ''}${minutes}분`;
-          // 이름, 보호자, 시간 정보 표시하기
-          return (
-            <TodayListItem key={item.id}>
-              {item.name}({item.guardian})({timeString}) 
-            </TodayListItem>
-          );
+          
+          // reservation_next의 날짜가 오늘인지 확인
+          const isToday = timestamp.getDate() === today.getDate() &&
+                         timestamp.getMonth() === today.getMonth() &&
+                         timestamp.getFullYear() === today.getFullYear();
+
+          // 오늘의 예약인 경우에만 출력
+          if (isToday) {
+            return (
+              <TodayListItem key={item.id}>
+                {item.name}({item.guardian})({timeString}) 
+              </TodayListItem>
+            );
+          } else {
+            return null; // 오늘의 예약이 아닌 경우 null 반환하여 출력하지 않음
+          }
         })}
       </TodayListArea>
     </TodayListContainer>
   );
 };
-
 
 export default ClinicTodayList
 

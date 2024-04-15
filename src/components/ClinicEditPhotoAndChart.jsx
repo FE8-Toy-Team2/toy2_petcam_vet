@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 
-const ClinicEditPhotoAndChart = ({ chartDatas }) => {
+const ClinicEditPhotoAndChart = ({ chartDatas, updateChartData }) => {
   // const [sex, setSex] = useState(chartDatas.sex)
   // const [neutering, setNeutering] = useState(true)
   const [chartData, setChartData] = useState(chartDatas);
@@ -16,30 +16,6 @@ const ClinicEditPhotoAndChart = ({ chartDatas }) => {
     updatedChartDatas[index].neutering = newNeutering;
     setChartData(updatedChartDatas);
   };
-
-  // const handleAgeChange = (index, newAge) => {
-  //   const updatedChartData = [...chartData];
-  //   updatedChartData[index].age = newAge;
-  //   setChartData(updatedChartData);
-  // };
-
-  // const handleWeightChange = (index, newWeight) => {
-  //   const updatedChartData = [...chartData];
-  //   updatedChartData[index].weight = newWeight;
-  //   setChartData(updatedChartData);
-  // };
-
-  // const handleGuardianChange = (index, newGuardian) => {
-  //   const updatedChartData = [...chartData];
-  //   updatedChartData[index].guardian = newGuardian;
-  //   setChartData(updatedChartData);
-  // }
-  // const handleNameChange = (index, newName) => {
-  //   const updatedChartData = [...chartData];
-  //   updatedChartData[index].name = newName;
-  //   setChartData(updatedChartData);
-  // }
-
 
   return (
     <PhotoAndChartContainer>

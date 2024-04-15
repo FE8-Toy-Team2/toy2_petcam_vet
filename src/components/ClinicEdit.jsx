@@ -1,20 +1,19 @@
-import React from 'react'
 import styled from 'styled-components'
 import ClinicEditTimer from './ClinicEditTimer'
 import ClinicEditPhotoAndChart from './ClinicEditPhotoAndChart'
 import ClinicEditReservation from './ClinicEditReservation'
 
 
-const ClinicEdit = ({ chartDatas }) => {
+const ClinicEdit = ({ chartDatas, updateChartData }) => {
   return (
     <EditContainer>
       <EditTitle>차트</EditTitle>
       <EditArea>
         <ClinicEditTimer />
         <p>프로필</p>
-        <ClinicEditPhotoAndChart chartDatas={chartDatas} />
+        <ClinicEditPhotoAndChart chartDatas={chartDatas} updateChartData={updateChartData} />
         <p>예약</p>
-        <ClinicEditReservation chartDatas={chartDatas} />
+        <ClinicEditReservation chartDatas={chartDatas} updateChartData={updateChartData} />
       </EditArea>
     </EditContainer>
   )

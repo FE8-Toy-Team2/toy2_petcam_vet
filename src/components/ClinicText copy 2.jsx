@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { NormalButton } from './Buttons';
 
-
-const ClinicText = ({ chartDatas, updateChartData, onSaveButtonClick }) => {
+const ClinicText = ({ chartDatas, updateChartData }) => {
   // 수정된 텍스트를 상태로 관리합니다.
   const [editedTextMap, setEditedTextMap] = useState({});
 
@@ -18,12 +16,11 @@ const ClinicText = ({ chartDatas, updateChartData, onSaveButtonClick }) => {
   const handleSaveButtonClick = () => {
     // 수정된 텍스트만을 반영합니다.
     Object.entries(editedTextMap).forEach(([id, newText]) => {
-      updateChartData(id, { clinic_text: newText }); // 수정된 텍스트만을 업데이트 함수에 전달
+      updateChartData(id, newText);
     });
     // 수정된 텍스트를 초기화합니다.
     setEditedTextMap({});
   };
-
 
   return (
     <TextContainer>
@@ -36,14 +33,7 @@ const ClinicText = ({ chartDatas, updateChartData, onSaveButtonClick }) => {
           onChange={(e) => handleTextChange(item.id, e.target.value)}
         />
       ))}
-      <NormalButton
-        className='submit'
-        type='submit'
-        btnColor="#FFCD29"
-        style={{ position: 'absolute', right: 0, bottom: -70 }}
-        onClick={handleSaveButtonClick}
-      >등록
-      </NormalButton>
+      <SaveButton onClick={handleSaveButtonClick}>저장</SaveButton>
     </TextContainer>
   );
 };
@@ -55,7 +45,6 @@ const TextContainer = styled.div`
   flex-grow: 1;  
   box-sizing: border-box;
   flex-basis: 0;  
-  position: relative;
 
   @media (max-width: 900px) {
     min-width: 300px;
@@ -86,3 +75,14 @@ const TextArea = styled.textarea`
   }
 `
 
+const SaveButton = styled.button`
+  background-color: #FFCD29;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+`;

@@ -1,12 +1,5 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import Calendar from 'react-calendar'
-
-// 체크박스를 넣어서 진료 예약 창 나오게 하기
-// https://hisoit.tistory.com/72 이거 참고
-// https://velog.io/@khy226/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%95%B1%EC%97%90-%EB%8B%AC%EB%A0%A5react-calendar-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0 이것도
-// 고민: https://momentjs.com/를 써보는 건 어떤지
-
 
 const ClinicEditReservation = ({ chartDatas }) => {
 
