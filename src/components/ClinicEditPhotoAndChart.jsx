@@ -17,6 +17,16 @@ const ClinicEditPhotoAndChart = ({ chartDatas, updateChartData }) => {
     setChartData(updatedChartDatas);
   };
 
+  const [editedData, setEditedData] = useState('');
+
+  const handleDataChange = (id, newData) => {
+    // 변경된 텍스트를 상태에 저장합니다.
+    setEditedData(newData);
+    // 변경된 텍스트를 업데이트 함수에 전달하여 업데이트합니다.
+    updateChartData(id, newData);
+  };
+
+
   return (
     <PhotoAndChartContainer>
       <PhotoBox>
@@ -28,9 +38,8 @@ const ClinicEditPhotoAndChart = ({ chartDatas, updateChartData }) => {
             <span>보호자</span>
             <textarea
               placeholder='성명'
-            // value={item.guardian}
-            // onChange={(e) => handleGuardianChange(index, e.target.value)}
-            >{item.guardian}
+              value={editedData || item.guardian}
+              onChange={(e) => handleDataChange(item.id, e.target.value)}            >{item.guardian}
             </textarea>
           </li>
           <li>

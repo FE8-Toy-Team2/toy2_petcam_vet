@@ -1,14 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { NormalButton } from './Buttons';
 
-
-const ClinicText = ({ chartDatas, updateChartData, onSaveButtonClick }) => {
-  // 수정된 텍스트를 상태로 관리합니다.
+const ClinicText = ({ chartDatas, updateChartData }) => {
   const [editedTextMap, setEditedTextMap] = useState({});
+  const [timerMap, setTimerMap] = useState({});
 
   const handleTextChange = (id, newText) => {
-    // 변경된 텍스트를 editedTextMap 상태에 업데이트합니다.
     setEditedTextMap((prevEditedTextMap) => ({
       ...prevEditedTextMap,
       [id]: newText,
@@ -16,24 +14,44 @@ const ClinicText = ({ chartDatas, updateChartData, onSaveButtonClick }) => {
   };
 
   const handleSaveButtonClick = () => {
-    // 수정된 텍스트만을 반영합니다.
     Object.entries(editedTextMap).forEach(([id, newText]) => {
-      updateChartData(id, { clinic_text: newText }); // 수정된 텍스트만을 업데이트 함수에 전달
+      updateChartData(id, { clinic_text: newText });
     });
-    // 수정된 텍스트를 초기화합니다.
     setEditedTextMap({});
   };
 
+  const handleChange = (id, newText) => {
+    if (timerMap[id]) {
+      clearTimeout(timerMap[id]);
+    }
+    setEditedTextMap((prevTextMap) => ({
+      ...prevTextMap,
+      [id]: newText,
+    }));
+    const timer = setTimeout(() => {
+      updateChartData(id, { clinic_text: newText });
+    }, 5000); // 5초 후에 변경 사항 저장
+    setTimerMap((prevTimerMap) => ({
+      ...prevTimerMap,
+      [id]: timer,
+    }));
+  };
+
+  useEffect(() => {
+    return () => {
+      Object.values(timerMap).forEach((timer) => clearTimeout(timer));
+    };
+  }, [timerMap]);
 
   return (
     <TextContainer>
       <TextTitle>진료 내용</TextTitle>
-      {chartDatas.map(item => (
+      {chartDatas.map((item) => (
         <TextArea
           key={item.id}
           placeholder='진료 내용 입력'
           value={editedTextMap[item.id] || item.clinic_text}
-          onChange={(e) => handleTextChange(item.id, e.target.value)}
+          onChange={(e) => handleChange(item.id, e.target.value)}
         />
       ))}
       <NormalButton
@@ -50,39 +68,37 @@ const ClinicText = ({ chartDatas, updateChartData, onSaveButtonClick }) => {
 
 export default ClinicText;
 
-
 const TextContainer = styled.div`
-  flex-grow: 1;  
+  flex-grow: 1;
   box-sizing: border-box;
-  flex-basis: 0;  
+  flex-basis: 0;
   position: relative;
 
   @media (max-width: 900px) {
     min-width: 300px;
   }
-`
+`;
 
 const TextTitle = styled.div`
   font-size: 20px;
   font-weight: 700;
   font-family: "Pretendard";
-`
+`;
 
 const TextArea = styled.textarea`
   width: 100%;
   font-size: 16px;
   border-radius: 10px;
-  margin-top: 14px;  
+  margin-top: 14px;
   padding: 20px;
   height: calc(100% - 34px);
-  box-sizing: border-box;  
+  box-sizing: border-box;
   border: 2px solid #3D3939;
-  font-family: "Pretendard";  
+  font-family: "Pretendard";
   resize: none;
   -ms-overflow-style: none;
 
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     display: none;
   }
-`
-
+`;

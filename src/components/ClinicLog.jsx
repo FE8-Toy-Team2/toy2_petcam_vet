@@ -4,7 +4,6 @@ import ClinicTodayList from './ClinicTodayList';
 import ClinicText from './ClinicText';
 import ClinicEdit from './ClinicEdit';
 import { NormalButton } from './Buttons';
-import { SmallButton } from './Buttons';
 import { dataBase } from '../firebase';
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 
