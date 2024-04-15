@@ -73,7 +73,7 @@ const Signup = ({ onLogin }) => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="비밀번호"
         />
-				<InputText>* 비밀번호는 최소 8자 이상이어야 하며, 대소문자, 숫자, 특수문자를 포함해야 합니다.</InputText>
+				<InputText>* 비밀번호는 최소 8자 이상, 대소문자, 숫자, 특수문자를 포함해야 합니다.</InputText>
         <Input
           type="password"
           value={confirmPassword}
@@ -106,7 +106,7 @@ const Form = styled.form`
 	height: 488px;	
 	background-color: #fff;
 	border-radius: 10px;
-	margin-top: 90px;
+	margin: 90px;
 	justify-content: center;
 	align-items: center;
 	box-shadow: 1px 1px 10px var(--darkgray);	
@@ -131,7 +131,7 @@ const InputText = styled.p`
 	font-size: 8px;
 	font-family: var(--pre-reg);
 	color: var(--darkgray);
-	margin: 5px 15px;
+	margin: 5px 32px;
 `
 const Button = styled.button`
 	width: 256px;

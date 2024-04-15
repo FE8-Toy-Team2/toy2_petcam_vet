@@ -7,6 +7,8 @@ import Nav from "./components/Nav"
 import Footer from "./components/Footer"
 import app from "./firebase"
 import { getAuth, signOut } from 'firebase/auth';
+import Home from "./components/Home"
+
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -34,12 +36,14 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <Nav isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-      <Login onLogin={handleLogin} />
-      <Signup onLogin={handleLogin} />
+      <Nav isLoggedIn={isLoggedIn} onLogout={handleLogout} />      
+      <Home />    
+      <Login onLogin={handleLogin} />    
+      <Signup onLogin={handleLogin} />      
       <Footer />
     </>
   );
 }
+
 
 export default App;
