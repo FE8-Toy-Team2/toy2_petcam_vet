@@ -31,6 +31,10 @@ const GlobalStyle = createGlobalStyle`
   body{
     font-family: "Pretendard";
   }
+  a{
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 const router = createBrowserRouter([
