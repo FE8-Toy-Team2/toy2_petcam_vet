@@ -15,6 +15,17 @@ export const SmallButton = styled.button`
   background-color: ${(props) => props.btnColor};
   color: ${(props) => props.textColor};
   cursor: pointer;
+
+  font-size: var(--font-size-M);
+  font-family: "Pretendard";
+  font-weight: 700;
+  transition: 0.3s;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: var(--color-brown);
+    color: #e3e2de;
+  }
 `;
 
 // 보통버튼
@@ -25,4 +36,15 @@ export const NormalButton = styled.button`
   background-color: ${(props) => props.btnColor};
   color: ${(props) => props.textColor};
   cursor: pointer;
+
+  font-size: var(--font-size-L);
+  font-family: "Pretendard";
+  font-weight: 700;
+  transition: 0.3s;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: var(--color-brown);
+    color: #e3e2de;
+  }
 `;
