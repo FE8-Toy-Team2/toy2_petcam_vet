@@ -13,12 +13,21 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <>
       <GlobalStyle />
-      <Nav />
-      <Login />
-      {/* <Signup /> */}
+      <Nav isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      <Login onLogin={handleLogin} />
+      <Signup onLogin={handleLogin} />
       <Footer />
     </>
   );

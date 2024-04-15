@@ -3,13 +3,19 @@ import styled from 'styled-components';
 import "./common.css";
 import Clock from './Clock';
 
-const Nav = ({ onLoginButtonClick }) => {
+
+
+const Nav = ({ isLoggedIn, onLogout }) => {
 	return (
 		<Header>
 			<Buttons>
 				<Clock />				
 				<SignUpButton>회원가입</SignUpButton>
-        <LoginButton>로그인</LoginButton>
+        {isLoggedIn ? (
+          <Button onClick={onLogout}>로그아웃</Button>
+        ) : (
+          <Button>로그인</Button>
+        )}       
 			</Buttons>
     	<Navbar>
 				<TextBox>
@@ -46,7 +52,7 @@ const SignUpButton = styled.p`
 		color: #fff;
 	}
 `
-const LoginButton = styled.button`
+const Button = styled.button`
 	width: 60px;
 	height: 20px;
 	margin: 5px 20px;

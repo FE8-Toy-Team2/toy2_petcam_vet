@@ -4,7 +4,7 @@ import "./common.css";
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 
-const Signup = () => {
+const Signup = ({ onLogin }) => {
 
 	const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -50,6 +50,7 @@ const Signup = () => {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
       alert(`${user.email}님은 로그인하셨습니다`)
+			onLogin()
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;

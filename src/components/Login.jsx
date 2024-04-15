@@ -4,7 +4,7 @@ import "./common.css";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
 
-const Login = () => {
+const Login = ({ onLogin }) => {
 
 	const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,10 +16,17 @@ const Login = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       alert(`${email}님은 로그인하셨습니다`)
+			// Swal.fire({				
+			// 	icon: "success",
+			// 	title: "`${email}님은 로그인하셨습니다`",
+			// 	showConfirmButton: false,
+			// 	timer: 1500
+			// });
+			onLogin()
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(`등록되지 않은 사용자입니다`)
+      alert(`등록되지 않은 사용자입니다`)		
     }
 		setEmail('')
 		setPassword('')		
@@ -32,6 +39,7 @@ const Login = () => {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
       alert(`${email}님은 로그인하셨습니다`)
+			onLogin()
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -63,8 +71,6 @@ const Login = () => {
     </Container>
 	)
 }
-
-
 
 export default Login;
 

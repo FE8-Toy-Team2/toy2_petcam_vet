@@ -281,7 +281,146 @@ function App() {
   );
 }
 
+// Nav.jsx
 
+
+const Nav = ({ onLoginButtonClick, isLoggedIn }) => {
+  return (
+    <Header>
+      <Buttons>
+        <Clock />
+        <SignUpButton>회원가입</SignUpButton>
+        {/* Conditionally render LoginButton based on isLoggedIn state */}
+        {!isLoggedIn ? (
+          <LoginButton onClick={onLoginButtonClick}>로그인</LoginButton>
+        ) : (
+          <LoginButton onClick={onLogoutButtonClick}>로그아웃</LoginButton>
+        )}
+      </Buttons>
+      {/* Your other navigation elements */}
+    </Header>
+  );
+};
+
+
+
+
+// App.jsx
+
+
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLoginButtonClick = () => {
+    // Logic for handling login, then set isLoggedIn to true upon successful login
+    setIsLoggedIn(true);
+  };
+
+  const handleLogoutButtonClick = () => {
+    // Logic for handling logout, then set isLoggedIn to false upon successful logout
+    setIsLoggedIn(false);
+  };
+
+  return (
+    <>
+      <GlobalStyle />
+      <Nav onLoginButtonClick={handleLoginButtonClick} isLoggedIn={isLoggedIn} />
+      <Login />
+      <Signup />
+      <Footer />
+    </>
+  );
+}
+
+
+// Nav.jsx
+import React from 'react';
+import styled from 'styled-components';
+
+const Header = styled.header`
+  /* Your header styles */
+`;
+
+const Buttons = styled.div`
+  /* Your button container styles */
+`;
+
+const LoginButton = styled.button`
+  /* Your login button styles */
+`;
+
+const Nav = ({ isLoggedIn, onLoginButtonClick }) => {
+  const handleButtonClick = () => {
+    if (isLoggedIn) {
+      // Logic to handle logout
+      // Call the logout function here
+      // For now, let's assume there's a function called handleLogoutButtonClick
+      // passed as a prop from the parent component
+      handleLogoutButtonClick();
+    } else {
+      // Logic to handle login
+      // Call the login function here
+      onLoginButtonClick();
+    }
+  };
+
+  return (
+    <Header>
+      <Buttons>
+        <Clock />
+        <SignUpButton>회원가입</SignUpButton>
+        {/* Change the text of LoginButton based on the login state */}
+        <LoginButton onClick={handleButtonClick}>{isLoggedIn ? '로그아웃' : '로그인'}</LoginButton>
+      </Buttons>
+      {/* Your other navigation elements */}
+    </Header>
+  );
+};
+
+export default Nav;
+
+// 로그인 제안
+
+const Login = ({ onLogin }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    // your login logic
+    // on successful login, call onLogin prop
+    onLogin();
+  };
+
+
+// Nav 제안
+
+const Nav = ({ isLoggedIn, onLogout }) => {
+  return (
+    <Header>
+      <Buttons>
+        <Clock />
+        {isLoggedIn ? (
+          <LogoutButton onClick={onLogout}>로그아웃</LogoutButton>
+        ) : (
+          <>
+            <SignUpButton>회원가입</SignUpButton>
+            <LoginButton>로그인</LoginButton>
+          </>
+        )}
+      </Buttons>
+      <Navbar>
+        <TextBox>
+          <Text>입원/퇴원 관리</Text>
+          <Text>동물등록</Text>
+          <Text>공지사항</Text>
+        </TextBox>
+      </Navbar>
+    </Header>
+  );
+};
+
+export default Nav;
 
 
 
