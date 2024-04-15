@@ -43,6 +43,7 @@ function List({ petState }) {
 
   return (
     <ChartListUl>
+      <div>{petInfo.length} 마리등록</div>
       {fadb
         .filter((pet) => {
           return petState === "" || pet.state === petState;

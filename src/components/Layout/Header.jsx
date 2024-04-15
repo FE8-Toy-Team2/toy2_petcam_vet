@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
+import { SmallButton } from "../Buttons";
 
 const HomeHeader = styled.header`
   position: sticky;
@@ -31,11 +32,6 @@ const Timer = styled.div`
   color: white;
 `;
 
-const Button = styled.button`
-  color: white;
-  background-color: inherit;
-`;
-
 function Header() {
   const setCurrentTime = new Date();
   // let setTimer = setCurrentTime.toLocaleTimeString();
@@ -57,8 +53,8 @@ function Header() {
         <Timer>
           현재 시간 : {setDate} {timer.toLocaleTimeString()}
           <div>
-            <Button>회원가입</Button>
-            <Button>로그인</Button>
+            <SmallButton btnColor="var(--color-prime)">회원가입</SmallButton>
+            <SmallButton>로그인</SmallButton>
           </div>
         </Timer>
         <Navgation>
