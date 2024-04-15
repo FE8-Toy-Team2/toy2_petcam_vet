@@ -1,41 +1,20 @@
-import { useState } from "react";
-import ReactQuill from "react-quill"
-import "react-quill/dist/quill.snow.css";
+import { EditorProvider, FloatingMenu, BubbleMenu } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+
+// define your extension array
+const extensions = [
+  StarterKit,
+]
+
+const content = '<p>Hello World!</p>'
 
 const WriteEditor = () => {
-  const [value, setValue] = useState("");
-
-  const handleChange = (code) => {
-    console.log(code);
-    setValue(code);
-  }
-  
-  const modules = {
-    toolbar: [
-      [{ 'header': [1, 2, false] }],
-      ['bold', 'italic', 'underline','strike', 'blockquote'],
-      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-      ['link', 'image'],
-      ['clean']
-    ],
-  };
-
-  const formats = [
-    'header',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent',
-    'link', 'image'
-  ];
-
   return (
-    <ReactQuill 
-      theme="snow" 
-      value={value} 
-      onChange={handleChange}
-      modules={modules}
-      formats={formats}>
-    </ReactQuill>
-  );
-};
+    <EditorProvider extensions={extensions} content={content}>
+      <FloatingMenu>This is the floating menu</FloatingMenu>
+      <BubbleMenu>This is the bubble menu</BubbleMenu>
+    </EditorProvider>
+  )
+}
 
 export default WriteEditor;
