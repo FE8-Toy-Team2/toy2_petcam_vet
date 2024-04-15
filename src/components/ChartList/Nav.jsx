@@ -1,6 +1,6 @@
 import { ChartNav, ChartNavUl, ChartNavLi } from "./Styles.jsx";
 
-function Nav({ petState, setPetState }) {
+function Nav({ setPetState }) {
   return (
     <ChartNav>
       <ChartNavUl>

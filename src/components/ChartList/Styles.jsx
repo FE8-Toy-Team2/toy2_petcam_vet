@@ -25,6 +25,9 @@ export const ChartNavUl = styled.ul`
 export const ChartNavLi = styled.li`
   padding: 0.5rem 1rem;
   cursor: pointer;
+  &:after {
+    border-bottom: 2px solid red;
+  }
 `;
 
 export const ChartListUl = styled.ul`
@@ -35,8 +38,7 @@ export const ChartListUl = styled.ul`
 `;
 
 export const ChartListLi = styled.li`
-  height: 3rem;
-  padding: 1rem;
+  padding: 1.5rem;
 
   display: flex;
   justify-content: space-between;
@@ -53,6 +55,11 @@ export const ListLiLeft = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  div {
+    div {
+      font-weight: 600;
+    }
+  }
 `;
 
 export const ListLiLeftImg = styled.img`

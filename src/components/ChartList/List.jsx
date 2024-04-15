@@ -7,6 +7,9 @@ import {
 } from "./Styles.jsx";
 import { SmallButton } from "../Buttons.jsx";
 import fadb from "./test/db.js";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { dataBase } from "../../firebase.js";
+import { useEffect, useState } from "react";
 
 function List({ petState }) {
   const getButtonProps = (state) => {
@@ -21,6 +24,22 @@ function List({ petState }) {
         return { btnColor: "#d1d1d1", textColor: "#3D3939" }; // 기본 값
     }
   };
+
+  const [petInfo, setPetInfo] = useState([]);
+
+  const fetchData = async () => {
+    const dataQuery = query(collection(dataBase, "chartDatas"));
+    const dataResut = await getDocs(dataQuery);
+    const petInfoData = dataResut.docs.map((doc) => {
+      const { name, species } = doc.data();
+      return { id: doc.id, name, species };
+    });
+    setPetInfo(petInfoData);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <ChartListUl>
@@ -54,6 +73,12 @@ function List({ petState }) {
             </ChartListLi>
           );
         })}
+
+      {/* {petInfo.map((pet) => (
+        <li key={pet.id}>
+          {pet.name} {pet.species}
+        </li>
+      ))} */}
     </ChartListUl>
   );
 }
