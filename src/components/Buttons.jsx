@@ -16,16 +16,15 @@ export const SmallButton = styled.button`
   color: ${(props) => props.textColor};
   cursor: pointer;
 
-  /* 아래는 추가 내용. */
-  font-size: 15px;
+  font-size: var(--font-size-M);
   font-family: "Pretendard";
   font-weight: 700;
   transition: 0.3s;
-  border-radius: 5px;
-  
-  &:hover{
-    background-color: #504239;
-    color: #E3E2DE;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: var(--color-brown);
+    color: #e3e2de;
   }
 `;
 
@@ -38,17 +37,14 @@ export const NormalButton = styled.button`
   color: ${(props) => props.textColor};
   cursor: pointer;
 
-/* 아래는 추가 내용. */
-  font-size: 18px;
+  font-size: var(--font-size-L);
   font-family: "Pretendard";
   font-weight: 700;
   transition: 0.3s;
-  border-radius: 7px;
-  
-  &:hover{
-    background-color: #504239;
-    color: #E3E2DE;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: var(--color-brown);
+    color: #e3e2de;
   }
 `;
-
-
