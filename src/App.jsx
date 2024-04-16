@@ -1,7 +1,7 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
 import "./font/font.css";
-import ClinicLog from "./components/ClinicLog";
+import ClinicLog from "./components/Chart/ClinicLog"
 
 const GlobalStyle = createGlobalStyle`
   ${reset}

@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import ClinicTodayList from './ClinicTodayList';
 import ClinicText from './ClinicText';
 import ClinicEdit from './ClinicEdit';
-import { NormalButton } from './Buttons';
-import { dataBase } from '../firebase';
+import { NormalButton } from '../Buttons';
+import { dataBase } from '../../firebase';
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
+
 
 const ClinicLog = () => {
   const [chartDatas, setChartDatas] = useState([]);
@@ -58,7 +59,7 @@ const ClinicLog = () => {
         <ClinicEdit chartDatas={chartDatas} updateChartData={updateChartData} />
         <ClinicText chartDatas={chartDatas} updateChartData={updateChartData} />
       </ClinicContainer>
-      <ClinicButtonArea>
+      {/* <ClinicButtonArea>
         <NormalButton
           className='cancel'
           btnColor="#E3E2DE"
@@ -70,7 +71,7 @@ const ClinicLog = () => {
           btnColor="#E3E2DE"
         >리셋
         </NormalButton>
-      </ClinicButtonArea>
+      </ClinicButtonArea> */}
     </>
   );
 };
@@ -88,5 +89,6 @@ const ClinicButtonArea = styled.div`
   display: flex;  
   max-width: 1440px;
   margin: auto;
-  padding-top: 80px;
+  background-color: aqua;
+  /* padding-top: 80px; */
 `;

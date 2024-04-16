@@ -70,10 +70,10 @@ const EditArea = styled.div`
   &::-webkit-scrollbar{
     display: none;
   }
-
+/* 
   p{
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: var(--font-weight-bold);
-  }
+  } */
   `

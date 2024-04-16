@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { NormalButton } from './Buttons';
+import { NormalButton } from '../Buttons';
 
 const ClinicText = ({ chartDatas, updateChartData }) => {
   const [editedTextMap, setEditedTextMap] = useState({});
