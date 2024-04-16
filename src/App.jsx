@@ -1,6 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState } from 'react';
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
+import Login from "./components/LoginSignup/Login";
+import Signup from "./components/LoginSignup/Signup";
+import Nav from "./components/LoginSignup/Nav"
+import Footer from "./components/LoginSignup/Footer"
+import app from "./firebase"
+import { getAuth, signOut } from 'firebase/auth';
+import Home from "./components/LoginSignup/Home"
 import "./font/font.css";
 // TODO: 폰트 적용 안되는 오류 수정
 
@@ -13,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
     --color-gray-1: #F6F6F6;
     --color-gray-2: #EEEEEE;
     --color-gray-3: #D9D9D9;
+    --color-darkgray: #999999;
     --color-salgu: #F9F4F0;
     --color-brown: #504239;
 
@@ -36,12 +45,35 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);    
+  };
+
+  const handleLogout = () => {    
+    const auth = getAuth();
+    
+    signOut(auth).then(() => {      
+      setIsLoggedIn(false);
+      alert('로그아웃하셨습니다');      
+    }).catch((error) => {
+      alert('에러 발생', error);
+    });
+  };
+
   return (
     <BrowserRouter>
       <GlobalStyle />
-      {/* 여기밑에 라우터가 와요  */}
+      <Nav isLoggedIn={isLoggedIn} onLogout={handleLogout} />      
+      <Home />    
+      <Login onLogin={handleLogin} />    
+      <Signup onLogin={handleLogin} />      
+      <Footer />
     </>
   );
 }
+
 
 export default App;
