@@ -1,10 +1,8 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-
-import { createBrowserRouter } from "react-router-dom";
-
-import ChartList from "./components/ChartList/ChartList";
 import "./font/font.css";
+// TODO: 폰트 적용 안되는 오류 수정
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -29,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
     --font-size-XXL: 1.5rem;
   }
   body{
-    font-family: "Pretendard";
+    font-family: "Pretendard", sans-serif;
   }
   a{
     text-decoration: none;
@@ -39,9 +37,9 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <GlobalStyle />
-      <ChartList />
+      {/* 여기밑에 라우터가 와요  */}
     </>
   );
 }
