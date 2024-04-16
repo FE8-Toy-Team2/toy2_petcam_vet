@@ -1,29 +1,23 @@
 // import { useState } from 'react';
 import styled from 'styled-components'
+import dayjs from 'dayjs'
+import React from 'react'
 
-const ClinicTodayList = ({ chartDatas }) => {
-  const today = new Date(); // 현재 날짜 및 시간을 가져옴
+const ClinicTodayList = ({ chartDatas, setSelectedChart }) => {
 
   return (
     <TodayListContainer>
-      <TodayListTitle>오늘의 진료 목록</TodayListTitle>
+      <TodayListTitle>오늘 진료</TodayListTitle>
       <TodayListArea>
         {chartDatas.map(item => {
-          const timestamp = item.clinic_today.toDate(); // 파이어베이스 타임스탬프 변환
-          const hours = timestamp.getHours();           // 시간, 분을 문자열로
-          const minutes = timestamp.getMinutes();
-          const timeString = `${hours}시 ${minutes < 10 ? '0' : ''}${minutes}분`;
-          
-          // reservation_next의 날짜가 오늘인지 확인
-          const isToday = timestamp.getDate() === today.getDate() &&
-                         timestamp.getMonth() === today.getMonth() &&
-                         timestamp.getFullYear() === today.getFullYear();
+          const timestamp = item.clinic_today
+          const isToday = timestamp.split("T")[0] === dayjs().format("YYYY-MM-DDTHH:mm").split("T")[0]
+          const timeString = dayjs().format("HH:mm 예약")// `${hours}:${minutes < 10 ? '0' : ''}${minutes} 예약`;
 
-          // 오늘의 예약인 경우에만 출력
           if (isToday) {
             return (
-              <TodayListItem key={item.id}>
-                {item.name}({item.guardian})({timeString}) 
+              <TodayListItem key={item.id} onClick={() => setSelectedChart(item)}>
+                <span>{item.name}</span>({item.guardian}&nbsp;/&nbsp;{timeString})
               </TodayListItem>
             );
           } else {
@@ -78,5 +72,9 @@ const TodayListItem = styled.a`
   &:hover {
     background-color: var(--color-brown);
     color: #E3E2DE;
+  }
+
+  span {
+    font-weight: var(--font-weight-bold);
   }
 `

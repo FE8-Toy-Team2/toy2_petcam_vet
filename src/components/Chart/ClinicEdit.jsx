@@ -2,20 +2,15 @@ import styled from 'styled-components'
 import ClinicEditTimer from './ClinicEditTimer'
 import ClinicEditPhotoAndChart from './ClinicEditPhotoAndChart'
 import ClinicEditReservation from './ClinicEditReservation'
-import { useState } from 'react'
+import { useEffect } from 'react'
 
 
 
-const ClinicEdit = ({ chartDatas, updateChartData }) => {
-  const [savedMessageVisible, setSavedMessageVisible] = useState(false);
+const ClinicEdit = ({ selectedChart, setSelectedChart }) => {
 
-
-  const handleSaved = () => {
-    setSavedMessageVisible(true);
-    setTimeout(() => {
-      setSavedMessageVisible(false);
-    }, 1500); // 1.5초 후에 메시지 사라짐
-  };
+  useEffect(() => {
+    console.log("please!!!!!!!!!!!!!!!", selectedChart)
+  }, [selectedChart])
 
   return (
     <EditContainer>
@@ -23,15 +18,16 @@ const ClinicEdit = ({ chartDatas, updateChartData }) => {
       <EditArea>
         <ClinicEditTimer />
         <p>프로필</p>
-        <ClinicEditPhotoAndChart 
-        chartDatas={chartDatas} 
-        updateChartData={updateChartData}
-        onSaved={handleSaved}
+        <ClinicEditPhotoAndChart
+          selectedChart={selectedChart}
+          setSelectedChart={setSelectedChart}
         />
         <p>예약</p>
-        <ClinicEditReservation chartDatas={chartDatas} updateChartData={updateChartData} />
+        <ClinicEditReservation
+          selectedChart={selectedChart}
+          setSelectedChart={setSelectedChart}
+        />
       </EditArea>
-       {savedMessageVisible && <SavedMessage>저장 완료!</SavedMessage>}
     </EditContainer>
   )
 }
@@ -51,8 +47,7 @@ const EditContainer = styled.div`
 
 const EditTitle = styled.div`
   font-size: 20px;
-  font-weight: var(--font-weight-bold);
-  font-family: "Pretendard";
+  font-weight: var(--font-weight-bold);  
 `
 
 const EditArea = styled.div`
@@ -62,8 +57,7 @@ const EditArea = styled.div`
   padding: 20px 20px;
   height: 100%;
   box-sizing: border-box;
-  border: 2px solid var(--color-black);
-  font-family: "Pretendard";
+  border: 2px solid var(--color-black);  
   overflow-y: auto;
   -ms-overflow-style: none;
   &::-webkit-scrollbar{
