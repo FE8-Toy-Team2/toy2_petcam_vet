@@ -81,7 +81,7 @@ const Container = styled.div`
 const Form = styled.form`
 	width: 300px;
 	height: 415px;	
-	margin-top: 60px;
+	margin-top: 20px;
 	background-color: #fff;
 	border-radius: 10px;
 	justify-content: center;
