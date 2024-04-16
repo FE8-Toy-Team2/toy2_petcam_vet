@@ -18,7 +18,7 @@ export const SmallButton = styled.button`
 
   font-size: var(--font-size-M);
   font-family: "Pretendard";
-  font-weight: var(--font-weight-bold);
+  font-weight: 700;
   transition: 0.3s;
   border-radius: 10px;
 
@@ -39,7 +39,7 @@ export const NormalButton = styled.button`
 
   font-size: var(--font-size-L);
   font-family: "Pretendard";
-  font-weight: var(--font-weight-bold);
+  font-weight: 700;
   transition: 0.3s;
   border-radius: 10px;
 

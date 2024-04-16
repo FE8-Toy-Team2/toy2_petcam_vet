@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
 import Login from "./components/LoginSignup/Login";
 import Signup from "./components/LoginSignup/Signup";
-import Nav from "./components/LoginSignup/Nav"
-import Footer from "./components/LoginSignup/Footer"
-import app from "./firebase"
-import { getAuth, signOut } from 'firebase/auth';
-import Home from "./components/LoginSignup/Home"
+import Nav from "./components/Layout/Nav";
+import Footer from "./components/Layout/Footer";
+import app from "./firebase";
+import { getAuth, signOut } from "firebase/auth";
 import "./font/font.css";
+import ClinicLog from "./components/Chart/ClinicLog";
+import Layout from "./components/Layout/Layout";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -34,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
     --font-size-XXL: 1.5rem;
   }
   body{
-    font-family: "Pretendard";
+    font-family: "Pretendard", sans-serif;
   }
   a{
     text-decoration: none;
@@ -43,35 +45,33 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = () => {
-    setIsLoggedIn(true);    
+    setIsLoggedIn(true);
   };
 
-  const handleLogout = () => {    
+  const handleLogout = () => {
     const auth = getAuth();
-    
-    signOut(auth).then(() => {      
-      setIsLoggedIn(false);
-      alert('로그아웃하셨습니다');      
-    }).catch((error) => {
-      alert('에러 발생', error);
-    });
+
+    signOut(auth)
+      .then(() => {
+        setIsLoggedIn(false);
+        alert("로그아웃하셨습니다");
+      })
+      .catch((error) => {
+        alert("에러 발생", error);
+      });
   };
 
   return (
-    <>
+    <BrowserRouter>
       <GlobalStyle />
-      <Nav isLoggedIn={isLoggedIn} onLogout={handleLogout} />      
-      <Home />    
-      <Login onLogin={handleLogin} />    
-      <Signup onLogin={handleLogin} />      
-      <Footer />
-    </>
+      <Routes>
+        <Route path="/" element={<Layout />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
 
 export default App;
