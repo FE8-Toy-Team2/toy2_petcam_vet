@@ -52,7 +52,7 @@ const Signup = ({ onLogin }) => {
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(`등록되지 않은 사용자입니다`)
+      // alert(`등록되지 않은 사용자입니다`)
     }
   };
 
