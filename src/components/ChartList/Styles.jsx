@@ -15,6 +15,7 @@ export const ChartNav = styled.nav`
 
   border-bottom: 1px solid #dddddd;
   display: flex;
+  justify-content: space-between;
 `;
 
 export const ChartNavUl = styled.ul`

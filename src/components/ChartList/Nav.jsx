@@ -1,6 +1,13 @@
+import { useEffect, useState } from "react";
 import { ChartNav, ChartNavUl, ChartNavLi } from "./Styles.jsx";
 
 function Nav({ setPetState }) {
+  const [searchValue, setSearchValue] = useState("");
+
+  const onChangeSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
   return (
     <ChartNav>
       <ChartNavUl>
@@ -9,6 +16,12 @@ function Nav({ setPetState }) {
         <ChartNavLi onClick={() => setPetState("퇴원")}>퇴원</ChartNavLi>
         <ChartNavLi onClick={() => setPetState("입원")}>입원</ChartNavLi>
       </ChartNavUl>
+      <input
+        type="text"
+        value={searchValue}
+        placeholder="검색"
+        onChange={onChangeSearch}
+      />
     </ChartNav>
   );
 }

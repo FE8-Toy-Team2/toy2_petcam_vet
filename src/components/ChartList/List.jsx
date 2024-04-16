@@ -41,6 +41,7 @@ function List({ petState }) {
     fetchData();
   }, []);
 
+  console.log(petInfo);
   return (
     <ChartListUl>
       <div>{petInfo.length} 마리등록</div>

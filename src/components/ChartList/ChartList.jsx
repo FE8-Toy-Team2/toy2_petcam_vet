@@ -10,7 +10,7 @@ function ChartList() {
   return (
     <>
       <Container>
-        <Nav petState={petState} setPetState={setPetState} />
+        <Nav setPetState={setPetState} />
         <List petState={petState} />
       </Container>
     </>
