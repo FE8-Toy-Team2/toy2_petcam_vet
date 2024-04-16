@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import Nav from "./components/Nav"
-import Footer from "./components/Footer"
+import Login from "./components/LoginSignup/Login";
+import Signup from "./components/LoginSignup/Signup";
+import Nav from "./components/LoginSignup/Nav"
+import Footer from "./components/LoginSignup/Footer"
 import app from "./firebase"
 import { getAuth, signOut } from 'firebase/auth';
-import Home from "./components/Home"
+import Home from "./components/LoginSignup/Home"
 import "./font/font.css";
 
 const GlobalStyle = createGlobalStyle`
