@@ -26,7 +26,7 @@ export const ChartNavUl = styled.ul`
 export const ChartNavLi = styled.li`
   padding: 0.5rem 1rem;
   cursor: pointer;
-  &:after {
+  &:active {
     border-bottom: 2px solid red;
   }
 `;
