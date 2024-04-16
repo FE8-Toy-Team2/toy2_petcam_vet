@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import SearchIcon from "../../../public/search.svg?react";
 // TODO: Search 컴포넌트 로직 구현
 
 const SearchWrapper = styled.div`
@@ -21,7 +22,7 @@ const SearchButton = styled.button`
   border: none;
   background-color: inherit;
   cursor: pointer;
-  & > img {
+  & > svg {
     width: 18px;
     height: 18px;
   }
@@ -47,7 +48,7 @@ const Search = () => {
         onChange={handleChange}
       />
       <SearchButton type="button" onClick={handleClick} >
-        <img src="/search.svg" alt="Search" />
+        <SearchIcon />
       </SearchButton>
     </SearchWrapper>
   );

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-// TODO: svg dynamic import 구현
+import Pencil from "../../../public/pencil.svg?react";
 
 const PostButtonStyle = styled.button`
   padding: 3px;
@@ -8,9 +8,12 @@ const PostButtonStyle = styled.button`
   border-radius: 5px;
   background-color: #504239;
   cursor: pointer;
-  & > img {
+  & > svg {
     width: 28px;
     height: 28px;
+    & > path {
+      stroke: var(--color-salgu);
+    }
   }  
 `;
 
@@ -25,7 +28,7 @@ const PostButton = () => {
       type="button"
       onClick={navigateToCreate}
     >
-      <img src="/pencil.svg" alt="Post" />
+      <Pencil />
     </PostButtonStyle>
   );
 };
