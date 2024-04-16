@@ -14,7 +14,7 @@ const ClinicEdit = ({ chartDatas, updateChartData }) => {
     setSavedMessageVisible(true);
     setTimeout(() => {
       setSavedMessageVisible(false);
-    }, 3000); // 3초 후에 메시지 사라짐
+    }, 1500); // 1.5초 후에 메시지 사라짐
   };
 
   return (
@@ -40,7 +40,7 @@ export default ClinicEdit
 
 const EditContainer = styled.div`  
   flex-grow: 1;
-  margin-right: 30px;
+  margin-right: 20px;
   flex-basis: 0;
 
   @media (max-width: 900px) {
@@ -69,10 +69,10 @@ const EditArea = styled.div`
   &::-webkit-scrollbar{
     display: none;
   }
-/* 
+
   p{
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: var(--font-weight-bold);
-  } */
+  }
   `

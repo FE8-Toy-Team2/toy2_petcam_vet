@@ -24,7 +24,7 @@ const ClinicEditPhotoAndChart = ({ chartDatas, updateChartData, onSaved }) => {
       setShowSavedMessage(true);
       setTimeout(() => {
         setShowSavedMessage(false);
-      }, 3000); // 3초 후에 메시지 사라짐
+      }, 1500); // 1.5초 후에 메시지 사라짐
     }, 500);
 
     setTimerMap(prevTimerMap => ({

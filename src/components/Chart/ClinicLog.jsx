@@ -60,7 +60,17 @@ const ClinicLog = () => {
         <ClinicText chartDatas={chartDatas} updateChartData={updateChartData} />
       </ClinicContainer>
       <ClinicButtonArea>
-
+        <NormalButton
+          className='cancel'
+          btnColor="#E3E2DE"
+          style={{ marginRight: 10 }}
+        >취소
+        </NormalButton>
+        <NormalButton
+          className='reset'
+          btnColor="#E3E2DE"
+        >리셋
+        </NormalButton>
       </ClinicButtonArea>
     </>
   );
@@ -73,14 +83,11 @@ const ClinicContainer = styled.div`
   max-width: 1440px;  
   max-height: 80vh;
   margin: auto;
+  margin-bottom: 76px;
 `;
 
 const ClinicButtonArea = styled.div`
-  display: flex;
+  display: flex;  
   max-width: 1440px;
-  /* margin: auto; */
-  height: 150px;
-  background-color: transparent;
-  z-index: -10;
-  /* padding-top: 80px; */
+  margin: auto;
 `;

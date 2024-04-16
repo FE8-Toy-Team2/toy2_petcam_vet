@@ -38,8 +38,8 @@ const ClinicTodayList = ({ chartDatas }) => {
 export default ClinicTodayList
 
 const TodayListContainer = styled.div`
-  flex-grow: 0.4;
-  margin-right: 30px;
+  flex-grow: 0.5;
+  margin-right: 20px;
   flex-basis: 0;
   
   @media (max-width: 900px) {
