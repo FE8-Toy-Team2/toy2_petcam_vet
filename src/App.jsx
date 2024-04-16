@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
 import Login from "./components/LoginSignup/Login";
 import Signup from "./components/LoginSignup/Signup";
-import Nav from "./components/LoginSignup/Nav"
-import Footer from "./components/LoginSignup/Footer"
-import app from "./firebase"
-import { getAuth, signOut } from 'firebase/auth';
-import Home from "./components/LoginSignup/Home"
+import Nav from "./components/LoginSignup/Nav";
+import Footer from "./components/LoginSignup/Footer";
+import app from "./firebase";
+import { getAuth, signOut } from "firebase/auth";
+import Home from "./components/LoginSignup/Home";
 import "./font/font.css";
-// TODO: 폰트 적용 안되는 오류 수정
+import ClinicLog from "./components/Chart/ClinicLog";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -45,35 +45,35 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = () => {
-    setIsLoggedIn(true);    
+    setIsLoggedIn(true);
   };
 
-  const handleLogout = () => {    
+  const handleLogout = () => {
     const auth = getAuth();
-    
-    signOut(auth).then(() => {      
-      setIsLoggedIn(false);
-      alert('로그아웃하셨습니다');      
-    }).catch((error) => {
-      alert('에러 발생', error);
-    });
+
+    signOut(auth)
+      .then(() => {
+        setIsLoggedIn(false);
+        alert("로그아웃하셨습니다");
+      })
+      .catch((error) => {
+        alert("에러 발생", error);
+      });
   };
 
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <Nav isLoggedIn={isLoggedIn} onLogout={handleLogout} />      
-      <Home />    
-      <Login onLogin={handleLogin} />    
-      <Signup onLogin={handleLogin} />      
+      <Nav isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      <Home />
+      <Login onLogin={handleLogin} />
+      <Signup onLogin={handleLogin} />
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }
-
 
 export default App;
