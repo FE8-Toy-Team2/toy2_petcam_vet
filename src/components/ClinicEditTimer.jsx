@@ -52,7 +52,7 @@ const ToggleButton = styled.button`
   height: 100%;
   margin-right: 10px;
   font-family: "Pretendard";  
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   border: none;
   background-color: ${({ isActive }) => (isActive ? '#FF8484' : '#85E0A3')};  
   cursor: pointer;
@@ -65,7 +65,7 @@ const TimeBox = styled.div`
   padding: 0 10px;
   height: 100%;
   flex-grow: 1;
-  background-color: #D9D9D9;
+  background-color: var(--color-gray-3);
   display: flex;
   align-items: center;
   justify-content: center;

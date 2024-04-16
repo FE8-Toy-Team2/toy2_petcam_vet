@@ -50,18 +50,18 @@ const TodayListContainer = styled.div`
 
 const TodayListTitle = styled.div`
 font-size: 20px;
-font-weight: 700;
+font-weight: var(--font-weight-bold);
 font-family: "Pretendard";
 `
 
 const TodayListArea = styled.div`
-  background-color: #EEEEEE;  
+  background-color: var(--color-gray-2);  
   border-radius: 10px;
   margin-top: 14px;  
   padding: 20px 10px;
-  height: calc(100% - 34px);
+  height: 100%;
   box-sizing: border-box; 
-  border: 2px solid #3D3939;
+  border: 2px solid var(--color-black);
   overflow-y: auto;
   -ms-overflow-style: none;
   &::-webkit-scrollbar{
@@ -76,7 +76,7 @@ const TodayListItem = styled.a`
   cursor: pointer;
 
   &:hover {
-    background-color: #504239;
+    background-color: var(--color-brown);
     color: #E3E2DE;
   }
 `

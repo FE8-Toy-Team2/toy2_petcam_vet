@@ -105,8 +105,8 @@ const ReservationContainer = styled.div`
 
 input  {
   font-family: "Prentendard";  
-  background-color: #EEEEEE;
-  border: 1px solid #3D3939;
+  background-color: var(--color-gray-2);
+  border: 1px solid var(--color-black);
   font-size: 14px;
 }
 
@@ -118,7 +118,7 @@ input[type='datetime-local'] {
   padding: 0 5px;
   border: none;
   font-size: 15px;
-  background-color: #D9D9D9;
+  background-color: var(--color-gray-3);
 }
 
 input[type='date']{
@@ -126,7 +126,7 @@ input[type='date']{
   padding: 0 5px;
   border: none;
   font-size: 15px;
-  background-color: #D9D9D9;
+  background-color: var(--color-gray-3);
 }
 
 input[type='radio']{

@@ -88,6 +88,5 @@ const ClinicButtonArea = styled.div`
   display: flex;  
   max-width: 1440px;
   margin: auto;
-  position: relative;
-  margin-top: 40px;
+  padding-top: 80px;
 `;
