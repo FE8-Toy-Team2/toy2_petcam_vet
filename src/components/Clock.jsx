@@ -25,7 +25,7 @@ export default Clock;
 
 
 const ClockDisplay = styled.p`
-	color: var(--lightgray);
+	color: var(--color-gray-2);
 	font-size: 13px;
 	margin-top: 3px;
 	padding-right: 30px;

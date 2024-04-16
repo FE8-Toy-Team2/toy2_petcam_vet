@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components';
-import "./common.css";
 import Clock from './Clock';
 
 
@@ -33,7 +32,7 @@ export default Nav
 const Header = styled.header`
 	width: 100%;
 	height: 30px;
-	background-color: var(--darkheader);
+	background-color: var(--color-black);
 	position: fixed;	
 `
 const Buttons = styled.div`
@@ -42,7 +41,7 @@ const Buttons = styled.div`
 	align-items: center;
 `
 const SignUpButton = styled.p`
-	color: var(--darkgray);
+	color: var(--color-darkgray);
 	font-size: 13px;
 	padding-top: 3px;
 	cursor: pointer;	
@@ -56,17 +55,19 @@ const Button = styled.button`
 	width: 60px;
 	height: 20px;
 	margin: 5px 20px;
+	padding-top: 3px;
 	border-radius: 5px;
 	border: none;
-	background-color: var(--yellow);
+	background-color: var(--color-prime);
 	text-align: center;
 	font-size: 13px;
-	font-family: var(--pre-reg);
+	font-family: var(--font-weight-light);
 	cursor: pointer;
 	transition: .3s;
 
 	&:hover {
-		background-color: var(--hoveryellow);
+		background-color: var(--color-brown);
+    color: #e3e2de;
 	}
 	`	
 const Navbar = styled.div`
@@ -76,7 +77,7 @@ const Navbar = styled.div`
 	background-color: #fff;
 	position: absolute;
 	display: flex;
-	box-shadow: 1px 1px 7px var(--darkgray);		
+	box-shadow: 1px 1px 7px var(--color-darkgray);		
 
 	&::before {
 		content: "";
@@ -92,13 +93,14 @@ const TextBox = styled.div`
 	margin-left: 40px;
 `
 const Text = styled.p`
-	font-family: var(--pre-bold); 
-	color: var(--darkheader);
+	font-family: var(--font-weight-bold); 
+	color: var(--color-black);
 	margin: auto 25px;
 	font-size: 15px;
 	cursor: pointer;
+	transition: .3s;
 
 	&:hover {
-    color: var(--yellow);
+    color: var(--color-darkgray);
   }
 `

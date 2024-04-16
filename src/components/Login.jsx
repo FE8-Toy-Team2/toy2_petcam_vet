@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import "./common.css";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
 
@@ -78,7 +77,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-	background-color: var(--bgcolor);
+	background-color: var(--color-gray-2);
 `
 const Form = styled.form`
 	width: 300px;
@@ -88,7 +87,7 @@ const Form = styled.form`
 	border-radius: 10px;
 	justify-content: center;
 	align-items: center;
-	box-shadow: 1px 1px 10px var(--darkgray);	
+	box-shadow: 1px 1px 10px var(--color-darkgray);	
 `
 const Logo = styled.div`
 	vertical-align: middle;
@@ -101,10 +100,10 @@ const Input = styled.input`
 	height: 40px;
 	margin: 5px 20px;
 	border-radius: 10px;
-	border: 1px solid var(--yellow);
+	border: 1px solid var(--color-prime);
 	text-align: center;	
 	font-size: 14px;
-	font-family: var(--pre-reg);
+	font-family: var(--font-weight-bold);
 `
 const Button = styled.button`
 	width: 256px;
@@ -112,22 +111,23 @@ const Button = styled.button`
 	margin: 5px 20px;
 	border-radius: 10px;
 	border: none;
-	background-color: var(--yellow);
+	background-color: var(--color-prime);
 	text-align: center;
 	font-size: 14px;
-	font-family: var(--pre-reg);
+	font-family: var(--font-weight-bold);
 	cursor: pointer;
 	transition: .3s;
 
 	&:hover {
-		background-color: var(--hoveryellow);
+		background-color: var(--color-brown);
+    color: #e3e2de;
 	}
 `
 const Divider = styled.div`
 width: 256px;
 height: 1px;
 margin: 10px 20px;
-background-color: var(--darkgray);
+background-color: var(--color-gray-3);
 `
 const LoginGoogle = styled.button`
 	width: 256px;
@@ -135,10 +135,10 @@ const LoginGoogle = styled.button`
 	margin: 5px 20px;
 	border-radius: 10px;
 	border: none;
-	color: var(--darkgray);
-	background-color: var(--lightgray);
+	color: var(--color-darkgray);
+	background-color: var(--color-gray-1);
 	text-align: center;
-	font-family: var(--pre-reg);
+	font-family: var(--font-weight-bold);
 	cursor: pointer;
 
 	&::before {
@@ -157,9 +157,9 @@ const SignupButton = styled.button`
 	margin: 5px 20px;
 	border-radius: 10px;
 	border: none;
-	color: var(--darkgray);
-	background-color: var(--lightgray);
+	color: var(--color-darkgray);
+	background-color: var(--color-gray-1);
 	text-align: center;
-	font-family: var(--pre-reg);
+	font-family: var(--font-weight-bold);
 	cursor: pointer;
 `
