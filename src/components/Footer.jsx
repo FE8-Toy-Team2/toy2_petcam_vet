@@ -5,8 +5,9 @@ import styled from 'styled-components';
 const Footer = () => {
 	return (
 		<FooterContainer>
-			<Heading>패스트캠퍼스 부트캠프<br/>
-				토이프로젝트 2조</Heading>
+			<Heading>패스트캠퍼스 부트캠프<br/>토이프로젝트 2조
+				<Copyright>2024 All rights reserved</Copyright>					
+			</Heading>
 			<TextContainer>
 				<Text><u>김희준(조장)</u><br/>차트 리스트업<br/>네비 헤더</Text>
 				<Text><u>김송희</u><br/>등록화면</Text>
@@ -31,8 +32,15 @@ const FooterContainer = styled.footer`
 const Heading = styled.div`
 	font-family: var(--font-weight-bold);
 	font-size: 13px;
-	color: var(--color-darkgray);
+	letter-spacing: .3px;
+	color: var(--color-gray-3);
 	line-height: 17px;
+`
+const Copyright = styled.div`
+  font-family: var(--font-weight-light);
+  font-size: 10px;
+  color: var(--color-darkgray);
+  letter-spacing: .7px;
 `
 const TextContainer = styled.div`
   display: flex;
@@ -44,5 +52,6 @@ const Text = styled.p`
   margin: 0 15px;
   font-size: 12px;
 	line-height: 17px;
+	letter-spacing: .4px;
 
 `
