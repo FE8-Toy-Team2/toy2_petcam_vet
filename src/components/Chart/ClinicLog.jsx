@@ -59,19 +59,9 @@ const ClinicLog = () => {
         <ClinicEdit chartDatas={chartDatas} updateChartData={updateChartData} />
         <ClinicText chartDatas={chartDatas} updateChartData={updateChartData} />
       </ClinicContainer>
-      {/* <ClinicButtonArea>
-        <NormalButton
-          className='cancel'
-          btnColor="#E3E2DE"
-          style={{ marginRight: 10 }}
-        >취소
-        </NormalButton>
-        <NormalButton
-          className='reset'
-          btnColor="#E3E2DE"
-        >리셋
-        </NormalButton>
-      </ClinicButtonArea> */}
+      <ClinicButtonArea>
+
+      </ClinicButtonArea>
     </>
   );
 };
@@ -86,9 +76,11 @@ const ClinicContainer = styled.div`
 `;
 
 const ClinicButtonArea = styled.div`
-  display: flex;  
+  display: flex;
   max-width: 1440px;
-  margin: auto;
-  background-color: aqua;
+  /* margin: auto; */
+  height: 150px;
+  background-color: transparent;
+  z-index: -10;
   /* padding-top: 80px; */
 `;

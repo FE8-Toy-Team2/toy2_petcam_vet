@@ -42,7 +42,6 @@ const EditContainer = styled.div`
   flex-grow: 1;
   margin-right: 30px;
   flex-basis: 0;
-  overflow: hidden;
 
   @media (max-width: 900px) {
     min-width: 300px;
