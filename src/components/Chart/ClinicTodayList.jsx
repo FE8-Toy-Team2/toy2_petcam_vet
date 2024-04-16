@@ -1,7 +1,7 @@
-// import { useState } from 'react';
 import styled from 'styled-components'
 import dayjs from 'dayjs'
-import React from 'react'
+// import React from 'react'
+import PropTypes from 'prop-types';
 
 const ClinicTodayList = ({ chartDatas, setSelectedChart }) => {
 
@@ -27,6 +27,12 @@ const ClinicTodayList = ({ chartDatas, setSelectedChart }) => {
       </TodayListArea>
     </TodayListContainer>
   );
+};
+
+ClinicTodayList.propTypes = {
+  selectedChart: PropTypes.any.isRequired,
+  chartDatas: PropTypes.any.isRequired,
+  setSelectedChart: PropTypes.func.isRequired,
 };
 
 export default ClinicTodayList

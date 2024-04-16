@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
-import firebase from 'firebase/compat/app'
+import PropTypes from 'prop-types';
+
 
 const ClinicEditReservation = ({ selectedChart, setSelectedChart }) => {
-  // const [admitToHospital, setAdmitToHospital] = useState(false)
-  // const [calendarButton, setCalendarButton] = useState(false)
   const [data, setData] = useState(selectedChart)
 
   useEffect(() => {
@@ -13,17 +12,11 @@ const ClinicEditReservation = ({ selectedChart, setSelectedChart }) => {
     console.log("???", selectedChart)
   }, [selectedChart])
 
-
-
   const handleInputChanged = (e, isChecked = false) => {
     const temp = { ...data, [e.target.name]: e.target.checked ? isChecked : e.target.value }
     setData(temp)
     setSelectedChart(temp);
   };
-
-
-
-
 
   return (
     <ReservationContainer>
@@ -36,9 +29,7 @@ const ClinicEditReservation = ({ selectedChart, setSelectedChart }) => {
             value={dayjs(data.reservation_next).format('YYYY-MM-DDTHH:mm')}
             onChange={handleInputChanged}
           />
-
         </li>
-
       </ul>
       <ul>
         <li style={{ width: '110px', fontWeight: '700' }}>입원 수속</li>
@@ -86,8 +77,10 @@ const ClinicEditReservation = ({ selectedChart, setSelectedChart }) => {
   )
 }
 
-
-
+ClinicEditReservation.propTypes = {
+  selectedChart: PropTypes.any.isRequired,
+  setSelectedChart: PropTypes.func.isRequired,
+};
 
 export default ClinicEditReservation
 

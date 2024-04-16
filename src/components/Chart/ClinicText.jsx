@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const ClinicText = ({ selectedChart, setSelectedChart }) => {
   const [data, setData] = useState(selectedChart);
@@ -21,6 +22,11 @@ const ClinicText = ({ selectedChart, setSelectedChart }) => {
       />
     </TextContainer>
   );
+};
+
+ClinicText.propTypes = {
+  selectedChart: PropTypes.any.isRequired,
+  setSelectedChart: PropTypes.func.isRequired,
 };
 
 export default ClinicText;

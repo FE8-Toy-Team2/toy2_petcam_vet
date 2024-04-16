@@ -5,8 +5,7 @@ import ClinicText from '../components/Chart/ClinicText';
 import ClinicEdit from '../components/Chart/ClinicEdit';
 import { NormalButton } from '../components/Buttons';
 import { dataBase } from '../firebase';
-import { collection, getDocs, updateDoc, doc, Timestamp } from 'firebase/firestore';
-import dayjs from 'dayjs'
+import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 
 const ClinicLog = () => {
   const [chartDatas, setChartDatas] = useState([]);

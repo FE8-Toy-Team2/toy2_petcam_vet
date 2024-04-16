@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
 
 const ClinicEditPhotoAndChart = ({ selectedChart, setSelectedChart }) => {
   const [timerMap, setTimerMap] = useState({});
@@ -18,18 +20,6 @@ const ClinicEditPhotoAndChart = ({ selectedChart, setSelectedChart }) => {
 
     setSelectedChart(temp);
     setData(temp)
-    // const timer = setTimeout(() => {
-    //   setSelectedChart(newData);
-    //   setShowSavedMessage(true);
-    //   setTimeout(() => {
-    //     setShowSavedMessage(false);
-    //   }, 1500); // 1.5초 후에 메시지 사라짐
-    // }, 500);
-
-    // setTimerMap(prevTimerMap => ({
-    //   ...prevTimerMap,
-    //   [id]: timer,
-    // }));
   };
 
   useEffect(() => {
@@ -142,6 +132,12 @@ const ClinicEditPhotoAndChart = ({ selectedChart, setSelectedChart }) => {
     </PhotoAndChartContainer>
   );
 };
+
+ClinicEditPhotoAndChart.propTypes = {
+  selectedChart: PropTypes.any.isRequired,
+  setSelectedChart: PropTypes.func.isRequired,
+};
+
 
 export default ClinicEditPhotoAndChart;
 

@@ -3,6 +3,7 @@ import ClinicEditTimer from './ClinicEditTimer'
 import ClinicEditPhotoAndChart from './ClinicEditPhotoAndChart'
 import ClinicEditReservation from './ClinicEditReservation'
 import { useEffect } from 'react'
+import PropTypes from 'prop-types';
 
 
 
@@ -31,6 +32,11 @@ const ClinicEdit = ({ selectedChart, setSelectedChart }) => {
     </EditContainer>
   )
 }
+
+ClinicEdit.propTypes = {
+  selectedChart: PropTypes.any.isRequired,
+  setSelectedChart: PropTypes.func.isRequired,
+};
 
 export default ClinicEdit
 
