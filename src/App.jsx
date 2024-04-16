@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-<<<<<<< HEAD
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Nav from "./components/Nav"
@@ -9,10 +8,7 @@ import Footer from "./components/Footer"
 import app from "./firebase"
 import { getAuth, signOut } from 'firebase/auth';
 import Home from "./components/Home"
-
-=======
 import "./font/font.css";
->>>>>>> dev
 
 const GlobalStyle = createGlobalStyle`
   ${reset}

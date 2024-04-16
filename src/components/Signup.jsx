@@ -128,10 +128,10 @@ const Input = styled.input`
 	font-family: var(--pre-reg);
 `
 const InputText = styled.p`
-	font-size: 8px;
+	font-size: 9px;
 	font-family: var(--pre-reg);
 	color: var(--darkgray);
-	margin: 5px 32px;
+	margin: 5px 20px;
 `
 const Button = styled.button`
 	width: 256px;
