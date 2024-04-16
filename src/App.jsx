@@ -67,7 +67,9 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <Layout></Layout>
+      <Routes>
+        <Route path="/" element={<Layout />} />
+      </Routes>
     </BrowserRouter>
   );
 }

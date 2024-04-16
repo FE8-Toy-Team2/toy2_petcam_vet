@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ClinicTodayList from "./ClinicTodayList";
 import ClinicText from "./ClinicText";
 import ClinicEdit from "./ClinicEdit";
-import { NormalButton } from "";
+import { NormalButton } from "../Buttons";
 import { dataBase } from "../../firebase";
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 
