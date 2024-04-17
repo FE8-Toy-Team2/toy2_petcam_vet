@@ -71,7 +71,8 @@ const TodayListArea = styled.div`
 const TodayListItem = styled.a`
   display: block;
   font-size: 15px;
-  padding: 10px 5px;
+  padding: 5px 5px;
+  margin-bottom: 3px;
   font-family: "Pretendard";
   cursor: pointer;
 

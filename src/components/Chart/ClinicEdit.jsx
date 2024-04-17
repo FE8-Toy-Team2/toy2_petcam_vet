@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 
 
+
 const ClinicEdit = ({ selectedChart, setSelectedChart }) => {
 
   useEffect(() => {
@@ -71,8 +72,8 @@ const EditArea = styled.div`
   }
 
   p{
-    margin-bottom: 10px;
-    font-size: 18px;
+    margin-bottom: 20px;
+    font-size: var(--font-size-XL);
     font-weight: var(--font-weight-bold);
   }
   `

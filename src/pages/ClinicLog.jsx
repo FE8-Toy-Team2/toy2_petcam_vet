@@ -6,6 +6,7 @@ import ClinicEdit from '../components/Chart/ClinicEdit';
 import { NormalButton } from '../components/Buttons';
 import { dataBase } from '../firebase';
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
+import Swal from 'sweetalert2';
 
 const ClinicLog = () => {
   const [chartDatas, setChartDatas] = useState([]);
@@ -48,16 +49,32 @@ const ClinicLog = () => {
     }
   };
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'center-center',
+    showConfirmButton: false,
+    timer: 1500,
+    // timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
 
   const updateChartData = async (newChartData) => {
-    // const temp = { ...newChartData, reservation_next: Timestamp.fromDate(new Date(newChartData.reservation_next)) }
     const chartDataDoc = doc(dataBase, 'chartDatas', newChartData.id);
     try {
-      alert("정보가 성공적으로 수정되었습니다.")
+      // alert("정보가 성공적으로 수정되었습니다.")
+      Toast.fire({
+        icon: "success",
+        alignContent: "center",
+        title: "보아라! 정보가 성공적으로 수정되었도다!",
+        timer: 1500
+      });
       await updateDoc(chartDataDoc, newChartData);
       console.log('업데이트를 성공했으니 너의 결과물을 다시 보아라.');
     } catch (error) {
-      console.error('문제가 있군? 다시 보아라.', error);
+      console.error('무슨 문제라도 있는 모양이군? 다시 보고 와라.', error);
     }
   };
 
@@ -85,7 +102,7 @@ const ClinicLog = () => {
         <ClinicText selectedChart={selectedChart} setSelectedChart={setSelectedChart} />
       </ClinicContainer>
       <ClinicButtonArea>
-        <NormalButton
+        {/* <NormalButton
           className='cancel'
           btnColor="#E3E2DE"
           style={{ marginRight: 10 }}
@@ -95,7 +112,7 @@ const ClinicLog = () => {
           className='reset'
           btnColor="#E3E2DE"
         >리셋
-        </NormalButton>
+        </NormalButton> */}
         <NormalButton
           className='submit'
           type='submit'
@@ -123,4 +140,7 @@ const ClinicButtonArea = styled.div`
   display: flex;  
   max-width: 1440px;
   margin: auto;
+  position: relative;
 `;
+
+
