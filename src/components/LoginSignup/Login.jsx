@@ -16,12 +16,12 @@ const Login = ({ onLogin }) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      alert(`${email}님이 로그인하셨습니다`)			
+      alert(`${email}님이 로그인하셨습니다`)						
 			onLogin()
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(`등록되지 않은 사용자입니다`)		
+      alert(`등록되지 않은 사용자입니다`)	
     }
 		setEmail('')
 		setPassword('')		
@@ -35,7 +35,7 @@ const Login = ({ onLogin }) => {
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
-      alert(`${email}님이 로그인하셨습니다`)
+      alert(`${user.email}님이 로그인하셨습니다`)
 			onLogin()
     } catch (error) {
       const errorCode = error.code;
@@ -73,7 +73,7 @@ export default Login;
 
 const Container = styled.div`
 	width: 100%;
-  height: 100vh;
+  height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,8 +81,7 @@ const Container = styled.div`
 `
 const Form = styled.form`
 	width: 300px;
-	height: 415px;	
-	margin-top: 20px;
+	height: 415px;
 	background-color: #fff;
 	border-radius: 10px;
 	justify-content: center;

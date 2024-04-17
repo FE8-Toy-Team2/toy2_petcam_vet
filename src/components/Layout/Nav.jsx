@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const Nav = ({ isLoggedIn, onLogout }) => {
   
   return (
+    <>
     <Header>
       <Buttons>
         <Clock />
@@ -28,6 +29,8 @@ const Nav = ({ isLoggedIn, onLogout }) => {
         </TextBox>
       </Navbar>
     </Header>
+    <HeaderBlock></HeaderBlock>
+    </>
   );
 };
 
@@ -83,6 +86,7 @@ const Navbar = styled.div`
   position: absolute;
   display: flex;
   box-shadow: 1px 1px 7px var(--color-darkgray);
+  opacity: .9;
 
   &::before {
     content: "";
@@ -109,3 +113,8 @@ const Text = styled.p`
     color: var(--color-darkgray);
   }
 `;
+const HeaderBlock = styled.div`
+  width: 100%;
+  height: 90px;
+  background-color: var(--color-gray-2);
+`

@@ -95,7 +95,7 @@ export default Signup
 
 const Container = styled.div`
 	width: 100%;
-  height: 100vh;
+  height: 80vh;
   display: flex;  
 	justify-content: center;
   align-items: center;
@@ -106,7 +106,6 @@ const Form = styled.form`
 	height: 488px;	
 	background-color: #fff;
 	border-radius: 10px;
-	margin: 90px;
 	justify-content: center;
 	align-items: center;
 	box-shadow: 1px 1px 10px var(--color-darkgray);	
