@@ -17,9 +17,9 @@ const Nav = ({ isLoggedIn, onLogout }) => {
       </Buttons>
       <Navbar>
         <TextBox>
-          <Text>입원/퇴원 관리</Text>
+          <Text><Link to="/chartlist">입원/퇴원 관리</Link></Text>
           <Text>동물등록</Text>
-          <Text>공지사항</Text>
+          <Text><Link to="/announce">공지사항</Link></Text>
         </TextBox>
       </Navbar>
     </Header>
