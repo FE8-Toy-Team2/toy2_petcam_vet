@@ -82,7 +82,7 @@ const Signup = ({ onLogin }) => {
         />			
 				<Button type="submit">회원가입</Button>
 				<Divider></Divider>
-				<LoginGoogle onClick={handleGoogleLogin} type="submit">Google 계정으로 로그인</LoginGoogle>
+				<LoginGoogle onClick={handleGoogleLogin} type="submit">Google 계정으로 로그인</LoginGoogle>				
 				<SignupButton type="submit"><Link to="/login">로그인</Link></SignupButton>
 			</Form>
     </Container>
