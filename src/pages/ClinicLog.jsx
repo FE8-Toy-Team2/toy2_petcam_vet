@@ -54,7 +54,6 @@ const ClinicLog = () => {
     position: 'center-center',
     showConfirmButton: false,
     timer: 1500,
-    // timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener('mouseenter', Swal.stopTimer)
       toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -64,11 +63,10 @@ const ClinicLog = () => {
   const updateChartData = async (newChartData) => {
     const chartDataDoc = doc(dataBase, 'chartDatas', newChartData.id);
     try {
-      // alert("정보가 성공적으로 수정되었습니다.")
       Toast.fire({
         icon: "success",
         alignContent: "center",
-        title: "보아라! 정보가 성공적으로 수정되었도다!",
+        title: "보아라! 정보가 성공적으로 수정되었다!",
         timer: 1500
       });
       await updateDoc(chartDataDoc, newChartData);
@@ -79,12 +77,11 @@ const ClinicLog = () => {
   };
 
   const handleSaveButtonClick = () => {
-    updateChartData(selectedChart)
-    // Object.entries(editedTextMap).forEach(([id, newText]) => {
-    //   updateChartData(id, { clinic_text: newText });
-    // });
-    // setEditedTextMap({});
+    const currentTimeStamp = new Date().toLocaleString();
+    const updatedChartData = { ...selectedChart, clinic_text: selectedChart.clinic_text + '\n' + '----- ' + currentTimeStamp + ' -----' + '\n' };
+    updateChartData(updatedChartData);
   };
+
 
   useEffect(() => {
     getChartDatas();
@@ -130,10 +127,22 @@ export default ClinicLog;
 
 const ClinicContainer = styled.div`
   display: flex;
-  max-width: 1440px;  
-  max-height: 80vh;
+  max-width: 1440px;
   margin: auto;
-  margin-bottom: 76px;
+  margin-bottom: 60px;
+  padding-top: 20px;
+
+  @media (max-width: 768px){
+    padding: 15px;
+    display: block;
+    position: relative;
+  }
+
+  @media (max-width: 576px){
+    padding: 15px;
+    display: block;
+    position: relative;
+  }
 `;
 
 const ClinicButtonArea = styled.div`
@@ -141,6 +150,13 @@ const ClinicButtonArea = styled.div`
   max-width: 1440px;
   margin: auto;
   position: relative;
+
+  @media (max-width: 768px){
+   margin-right: 15px;
+  }
+  @media (max-width: 576px){
+   margin-right: 15px;
+  }
 `;
 
 

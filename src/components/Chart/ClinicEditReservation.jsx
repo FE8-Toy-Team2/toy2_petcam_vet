@@ -22,14 +22,14 @@ const ClinicEditReservation = ({ selectedChart, setSelectedChart }) => {
     <ReservationContainer>
       <ul>
         <li style={{ width: '110px', fontWeight: '700' }}>다음 진료 예약</li>
-        <li>
+        <label>
           <input
             type='datetime-local'
             name='reservation_next'
             value={dayjs(data.reservation_next).format('YYYY-MM-DDTHH:mm')}
             onChange={handleInputChanged}
           />
-        </li>
+        </label>
       </ul>
       <ul>
         <li style={{ width: '110px', fontWeight: '700' }}>입원 수속</li>
@@ -52,25 +52,25 @@ const ClinicEditReservation = ({ selectedChart, setSelectedChart }) => {
       </ul>
       {data.admit_to_hospital && (
         <ul>
-          <li style={{ width: '110px', fontWeight: '700' }}>입원 기간</li>
-          <label>
-            입원:
-            <input type="date"
-              name="admit_to_hospital_in"
-              value={data.admit_to_hospital_in}
-              onChange={handleInputChanged}
-
-            />&nbsp;/&nbsp;
-          </label>
-          <label>
-            퇴원:
-            <input type="date"
-              name="admit_to_hospital_out"
-              value={data.admit_to_hospital_out}
-              onChange={handleInputChanged}
-
-            />
-          </label>
+          <li className='admit_to_hospital_title' style={{ width: '110px', fontWeight: '700' }}>입원 기간</li>
+          <li className='admit_to_hospital'>
+            <label>
+              입원:
+              <input type="date"
+                name="admit_to_hospital_in"
+                value={data.admit_to_hospital_in}
+                onChange={handleInputChanged}
+              /><span>&nbsp;/&nbsp;</span>
+            </label><br />
+            <label>
+              퇴원:
+              <input type="date"
+                name="admit_to_hospital_out"
+                value={data.admit_to_hospital_out}
+                onChange={handleInputChanged}
+              />
+            </label>
+          </li>
         </ul>
       )}
     </ReservationContainer>
@@ -90,7 +90,7 @@ input  {
   font-family: "Prentendard";  
   background-color: var(--color-gray-2);
   border: 1px solid var(--color-black);
-  font-size: 14px;
+  font-size: 14px;  
 }
 
 input:focus{
@@ -113,8 +113,7 @@ input[type='date']{
 }
 
 input[type='radio']{
-  margin-right: 15px;
-  
+  margin-right: 15px;  
 }
 
 ul{
@@ -127,5 +126,36 @@ li {
   height: 25px;  
   display: flex;
   align-items: center;
+}
+
+
+@media (max-width: 992px){  
+  .admit_to_hospital{
+    display: block;
+  }
+  span {
+    visibility: hidden;
+  }
+}
+@media (max-width: 768px){  
+  .admit_to_hospital{
+    display: flex;
+  }
+  span {
+    visibility: visible;
+  }
+}
+@media (max-width: 576px){
+  ul{
+    display: flex;
+    position: relative
+  }
+  ul .admit_to_hospital{
+    display: block;
+    padding-bottom: 10px;
+  }
+  span{
+    display: none;
+  }
 }
   `

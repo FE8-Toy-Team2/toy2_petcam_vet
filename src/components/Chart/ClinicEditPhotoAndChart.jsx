@@ -7,7 +7,7 @@ const ClinicEditPhotoAndChart = ({ selectedChart, setSelectedChart }) => {
   const [timerMap, setTimerMap] = useState({});
   const [showSavedMessage, setShowSavedMessage] = useState(false);
   const [data, setData] = useState(selectedChart)
-  //이런 경우에는 전부 개별적으로 useState를 관리해야 렌더링이 될텐데,,
+
   const handleChange = (e, isChecked = undefined) => {
     // if (timerMap[id]) {
     //   clearTimeout(timerMap[id]);
@@ -30,6 +30,7 @@ const ClinicEditPhotoAndChart = ({ selectedChart, setSelectedChart }) => {
 
 
   useEffect(() => { setData(selectedChart) }, [selectedChart])
+
   return (
     <PhotoAndChartContainer>
       {showSavedMessage && <SavedMessage>저장 완료!</SavedMessage>}
@@ -145,6 +146,13 @@ const PhotoAndChartContainer = styled.div`
   position: relative;
   display: flex;
   margin-bottom: 30px;
+
+  @media (max-width: 992px){
+    display: block;
+  }
+  @media (max-width: 768px){
+    display: flex;
+  }
 `;
 
 const SavedMessage = styled.span`
@@ -166,14 +174,33 @@ const PhotoBox = styled.div`
   margin-right: 20px;
   border-radius: 10px;
   overflow: hidden;
+  flex-basis: 0;
+  flex-grow: 0.54;
 
   img {
     height: 100%;
+
+    @media (max-width: 992px){
+      border-radius: 10px;      
+    }
+    @media (max-width: 768px){
+      border-radius: 10px;
+    }
+  }
+
+  @media (max-width: 992px){
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: transparent;
+  }
+  @media (max-width: 576px){
+    display: none;
   }
 `;
 
 const ChartDetails = styled.ul`
-  width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
 
   li {
     display: flex;

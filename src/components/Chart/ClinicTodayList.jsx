@@ -12,12 +12,12 @@ const ClinicTodayList = ({ chartDatas, setSelectedChart }) => {
         {chartDatas.map(item => {
           const timestamp = item.clinic_today
           const isToday = timestamp.split("T")[0] === dayjs().format("YYYY-MM-DDTHH:mm").split("T")[0]
-          const timeString = dayjs().format("HH:mm 예약")// `${hours}:${minutes < 10 ? '0' : ''}${minutes} 예약`;
+          const timeString = dayjs().format("HH:mm")// `${hours}:${minutes < 10 ? '0' : ''}${minutes} 예약`;
 
           if (isToday) {
             return (
               <TodayListItem key={item.id} onClick={() => setSelectedChart(item)}>
-                <span>{item.name}</span>({item.guardian}&nbsp;/&nbsp;{timeString})
+                <span>{item.name}</span>({item.guardian}<span>&nbsp;/&nbsp;</span>{timeString})
               </TodayListItem>
             );
           } else {
@@ -42,9 +42,15 @@ const TodayListContainer = styled.div`
   margin-right: 20px;
   flex-basis: 0;
   
-  @media (max-width: 900px) {
+  @media (max-width: 992px) {
     min-width: 150px;
     margin-right: 5px;
+  }
+  @media (max-width: 768px){
+    margin-bottom: 20px;    
+  }
+  @media (max-width: 576px){
+    margin-bottom: 20px;    
   }
 `
 
@@ -67,14 +73,26 @@ const TodayListArea = styled.div`
   &::-webkit-scrollbar{
     display: none;
   }
+  @media (max-width: 768px){
+   min-height: 200px;
+   display: flex;
+   flex-wrap: wrap;
+   padding: 7px;
+  }
+  @media (max-width: 576px){
+   padding: 5px;
+  }
 `
 const TodayListItem = styled.a`
   display: block;
   font-size: 15px;
   padding: 5px 5px;
   margin-bottom: 3px;
-  font-family: "Pretendard";
+  font-family: "Pretendard";  
   cursor: pointer;
+  word-break: keep-all;
+  background-color: var(--color-gray-3);
+  
 
   &:hover {
     background-color: var(--color-brown);
@@ -82,6 +100,14 @@ const TodayListItem = styled.a`
   }
 
   span {
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);    
+  }
+
+  @media (max-width: 768px){
+    height: fit-content;
+    flex-basis: 0;
+    flex-grow: 1;
+    text-align: center;
+    margin: 5px;
   }
 `

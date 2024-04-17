@@ -12,6 +12,7 @@ const ClinicText = ({ selectedChart, setSelectedChart }) => {
   };
 
   useEffect(() => { setData(selectedChart) }, [selectedChart])
+
   return (
     <TextContainer>
       <TextTitle>진료 내용</TextTitle>
@@ -37,8 +38,14 @@ const TextContainer = styled.div`
   flex-basis: 0;
   position: relative;
 
-  @media (max-width: 900px) {
+  @media (max-width: 992px) {
     min-width: 300px;
+  }
+  @media (max-width: 768px){
+    height: 500px;
+  }
+  @media (max-width: 576px){
+    height: 300px;
   }
 `;
 

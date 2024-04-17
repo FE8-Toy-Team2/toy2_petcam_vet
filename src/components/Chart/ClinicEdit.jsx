@@ -5,13 +5,10 @@ import ClinicEditReservation from './ClinicEditReservation'
 import { useEffect } from 'react'
 import PropTypes from 'prop-types';
 
-
-
-
 const ClinicEdit = ({ selectedChart, setSelectedChart }) => {
 
   useEffect(() => {
-    console.log("please!!!!!!!!!!!!!!!", selectedChart)
+    console.log("웩! 너무 힘듭니다", selectedChart)
   }, [selectedChart])
 
   return (
@@ -43,12 +40,18 @@ export default ClinicEdit
 
 const EditContainer = styled.div`  
   flex-grow: 1;
-  margin-right: 20px;
   flex-basis: 0;
+  margin-right: 20px;
 
-  @media (max-width: 900px) {
+  @media (max-width: 992px) {
     min-width: 300px;
     margin-right: 5px;
+  }
+  @media (max-width: 768px){
+    margin-bottom: 20px;
+  }
+  @media (max-width: 576px){
+    margin-bottom: 20px;
   }
 `
 
@@ -56,7 +59,6 @@ const EditTitle = styled.div`
   font-size: 20px;
   font-weight: var(--font-weight-bold);  
 `
-
 const EditArea = styled.div`
   background-color: var(--color-gray-2);
   border-radius: 10px;
@@ -75,5 +77,9 @@ const EditArea = styled.div`
     margin-bottom: 20px;
     font-size: var(--font-size-XL);
     font-weight: var(--font-weight-bold);
+  }
+
+  @media (max-width: 576px){
+   padding: 10px;
   }
   `

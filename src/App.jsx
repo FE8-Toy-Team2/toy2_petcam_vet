@@ -28,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     font-family: "Pretendard";
+    background-color: var(--color-gray-1);
   }
   a{
     text-decoration: none;
