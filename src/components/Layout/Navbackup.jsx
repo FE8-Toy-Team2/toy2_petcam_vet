@@ -4,7 +4,6 @@ import Clock from "./Clock";
 import { Link } from 'react-router-dom';
 
 const Nav = ({ isLoggedIn, onLogout }) => {
-  
   return (
     <Header>
       <Buttons>

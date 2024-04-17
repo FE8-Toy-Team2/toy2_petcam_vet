@@ -45,24 +45,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    const auth = getAuth();
-
-    signOut(auth)
-      .then(() => {
-        setIsLoggedIn(false);
-        alert("로그아웃하셨습니다");
-      })
-      .catch((error) => {
-        alert("에러 발생", error);
-      });
-  };
+  
 
   return (
     <BrowserRouter>

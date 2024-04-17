@@ -484,7 +484,26 @@ const Login = ({ onLogin, isLoggedIn }) => {
     );
   };
 
+// 로그인 로그아웃 상태 관리
 
+const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+const handleLogin = () => {
+  setIsLoggedIn(true);
+};
+
+const handleLogout = () => {
+  const auth = getAuth();
+
+  signOut(auth)
+    .then(() => {
+      setIsLoggedIn(false);
+      alert("로그아웃하셨습니다");
+    })
+    .catch((error) => {
+      alert("에러 발생", error);
+    });
+};
 
 // heeyongi@abc.com
 // Abcd1234*

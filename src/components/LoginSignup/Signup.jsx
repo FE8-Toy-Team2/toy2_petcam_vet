@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { Link } from 'react-router-dom';
 
 
 const Signup = ({ onLogin }) => {
@@ -82,7 +83,7 @@ const Signup = ({ onLogin }) => {
 				<Button type="submit">회원가입</Button>
 				<Divider></Divider>
 				<LoginGoogle onClick={handleGoogleLogin} type="submit">Google 계정으로 로그인</LoginGoogle>
-				<SignupButton type="submit">로그인</SignupButton>
+				<SignupButton type="submit"><Link to="/login">로그인</Link></SignupButton>
 			</Form>
     </Container>
 	)
