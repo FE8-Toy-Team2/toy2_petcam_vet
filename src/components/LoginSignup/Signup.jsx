@@ -35,7 +35,11 @@ const Signup = ({ onLogin, isLoggedIn }) => {
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(`다시 입력해주세요`)
+			if (errorCode === 'auth/email-already-in-use') {
+				alert('이미 등록된 이메일 주소입니다.');
+			} else {
+				alert('다시 입력해주세요');
+			}
     }
 		setEmail('')
 		setPassword('')	
