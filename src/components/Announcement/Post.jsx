@@ -13,7 +13,9 @@ const Post = () => {
   return (
     <>
       <h2>{announcement.title}</h2>
-      <div dangerouslySetInnerHTML={{__html: content}}></div>
+      {typeof content === "string"
+        ? <div dangerouslySetInnerHTML={{__html: content}}></div>
+        : ""}
     </>
   );
 };

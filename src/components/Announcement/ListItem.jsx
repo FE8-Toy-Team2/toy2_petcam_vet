@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -40,16 +41,18 @@ const ListRowStyle = styled.ul`
   }
 `;
 
-const ListItem = ({ date, title, author }) => {
+const ListItem = ({ date, title, author, id }) => {
+  const navigate = useNavigate();
+
   return (
     <ListRowStyle>
         <li>
           {date}
         </li>
         <li>
-          <a href="#">
+          <button onClick={() => { navigate(`/announcement/${id}`)} }>
             {title}
-          </a>
+          </button>
         </li>
         <li>
           {author}
@@ -61,7 +64,8 @@ const ListItem = ({ date, title, author }) => {
 ListItem.propTypes = {
   date: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired
+  author: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired
 }
 
 export default ListItem;
