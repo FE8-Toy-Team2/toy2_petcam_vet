@@ -35,7 +35,7 @@ function Layout() {
       <Routes>
         <Route path="/" element={<div>hello</div>} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/signup" element={<Signup onLogin={handleLogin} />} />     
+        <Route path="/signup" element={<Signup onLogin={handleLogin} isLoggedIn={isLoggedIn} />} />     
         <Route path="/announce" element={<Content />} />     
         <Route path="/chartlist" element={<ChartList />} />     
       </Routes>

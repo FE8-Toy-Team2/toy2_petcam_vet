@@ -4,7 +4,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthPro
 import { Link } from 'react-router-dom';
 
 
-const Signup = ({ onLogin }) => {
+const Signup = ({ onLogin, isLoggedIn }) => {
 
 	const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -52,8 +52,7 @@ const Signup = ({ onLogin }) => {
 			onLogin()
     } catch (error) {
       const errorCode = error.code;
-      const errorMessage = error.message;
-      // alert(`등록되지 않은 사용자입니다`)
+      const errorMessage = error.message;      
     }
   };
 
@@ -82,8 +81,11 @@ const Signup = ({ onLogin }) => {
         />			
 				<Button type="submit">회원가입</Button>
 				<Divider></Divider>
-				<LoginGoogle onClick={handleGoogleLogin} type="submit">Google 계정으로 로그인</LoginGoogle>				
-				<SignupButton type="submit"><Link to="/login">로그인</Link></SignupButton>
+				<LoginGoogle onClick={handleGoogleLogin} type="submit" 
+					style={{ marginBottom: isLoggedIn ? '20px' : '5px' }}>Google 계정으로 로그인</LoginGoogle>				
+				{!isLoggedIn && 
+				<SignupButton type="submit"><Link to="/login">로그인</Link></SignupButton>					
+				}
 			</Form>
     </Container>
 	)
@@ -102,8 +104,7 @@ const Container = styled.div`
 	background-color: var(--color-gray-2);
 `
 const Form = styled.form`
-	width: 300px;
-	height: 488px;	
+	width: 300px;	
 	background-color: #fff;
 	border-radius: 10px;
 	justify-content: center;
@@ -182,6 +183,7 @@ const SignupButton = styled.button`
 	width: 256px;
 	height: 44px;
 	margin: 5px 20px;
+	margin-bottom: 17px;
 	border-radius: 10px;
 	border: none;
 	color: var(--color-darkgray);
