@@ -3,7 +3,6 @@ import { createGlobalStyle } from "styled-components";
 import "./font/font.css";
 import ResisterForm from "./components/ResisterForm";
 
-
 const GlobalStyle = createGlobalStyle`
   ${reset}
   :root{
