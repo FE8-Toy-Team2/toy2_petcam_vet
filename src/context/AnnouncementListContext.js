@@ -1,4 +1,8 @@
 import { createContext } from "react";
-import { ANNOUNCEMENT_LIST } from "../constants";
+import { collection, getDocs } from "firebase/firestore";
+import { dataBase } from "../firebase";
 
-export const AnnouncementListContext = createContext(ANNOUNCEMENT_LIST);
+const querySnapshot = await getDocs(collection(dataBase, "announcement"));
+const newAnnouncementListContext = querySnapshot.docs.map(doc => doc.data()).sort((a, b) => Number(b.date) - Number(a.date));
+console.log(newAnnouncementListContext);
+export const AnnouncementListContext = createContext(newAnnouncementListContext);

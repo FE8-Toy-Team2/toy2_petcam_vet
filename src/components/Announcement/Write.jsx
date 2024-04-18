@@ -10,7 +10,7 @@ const WriteTitle = styled.h2`
 
 const Write = () => {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState({});
 
   return (
     <>

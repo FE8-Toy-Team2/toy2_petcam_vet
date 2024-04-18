@@ -43,7 +43,8 @@ const WriteButton = ({ title, content }) => {
         // });
         await addDoc(collection(dataBase, "announcement"), {
           title: title,
-          content: content
+          content: content,
+          date: new Date().valueOf().toString()
         });
       }
     });

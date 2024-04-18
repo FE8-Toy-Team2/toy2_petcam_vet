@@ -40,6 +40,7 @@ const WriteEditorForm = styled.form`
     padding: 1rem;
     border: 1px solid var(--color-black);
     border-radius: 10px;
+    overflow: scroll;
   }
 `;
 

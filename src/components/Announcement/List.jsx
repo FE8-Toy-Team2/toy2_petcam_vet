@@ -54,12 +54,12 @@ const List = ({ announcements, page }) => {
         </ListHeaderList>
       </ListHeader>
       <ListItemsWrapper>
-        {currentList.map((announcement, index) => 
-          <li key={announcement.title + new Date().toString() + index}>
+        {currentList.map((announcement) => 
+          <li key={announcement.date}>
             <ListItem
               date={announcement.date}
               title={announcement.title}
-              author={announcement.author}
+              author="작성자"
             />
           </li>
         )}
