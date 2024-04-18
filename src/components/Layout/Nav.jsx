@@ -105,12 +105,22 @@ const Text = styled.p`
   font-family: var(--font-weight-bold);
   color: var(--color-black);
   margin: auto 25px;
+  border-bottom: 10px solid var(--color-prime)
   font-size: 15px;
   cursor: pointer;
   transition: 0.3s;
+  position: relative;
 
   &:hover {
-    color: var(--color-darkgray);
+    &::after {
+    content: "";
+    position: absolute;
+    left: 0; 
+    bottom: -7px; 
+    width: 100%; 
+    height: 3px;
+    background-color: var(--color-prime);
+    }
   }
 `;
 const HeaderBlock = styled.div`
