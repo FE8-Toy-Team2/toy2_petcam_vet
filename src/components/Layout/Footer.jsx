@@ -53,6 +53,7 @@ const FooterContainer = styled.footer`
   background-color: var(--color-black);
   display: flex;
   padding: 20px 30px;
+  box-sizing: border-box;
 `;
 const Heading = styled.div`
   font-family: var(--font-weight-bold);
@@ -60,6 +61,7 @@ const Heading = styled.div`
   letter-spacing: 0.3px;
   color: var(--color-gray-3);
   line-height: 17px;
+  box-sizing: border-box;
 `;
 const Copyright = styled.div`
   font-family: var(--font-weight-light);
@@ -70,6 +72,7 @@ const Copyright = styled.div`
 const TextContainer = styled.div`
   display: flex;
   margin-left: 80px;
+  box-sizing: border-box;
 `;
 const Text = styled.p`
   font-family: var(--font-weight-light);

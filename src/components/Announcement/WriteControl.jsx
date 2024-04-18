@@ -13,12 +13,8 @@ const WriteControlWrapper = styled.div`
 const WriteControl = () => {
   return (
     <WriteControlWrapper>
-      <NormalButton btnColor="var(--color-brown)">
-        이미지 첨부
-      </NormalButton>
-      <NormalButton btnColor="var(--color-prime)">
-        제출하기
-      </NormalButton>
+      <NormalButton btn_color="var(--color-brown)">이미지 첨부</NormalButton>
+      <NormalButton btn_color="var(--color-prime)">제출하기</NormalButton>
     </WriteControlWrapper>
   );
 };

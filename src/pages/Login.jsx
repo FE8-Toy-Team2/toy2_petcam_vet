@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Clock from "./Clock";
 
-const Nav = ({ isLoggedIn, onLogout }) => {
+const Login = ({ isLoggedIn, onLogout }) => {
   return (
     <Header>
       <Buttons>
@@ -25,7 +25,7 @@ const Nav = ({ isLoggedIn, onLogout }) => {
   );
 };
 
-export default Nav;
+export default Login;
 
 const Header = styled.header`
   width: 100%;
@@ -91,7 +91,7 @@ const TextBox = styled.div`
   display: flex;
   margin-left: 40px;
 `;
-const Text = styled.p`
+const Text = styled(Link)`
   font-family: var(--font-weight-bold);
   color: var(--color-black);
   margin: auto 25px;

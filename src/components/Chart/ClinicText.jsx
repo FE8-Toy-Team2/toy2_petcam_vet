@@ -1,23 +1,25 @@
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const ClinicText = ({ selectedChart, setSelectedChart }) => {
   const [data, setData] = useState(selectedChart);
 
   const handleChange = (e) => {
-    const temp = { ...data, clinic_text: e.target.value }
-    setData(temp)
-    setSelectedChart(temp)
+    const temp = { ...data, clinic_text: e.target.value };
+    setData(temp);
+    setSelectedChart(temp);
   };
 
-  useEffect(() => { setData(selectedChart) }, [selectedChart])
+  useEffect(() => {
+    setData(selectedChart);
+  }, [selectedChart]);
 
   return (
     <TextContainer>
       <TextTitle>진료 내용</TextTitle>
       <TextArea
-        placeholder='진료 내용 입력'
+        placeholder="진료 내용 입력"
         value={data.clinic_text}
         onChange={handleChange}
       />
@@ -33,7 +35,9 @@ ClinicText.propTypes = {
 export default ClinicText;
 
 const TextContainer = styled.div`
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0.5;
   box-sizing: border-box;
   flex-basis: 0;
   position: relative;
@@ -41,17 +45,17 @@ const TextContainer = styled.div`
   @media (max-width: 992px) {
     min-width: 300px;
   }
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     height: 500px;
   }
-  @media (max-width: 576px){
+  @media (max-width: 576px) {
     height: 300px;
   }
 `;
 
 const TextTitle = styled.div`
   font-size: 20px;
-  font-weight: var(--font-weight-bold);  
+  font-weight: var(--font-weight-bold);
 `;
 
 const TextArea = styled.textarea`
