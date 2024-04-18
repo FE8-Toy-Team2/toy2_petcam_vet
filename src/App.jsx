@@ -5,6 +5,7 @@ import Announcement from "./components/Announcement";
 import AnnouncementHeader from "./components/Announcement/Header";
 import AnnouncementContent from "./components/Announcement/Content";
 import AnnouncementWrite from "./components/Announcement/Write";
+import Post from "./components/Announcement/Post";
 import "./font/font.css";
 // TODO: 폰트 적용 안되는 오류 수정
 
@@ -57,6 +58,10 @@ function App() {
             <Route
               path="write"
               element={<AnnouncementWrite />}
+            ></Route>
+            <Route 
+              path=":id"
+              element={<Post />}
             ></Route>
           </Route>
         </Routes>

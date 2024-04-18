@@ -108,7 +108,7 @@ const WriteEditor = ({ setTitle, setContent }) => {
     extensions,
     content: "",
     onUpdate({ editor }) {
-      setContent(editor.getJSON());
+      setContent(editor.getHTML());
     },
   });
   const initialConfig = {
