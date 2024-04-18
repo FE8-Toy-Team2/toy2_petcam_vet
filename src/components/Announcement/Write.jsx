@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import WriteEditor from "./WriteEditor";
 import WriteControl from "./WriteControl";
@@ -7,11 +8,15 @@ const WriteTitle = styled.h2`
   padding: 48px 0;
 `;
 
-const Write = () => {return (
+const Write = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  return (
     <>
       <WriteTitle>새 글 쓰기</WriteTitle>
-      <WriteEditor />
-      <WriteControl />
+      <WriteEditor setTitle={setTitle} setContent={setContent} />
+      <WriteControl title={title} content={content} />
     </>
   );
 };
