@@ -73,7 +73,7 @@ const TodayListArea = styled.div`
   background-color: var(--color-gray-2);
   border-radius: 10px;
   margin-top: 14px;
-  padding: 20px 10px;
+  padding: 10px 10px;
   height: 100%;
   border: 2px solid var(--color-black);
   overflow-y: auto;
@@ -83,7 +83,7 @@ const TodayListArea = styled.div`
   }
   @media (max-width: 768px) {
     min-height: 200px;
-    padding: 7px;
+    padding: 5px;
   }
   @media (max-width: 576px) {
     padding: 5px;
@@ -108,11 +108,13 @@ const TodayListItem = styled(Link)`
     font-weight: var(--font-weight-bold);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     height: fit-content;
     flex-basis: 0;
     flex-grow: 1;
     text-align: center;
+  }
+  @media (max-width: 768px) {
     margin: 5px;
   }
 `;
