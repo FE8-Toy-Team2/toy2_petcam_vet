@@ -5,6 +5,7 @@ import { createGlobalStyle } from "styled-components";
 import app from "./firebase";
 import { getAuth, signOut } from "firebase/auth";
 import "./font/font.css";
+import { RootRouter } from "./pages/index";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
