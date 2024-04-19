@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import NavigateButton from "./NavigateButton";
 
 const ListRowStyle = styled.ul`
   position: relative;
@@ -31,25 +32,18 @@ const ListRowStyle = styled.ul`
     display: flex;
     justify-content: flex-end;
   }
-  & li a {
-    color: inherit;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 `;
 
-const ListItem = ({ date, title, author }) => {
+const ListItem = ({ date, title, author, id }) => {
+  const dateObjectFromString = new Date(Number(date));
+
   return (
     <ListRowStyle>
         <li>
-          {date}
+          {dateObjectFromString.getFullYear()}년 {dateObjectFromString.getMonth()+1}월 {dateObjectFromString.getDate()}일
         </li>
         <li>
-          <a href="#">
-            {title}
-          </a>
+          <NavigateButton route={`/announcement/${id}`} text={title} />
         </li>
         <li>
           {author}
@@ -61,7 +55,8 @@ const ListItem = ({ date, title, author }) => {
 ListItem.propTypes = {
   date: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired
+  author: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired
 }
 
 export default ListItem;

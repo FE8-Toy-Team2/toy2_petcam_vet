@@ -1,16 +1,57 @@
-import {$getRoot, $getSelection} from "lexical";
-import {useEffect} from "react";
+import { $getRoot, $getSelection } from "lexical";
+import { useEffect, useState } from "react";
 
-import {AutoFocusPlugin} from "@lexical/react/LexicalAutoFocusPlugin";
-import {LexicalComposer} from "@lexical/react/LexicalComposer";
-import {RichTextPlugin} from "@lexical/react/LexicalRichTextPlugin";
-import {ContentEditable} from "@lexical/react/LexicalContentEditable";
-import {HistoryPlugin} from "@lexical/react/LexicalHistoryPlugin";
+import { $generateHtmlFromNodes } from "@lexical/html";
+import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { LexicalComposerContext, useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { ContentEditable } from "@lexical/react/LexicalContentEditable";
+import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 
 const WriteEditorWrapper = styled.section`
   position: relative;
+  & > input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-black);
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    font-size: 16px;
+  }
+  & strong {
+    font-weight: var(--font-weight-bold);
+  }
+  & em {
+    font-style: italic;
+  }
+`;
+
+const WriteEditorForm = styled.form`
+  & .tiptap {
+    height: 16rem;
+    padding: 1rem;
+    border: 1px solid var(--color-black);
+    border-radius: 10px;
+    overflow: scroll;
+  }
+`;
+
+const WriteEditorTitleInput = styled.input`
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-black);
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  font-size: 16px;
 `;
 
 const ContentStyle = {
@@ -22,7 +63,7 @@ const ContentStyle = {
 
 const EditorPlaceholder = styled.p`
   position: absolute;
-  top: 1rem;
+  bottom: 16rem;
   left: 1rem;
   color: #666;
 `;
@@ -38,7 +79,43 @@ const onError = (error) => {
   console.error(error);
 };
 
-const WriteEditor = () => {
+const MyOnChangePlugin = ({ onChange }) => {
+  const [editor] = useLexicalComposerContext();
+  useEffect(() => {
+    return editor.registerUpdateListener(({ editorState }) => {
+      onChange(editorState);
+    })
+  }, [onChange, editor]);
+};
+
+const MyDOMExportPlugin = () => {
+  const [editor] = useLexicalComposerContext();
+  
+  return (
+    <button onClick={() => {
+      console.log($generateHtmlFromNodes(editor, null));
+    }}>
+      Export
+    </button>
+  );
+}
+
+const WriteEditor = ({ title, setTitle, setContent, contentWritten }) => {
+  const extensions = [
+    StarterKit,
+  ]
+  const editor = useEditor({
+    extensions,
+    content: "",
+    onUpdate({ editor }) {
+      setContent(editor.getHTML());
+    },
+  });
+  useEffect(() => {
+    if (contentWritten && editor) {
+      editor.commands.setContent(JSON.parse(contentWritten));
+    }
+  }, [contentWritten, editor]);
   const initialConfig = {
     namespace: "MyEditor",
     theme,
@@ -46,17 +123,42 @@ const WriteEditor = () => {
   };
 
   return (
-    <WriteEditorWrapper>
-      <LexicalComposer initialConfig={initialConfig}>
-        <RichTextPlugin
-          contentEditable={<ContentEditable style={ContentStyle} />}
-          placeholder={<EditorPlaceholder>여기에 내용을 입력해 주세요.</EditorPlaceholder>}
-          ErrorBoundary={LexicalErrorBoundary}
-        />
-        <HistoryPlugin />
-      </LexicalComposer>
-    </WriteEditorWrapper>
+    // <WriteEditorWrapper>
+    //   <input type="text" placeholder="여기에 제목을 입력해 주세요." />
+    //   <LexicalComposer initialConfig={initialConfig}>
+    //     <RichTextPlugin
+    //       contentEditable={<ContentEditable style={ContentStyle} />}
+    //       placeholder={<EditorPlaceholder>여기에 내용을 입력해 주세요.</EditorPlaceholder>}
+    //       ErrorBoundary={LexicalErrorBoundary}
+    //     />
+    //     <HistoryPlugin />
+    //     <MyOnChangePlugin 
+    //       onChange={(editorState) => {
+    //         editorState.read(text => {
+    //           console.log(text);
+    //         })
+    //       }}/>
+    //     {/* <MyDOMExportPlugin /> */}
+    //   </LexicalComposer>
+    // </WriteEditorWrapper>
+    <WriteEditorForm>
+      <WriteEditorTitleInput 
+        type="text" 
+        placeholder="여기에 제목을 입력해 주세요." 
+        value={title} 
+        onChange={event => { setTitle(event.target.value); }}
+      />
+      <EditorContent editor={editor} />
+      {/* <EditorProvider extensions={extensions} style={ContentStyle} onChange={(data) => { setText(data); console.log(text); }}></EditorProvider> */}
+    </WriteEditorForm>
   );
+};
+
+WriteEditor.propTypes = {
+  title: PropTypes.string.isRequired,
+  setTitle: PropTypes.func.isRequired,
+  setContent: PropTypes.func.isRequired,
+  contentWritten: PropTypes.string.isRequired,
 };
 
 export default WriteEditor;

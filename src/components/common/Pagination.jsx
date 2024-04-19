@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import PaginationButton from "./PaginationButton";
 import ArrowPrev from "../../../public/arrow-prev.svg?react";
 import ArrowNext from "../../../public/arrow-next.svg?react";
 
@@ -14,16 +15,6 @@ const PaginationNav = styled.nav`
 const PaginationList = styled.ul`
   display: flex;
   gap: 8px;
-`;
-
-const PaginationButtons = styled.button`
-  background-color: inherit;
-  border: none;
-  cursor: pointer;
-  &.active {
-    font-weight: 700;
-    text-decoration: underline;
-  }
 `;
 
 const PaginationArrowButtons = styled.button`
@@ -56,14 +47,14 @@ const Pagination = ({ currentPage, totalPosts, setPage, postBlock, pageBlock }) 
 
   const totalPages = Math.ceil(totalPosts / postBlock);
   const totalPageBlock = Math.ceil(totalPages / pageBlock);
-  const pageArray = Array.from({ length: pageBlock }, (_v, i) => (currentPageBlock - 1) * 5 + 1 + i);
+  const pageArray = Array.from({ length: pageBlock }, (_v, i) => (currentPageBlock - 1) * pageBlock + 1 + i);
 
   const toPageBlock = (pageBlockWeight) => {
     if (currentPageBlock + pageBlockWeight > totalPageBlock || currentPageBlock + pageBlockWeight < 1) {
       return;
     }
 
-    const newPageIndex = (currentPageBlock - 1) * 5 + 1;
+    const newPageIndex = (currentPageBlock - 1) * pageBlock + 1;
     toPage(newPageIndex);
     setCurrentPageBlock(prev => prev + pageBlockWeight);
   };
@@ -84,13 +75,11 @@ const Pagination = ({ currentPage, totalPosts, setPage, postBlock, pageBlock }) 
             }
             return (
               <li key={index}>
-                <PaginationButtons 
-                  type="button" 
-                  onClick={() => { toPage(index); }} 
-                  className={index === currentPage ? "active" : ""}
-                >
-                  {index}
-                </PaginationButtons>
+                <PaginationButton
+                  toPage={() => { toPage(index); }}
+                  currentPage={currentPage}
+                  index={index}
+                />
               </li> 
             );
           }
