@@ -11,14 +11,14 @@ const ListItemsWrapper = styled.ul`
   margin: 32px 0 64px;
 `;
 
-const List = ({ announcements, page }) => {
+const List = ({ announcements, page, postBlock }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   if (!searchParams.get("page")) {
     searchParams.set("page", 1);
     setSearchParams(searchParams);
   }
   
-  const currentList = announcements.slice(5 * (page - 1), 5 * (page - 1) + 5);
+  const currentList = announcements.slice(postBlock * (page - 1), postBlock * (page - 1) + postBlock);
 
   return (
     <>
@@ -30,7 +30,7 @@ const List = ({ announcements, page }) => {
               date={announcement.date}
               title={announcement.title}
               author="작성자"
-              id={index+1}
+              id={postBlock * (page - 1) + index + 1}
             />
           </li>
         )}
@@ -41,7 +41,8 @@ const List = ({ announcements, page }) => {
 
 List.propTypes = {
   announcements: PropTypes.array.isRequired,
-  page: PropTypes.number.isRequired
+  page: PropTypes.number.isRequired,
+  postBlock: PropTypes.number.isRequired
 };
 
 export default List;

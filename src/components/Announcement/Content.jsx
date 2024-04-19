@@ -24,7 +24,11 @@ const Content = () => {
 
   return (
     <ContentWrapper>
-      <List announcements={announcements} page={page} />
+      <List 
+        announcements={announcements} 
+        page={page} 
+        postBlock={5}
+      />
       <Pagination
         currentPage={page} 
         totalPosts={announcements.length} 
