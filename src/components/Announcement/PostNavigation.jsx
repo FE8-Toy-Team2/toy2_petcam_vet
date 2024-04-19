@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import NavigateButton from "./NavigateButton";
 
 const PostNavigtionWrapper = styled.nav`
-  margin-top: 1rem;
 `;
 
 const PostNavigationList = styled.ul`

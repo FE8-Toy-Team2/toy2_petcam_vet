@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { AnnouncementListContext } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 import ListHeader from "./ListHeader";
-import PostNavigation from "./PostNavigation";
+import PostControl from "./PostControl";
 
 const PostSection = styled.section`
   
@@ -47,7 +47,7 @@ const Post = () => {
           ? <PostContent dangerouslySetInnerHTML={{__html: content}}></PostContent>
           : ""}
       </PostWrapper>
-      <PostNavigation id={parseInt(id, 10)} />
+      <PostControl id={parseInt(id, 10)} />
     </PostSection>
   );
 };

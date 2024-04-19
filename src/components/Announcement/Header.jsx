@@ -26,13 +26,11 @@ const Header = () => {
     <HeaderWrapper>
       <h2>공지사항</h2>
       <HeaderControl>
-        {id
-          ? ""
-          : <>
-              <Search />
-              <PostButton />
-            </>
-        }
+        {id ? "" :
+          <>
+            <Search />
+            <PostButton />
+          </>}
       </HeaderControl>
     </HeaderWrapper>
   );
