@@ -1,4 +1,3 @@
-import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import ListHeader from "./ListHeader";
@@ -12,12 +11,6 @@ const ListItemsWrapper = styled.ul`
 `;
 
 const List = ({ announcements, page, postBlock }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  if (!searchParams.get("page")) {
-    searchParams.set("page", 1);
-    setSearchParams(searchParams);
-  }
-  
   const currentList = announcements.slice(postBlock * (page - 1), postBlock * (page - 1) + postBlock);
 
   return (
