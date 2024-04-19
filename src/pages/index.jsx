@@ -36,8 +36,9 @@ const RootRouter = () => {
       <RouterWrapper>
         <Routes>
           <Route path="/" element={<ChartList />} />
-          <Route path="/charts/*" element={<ChartList />} />
-          <Route path="/charts/:id" element={<Chart />} />
+          <Route path="/chart/*" element={<ChartList />} />
+          <Route path="/chart/:id" element={<Chart />} />
+          {/* <Route path= /> */}
         </Routes>
       </RouterWrapper>
 

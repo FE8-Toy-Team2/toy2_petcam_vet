@@ -17,7 +17,10 @@ const ClinicTodayList = ({ chartDatas, setSelectedChart }) => {
 
           if (isToday) {
             return (
-              <TodayListItem to={`/chart/${item.id}`} key={item.id}>
+              <TodayListItem
+                to={`/chart/${item.id}`}
+                key={item.id}
+              >
                 <span>{item.name}</span>({item.guardian}&nbsp;/&nbsp;
                 {timeString})
               </TodayListItem>

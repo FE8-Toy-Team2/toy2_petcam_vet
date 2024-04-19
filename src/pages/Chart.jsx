@@ -16,7 +16,7 @@ const Chart = () => {
     admit_to_hospital: true,
     admit_to_hospital_in: undefined,
     admit_to_hospital_out: undefined,
-    age: -1,
+    age: "",
     clinic_text: "",
     clinic_today: undefined,
     guardian: "",
@@ -26,7 +26,7 @@ const Chart = () => {
     reservation_next: undefined,
     sex: true,
     species: "",
-    weight: -1,
+    weight: "",
   });
   const chartDatasCollectionRef = collection(dataBase, "chartDatas");
 
@@ -40,10 +40,8 @@ const Chart = () => {
 
       const temp = chartData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       if (temp) {
-        // const _temp = { ...temp, reservation_next: dayjs(temp.reservation_next.toDate).format('YYYY-MM-DDTHH:mm') }
-        // console.log(">>>>>>!!!", temp.reservation_next)
         setChartDatas(temp);
-        setSelectedChart(temp[0]);
+        setSelectedChart(temp.find((item) => item.id === id));
         console.log("temp", temp[0]);
       }
     } catch (error) {
@@ -68,7 +66,7 @@ const Chart = () => {
       Toast.fire({
         icon: "success",
         alignContent: "center",
-        title: "보아라! 정보가 성공적으로 수정되었다!",
+        title: "보아라! 정보가 성공적으로 수정되었도다!",
         timer: 1500,
       });
       await updateDoc(chartDataDoc, newChartData);
@@ -95,7 +93,7 @@ const Chart = () => {
 
   useEffect(() => {
     getChartDatas();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     console.log("selectedChart!!!", selectedChart);
@@ -108,14 +106,18 @@ const Chart = () => {
           chartDatas={chartDatas}
           setSelectedChart={setSelectedChart}
         />
-        <ClinicEdit
-          selectedChart={selectedChart}
-          setSelectedChart={setSelectedChart}
-        />
-        <ClinicText
-          selectedChart={selectedChart}
-          setSelectedChart={setSelectedChart}
-        />
+        {selectedChart && (
+          <>
+            <ClinicEdit
+              selectedChart={selectedChart}
+              setSelectedChart={setSelectedChart}
+            />
+            <ClinicText
+              selectedChart={selectedChart}
+              setSelectedChart={setSelectedChart}
+            />
+          </>
+        )}
       </Contents>
       <BtnWrapper>
         <NormalButton
