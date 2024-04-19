@@ -48,7 +48,7 @@ const TimerContainer = styled.div`
 `;
 
 const ToggleButton = styled.button`
-  width: 100px;
+  min-width: 100px;  
   height: 100%;
   margin-right: 10px;
   font-family: "Pretendard";  
@@ -58,6 +58,15 @@ const ToggleButton = styled.button`
   cursor: pointer;
   &:hover {
     filter: brightness(0.8);
+  }
+
+  @media (max-width: 768px){
+    flex-grow: 0.5;
+    flex-basis: 0;
+  }
+  @media (max-width: 576px){
+    flex-grow: 0.5;
+    flex-basis: 0;
   }
 `;
 
@@ -69,4 +78,13 @@ const TimeBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px){
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+  @media (max-width: 576px){
+    flex-grow: 1;
+    flex-basis: 0;
+  }
 `;

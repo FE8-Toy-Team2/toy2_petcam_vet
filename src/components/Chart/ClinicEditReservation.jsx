@@ -1,103 +1,86 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import dayjs from 'dayjs'
+import PropTypes from 'prop-types';
 
-const ClinicEditReservation = ({ chartDatas }) => {
 
-  // const [admitToHospital, setAdmitToHospital] = useState(false)
-  // const [calendarButton, setCalendarButton] = useState(false)
-  const [chartData, setChartData] = useState(chartDatas);
+const ClinicEditReservation = ({ selectedChart, setSelectedChart }) => {
+  const [data, setData] = useState(selectedChart)
 
-  const handleAdmitToHospitalChange = (index, newAdmitToHospital) => {
-    const updatedChartDatas = [...chartDatas];
-    updatedChartDatas[index].admit_to_hospital = newAdmitToHospital;
-    setChartData(updatedChartDatas);
+  useEffect(() => {
+    setData(selectedChart)
+    console.log("???", selectedChart)
+  }, [selectedChart])
+
+  const handleInputChanged = (e, isChecked = false) => {
+    const temp = { ...data, [e.target.name]: e.target.checked ? isChecked : e.target.value }
+    setData(temp)
+    setSelectedChart(temp);
   };
-
-  const handleReservationChange = (index, newReservationNext) => {    
-    const updatedChartDatas = [...chartDatas];
-    updatedChartDatas[index].reservation_next = newReservationNext;
-    setChartData(updatedChartDatas);
-  };
-
-  function getKoreanDateTime(timestamp) {
-    const koreanTime = new Date(timestamp.toDate());
-    const year = koreanTime.getFullYear();
-    const month = String(koreanTime.getMonth() + 1).padStart(2, '0');
-    const day = String(koreanTime.getDate()).padStart(2, '0');
-    const hours = String(koreanTime.getHours()).padStart(2, '0');
-    const minutes = String(koreanTime.getMinutes()).padStart(2, '0');
-    return `${year}-${month}-${day}T${hours}:${minutes}`
-  }
-
-  function getKoreanDate(timestamp) {
-    const koreanTime = new Date(timestamp.toDate());
-    const year = koreanTime.getFullYear();
-    const month = String(koreanTime.getMonth() + 1).padStart(2, '0');
-    const day = String(koreanTime.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-
 
   return (
-
-    <>
-      {chartDatas.map((item, index) => (
-        <ReservationContainer key={index}>
-          <ul>
-            <li style={{ width: '110px', fontWeight: '700' }}>다음 진료 예약</li>
-            <li>
-              <input
-                type='datetime-local'
-                value={getKoreanDateTime(item.reservation_next)}
-                onChange={(e) => handleReservationChange(index, e.target.value)}
-              />
-            </li>
-
-          </ul>
-          <ul>
-            <li style={{ width: '110px', fontWeight: '700' }}>입원 수속</li>
+    <ReservationContainer>
+      <ul>
+        <li style={{ width: '110px', fontWeight: '700' }}>다음 진료 예약</li>
+        <label>
+          <input
+            type='datetime-local'
+            name='reservation_next'
+            value={dayjs(data.reservation_next).format('YYYY-MM-DDTHH:mm')}
+            onChange={handleInputChanged}
+          />
+        </label>
+      </ul>
+      <ul>
+        <li style={{ width: '110px', fontWeight: '700' }}>입원 수속</li>
+        <label>
+          O
+          <input
+            type='radio'
+            name='admit_to_hospital'
+            checked={data.admit_to_hospital}
+            onChange={(e) => handleInputChanged(e, true)}
+          />
+        </label>
+        <label>
+          X
+          <input type='radio'
+            name='admit_to_hospital'
+            checked={!data.admit_to_hospital}
+            onChange={(e) => handleInputChanged(e, false)} />
+        </label>
+      </ul>
+      {data.admit_to_hospital && (
+        <ul>
+          <li className='admit_to_hospital_title' style={{ width: '110px', fontWeight: '700' }}>입원 기간</li>
+          <li className='admit_to_hospital'>
             <label>
-              O
-              <input
-                type='radio'
-                name='AdmitToHospital'
-                checked={item.admit_to_hospital === true}
-                onChange={() => handleAdmitToHospitalChange(index, true)}
+              입원:
+              <input type="date"
+                name="admit_to_hospital_in"
+                value={data.admit_to_hospital_in}
+                onChange={handleInputChanged}
+              /><span>&nbsp;/&nbsp;</span>
+            </label><br />
+            <label>
+              퇴원:
+              <input type="date"
+                name="admit_to_hospital_out"
+                value={data.admit_to_hospital_out}
+                onChange={handleInputChanged}
               />
             </label>
-            <label>
-              X
-              <input type='radio'
-                name='AdmitToHospital'
-                checked={item.admit_to_hospital === false}
-                onChange={() => handleAdmitToHospitalChange(index, false)} />
-            </label>
-          </ul>
-          {item.admit_to_hospital && (
-            <ul>
-              <li style={{ width: '110px', fontWeight: '700' }}>입원 기간</li>
-              <label>
-                입원일:
-                <input type="date"
-                  value={getKoreanDate(item.admit_to_hospital_in)}
-                />&nbsp;/&nbsp;
-              </label>
-              <label>
-                퇴원일:
-                <input type="date"
-                  value={getKoreanDate(item.admit_to_hospital_out)}
-                />
-              </label>
-            </ul>
-          )}
-        </ReservationContainer >
-      ))}
-    </>
+          </li>
+        </ul>
+      )}
+    </ReservationContainer>
   )
 }
 
-
-
+ClinicEditReservation.propTypes = {
+  selectedChart: PropTypes.any.isRequired,
+  setSelectedChart: PropTypes.func.isRequired,
+};
 
 export default ClinicEditReservation
 
@@ -107,7 +90,7 @@ input  {
   font-family: "Prentendard";  
   background-color: var(--color-gray-2);
   border: 1px solid var(--color-black);
-  font-size: 14px;
+  font-size: 14px;  
 }
 
 input:focus{
@@ -130,8 +113,7 @@ input[type='date']{
 }
 
 input[type='radio']{
-  margin-right: 15px;
-  
+  margin-right: 15px;  
 }
 
 ul{
@@ -144,5 +126,36 @@ li {
   height: 25px;  
   display: flex;
   align-items: center;
+}
+
+
+@media (max-width: 992px){  
+  .admit_to_hospital{
+    display: block;
+  }
+  span {
+    visibility: hidden;
+  }
+}
+@media (max-width: 768px){  
+  .admit_to_hospital{
+    display: flex;
+  }
+  span {
+    visibility: visible;
+  }
+}
+@media (max-width: 576px){
+  ul{
+    display: flex;
+    position: relative
+  }
+  ul .admit_to_hospital{
+    display: block;
+    padding-bottom: 10px;
+  }
+  span{
+    display: none;
+  }
 }
   `

@@ -1,21 +1,14 @@
-import styled from 'styled-components'
-import ClinicEditTimer from './ClinicEditTimer'
-import ClinicEditPhotoAndChart from './ClinicEditPhotoAndChart'
-import ClinicEditReservation from './ClinicEditReservation'
-import { useState } from 'react'
+import styled from "styled-components";
+import ClinicEditTimer from "./ClinicEditTimer";
+import ClinicEditPhotoAndChart from "./ClinicEditPhotoAndChart";
+import ClinicEditReservation from "./ClinicEditReservation";
+import { useEffect } from "react";
+import PropTypes from "prop-types";
 
-
-
-const ClinicEdit = ({ chartDatas, updateChartData }) => {
-  const [savedMessageVisible, setSavedMessageVisible] = useState(false);
-
-
-  const handleSaved = () => {
-    setSavedMessageVisible(true);
-    setTimeout(() => {
-      setSavedMessageVisible(false);
-    }, 1500); // 1.5초 후에 메시지 사라짐
-  };
+const ClinicEdit = ({ selectedChart, setSelectedChart }) => {
+  useEffect(() => {
+    console.log("웩! 너무 힘듭니다", selectedChart);
+  }, [selectedChart]);
 
   return (
     <EditContainer>
@@ -23,56 +16,72 @@ const ClinicEdit = ({ chartDatas, updateChartData }) => {
       <EditArea>
         <ClinicEditTimer />
         <p>프로필</p>
-        <ClinicEditPhotoAndChart 
-        chartDatas={chartDatas} 
-        updateChartData={updateChartData}
-        onSaved={handleSaved}
+        <ClinicEditPhotoAndChart
+          selectedChart={selectedChart}
+          setSelectedChart={setSelectedChart}
         />
         <p>예약</p>
-        <ClinicEditReservation chartDatas={chartDatas} updateChartData={updateChartData} />
+        <ClinicEditReservation
+          selectedChart={selectedChart}
+          setSelectedChart={setSelectedChart}
+        />
       </EditArea>
-       {savedMessageVisible && <SavedMessage>저장 완료!</SavedMessage>}
     </EditContainer>
-  )
-}
+  );
+};
 
-export default ClinicEdit
+ClinicEdit.propTypes = {
+  selectedChart: PropTypes.any.isRequired,
+  setSelectedChart: PropTypes.func.isRequired,
+};
 
-const EditContainer = styled.div`  
+export default ClinicEdit;
+
+const EditContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
-  margin-right: 20px;
   flex-basis: 0;
+  width: 100%;
 
-  @media (max-width: 900px) {
+  @media (max-width: 992px) {
     min-width: 300px;
     margin-right: 5px;
   }
-`
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
+  @media (max-width: 576px) {
+    margin-bottom: 20px;
+  }
+`;
 
 const EditTitle = styled.div`
   font-size: 20px;
   font-weight: var(--font-weight-bold);
-  font-family: "Pretendard";
-`
-
+`;
 const EditArea = styled.div`
+  width: 100%;
   background-color: var(--color-gray-2);
   border-radius: 10px;
-  margin-top: 14px;  
+  margin-top: 14px;
   padding: 20px 20px;
   height: 100%;
   box-sizing: border-box;
   border: 2px solid var(--color-black);
-  font-family: "Pretendard";
   overflow-y: auto;
   -ms-overflow-style: none;
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     display: none;
   }
 
-  p{
-    margin-bottom: 10px;
-    font-size: 18px;
+  p {
+    margin-bottom: 20px;
+    font-size: var(--font-size-XL);
     font-weight: var(--font-weight-bold);
   }
-  `
+
+  @media (max-width: 576px) {
+    padding: 10px;
+  }
+`;

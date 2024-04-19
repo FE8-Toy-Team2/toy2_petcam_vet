@@ -7,7 +7,7 @@ import {
   ListLiRight,
 } from "./Styles.jsx";
 import { SmallButton } from "../Buttons.jsx";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { dataBase } from "../../firebase.js";
 import { Link } from "react-router-dom";
 
@@ -63,19 +63,17 @@ function List({ petState }) {
                 src="../public/image/title_logo.gif"
                 alt="테스트 이미지"
               />
-              <div>
-                <Link to={`/chart/${pet.id}`}>
-                  <div>{pet.name}</div>
-                  <div>{pet.species}</div>
-                </Link>
-              </div>
+              <Link to="chart/:id">
+                <div>{pet.name}</div>
+                <div>{pet.species}</div>
+              </Link>
             </ListLiLeft>
             <ListLiRight>
               <SmallButton btnColor={btnColor} textColor={textColor}>
                 {label}
               </SmallButton>
               <div>
-                <div>{pet.admit_to_hospital_in}</div>
+                <div>{pet.admit_to_hospital_in}</div> d
                 <div>{pet.clinic_today}</div>
               </div>
             </ListLiRight>

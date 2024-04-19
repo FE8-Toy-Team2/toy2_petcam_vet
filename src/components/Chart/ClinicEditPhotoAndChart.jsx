@@ -1,44 +1,36 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
-const ClinicEditPhotoAndChart = ({ chartDatas, updateChartData, onSaved }) => {
-  const [editedData, setEditedData] = useState({});
+const ClinicEditPhotoAndChart = ({ selectedChart, setSelectedChart }) => {
   const [timerMap, setTimerMap] = useState({});
   const [showSavedMessage, setShowSavedMessage] = useState(false);
+  const [data, setData] = useState(selectedChart);
 
-  const handleChange = (id, newData) => {
-    if (timerMap[id]) {
-      clearTimeout(timerMap[id]);
-    }
+  const handleChange = (e, isChecked = undefined) => {
+    // if (timerMap[id]) {
+    //   clearTimeout(timerMap[id]);
+    // }
 
-    setEditedData(prevData => ({
-      ...prevData,
-      [id]: {
-        ...prevData[id],
-        ...newData
-      }
-    }));
+    const { name, value, checked } = e.target;
+    const temp = {
+      ...data,
+      [name]: checked ? isChecked : value,
+    };
 
-    const timer = setTimeout(() => {
-      updateChartData(id, newData);
-      setShowSavedMessage(true);
-      setTimeout(() => {
-        setShowSavedMessage(false);
-      }, 1500); // 1.5초 후에 메시지 사라짐
-    }, 500);
-
-    setTimerMap(prevTimerMap => ({
-      ...prevTimerMap,
-      [id]: timer,
-    }));
+    setSelectedChart(temp);
+    setData(temp);
   };
 
   useEffect(() => {
     return () => {
-      Object.values(timerMap).forEach(timer => clearTimeout(timer));
+      Object.values(timerMap).forEach((timer) => clearTimeout(timer));
     };
   }, [timerMap]);
 
+  useEffect(() => {
+    setData(selectedChart);
+  }, [selectedChart]);
 
   return (
     <PhotoAndChartContainer>
@@ -46,98 +38,106 @@ const ClinicEditPhotoAndChart = ({ chartDatas, updateChartData, onSaved }) => {
       <PhotoBox>
         <img src="https://i.natgeofe.com/n/5f35194b-af37-4f45-a14d-60925b280986/NationalGeographic_2731043_3x4.jpg" />
       </PhotoBox>
-      {chartDatas.map((item, index) => (
-        <ChartDetails key={index}>
-          <li>
-            <span>보호자</span>
-            <textarea
-              placeholder='성명'
-              value={editedData[item.id]?.guardian || item.guardian}
-              onChange={(e) => handleChange(item.id, { guardian: e.target.value })}
+      <ChartDetails>
+        <li>
+          <span>보호자</span>
+          <textarea
+            placeholder="성명"
+            name="guardian"
+            value={data.guardian}
+            onChange={handleChange}
+          />
+        </li>
+        <li>
+          <span>이름</span>
+          <textarea
+            placeholder="반려동물 이름"
+            name="name"
+            value={data.name}
+            onChange={handleChange}
+          />
+        </li>
+        <li>
+          <span>종</span>
+          <textarea
+            placeholder="종 이름"
+            name="species"
+            value={data.species}
+            onChange={handleChange}
+          />
+        </li>
+        <li>
+          <span>성별</span>
+          <label>
+            ♂
+            <input
+              type="radio"
+              name="sex"
+              checked={data.sex}
+              onChange={(e) => handleChange(e, true)}
             />
-          </li>
-          <li>
-            <span>이름</span>
-            <textarea
-              placeholder='반려동물 이름'
-              value={editedData[item.id]?.name || item.name}
-              onChange={(e) => handleChange(item.id, { name: e.target.value })}
+          </label>
+          <label>
+            ♀
+            <input
+              type="radio"
+              name="sex"
+              checked={!data.sex}
+              onChange={(e) => handleChange(e, false)}
             />
-          </li>
-          <li>
-            <span>종</span>
-            <textarea
-              placeholder='종 이름'
-              value={editedData[item.id]?.species || item.species}
-              onChange={(e) => handleChange(item.id, { species: e.target.value })}
+          </label>
+        </li>
+        <li>
+          <span>나이</span>
+          <textarea
+            style={{ width: "40px" }}
+            placeholder="나이 기입"
+            name="age"
+            value={data.age}
+            onChange={handleChange}
+          />
+          개월
+        </li>
+        <li>
+          <span>체중</span>
+          <textarea
+            style={{ width: "40px" }}
+            placeholder="체중 기입"
+            name="weight"
+            value={data.weight}
+            onChange={handleChange}
+          />
+          kg
+        </li>
+        <li>
+          <span>중성화</span>
+          <label>
+            O
+            <input
+              type="radio"
+              name="neutering"
+              checked={data.neutering}
+              onChange={(e) => handleChange(e, true)}
             />
-          </li>
-          <li>
-            <span>성별</span>
-            <label>
-              남
-              <input
-                type='radio'
-                name={`sex-${index}`}
-                checked={editedData[item.id]?.sex === true || item.sex === true}
-                onChange={() => handleChange(item.id, { sex: true })}
-              />
-            </label>
-            <label>
-              여
-              <input
-                type='radio'
-                name={`sex-${index}`}
-                checked={editedData[item.id]?.sex === false || item.sex === false}
-                onChange={() => handleChange(item.id, { sex: false })}
-              />
-            </label>
-          </li>
-          <li>
-            <span>나이</span>
-            <textarea
-              style={{ width: '40px' }}
-              placeholder='나이 기입'
-              value={editedData[item.id]?.age || item.age}
-              onChange={(e) => handleChange(item.id, { age: e.target.value })}
+          </label>
+          <label>
+            X
+            <input
+              type="radio"
+              name="neutering"
+              checked={!data.neutering}
+              onChange={(e) => handleChange(e, false)}
             />
-            개월
-          </li>
-          <li>
-            <span>체중</span>
-            <textarea
-              style={{ width: '40px' }}
-              placeholder='체중 기입'
-              value={editedData[item.id]?.weight || item.weight}
-              onChange={(e) => handleChange(item.id, { weight: e.target.value })}
-            />
-            kg
-          </li>
-          <li>
-            <span>중성화</span>
-            <label>
-              O
-              <input
-                type='radio'
-                name={`neutering-${index}`}
-                checked={editedData[item.id]?.neutering === true || item.neutering === true}
-                onChange={() => handleChange(item.id, { neutering: true })}
-              />
-            </label>
-            <label>
-              X
-              <input
-                type='radio'
-                name={`neutering-${index}`}
-                checked={editedData[item.id]?.neutering === false || item.neutering === false}
-                onChange={() => handleChange(item.id, { neutering: false })}
-              />
-            </label>
-          </li>
-        </ChartDetails>
-      ))}
+          </label>
+        </li>
+      </ChartDetails>
     </PhotoAndChartContainer>
   );
+};
+
+ClinicEditPhotoAndChart.propTypes = {
+  selectedChart: PropTypes.any.isRequired,
+  setSelectedChart: PropTypes.func.isRequired,
 };
 
 export default ClinicEditPhotoAndChart;
@@ -146,6 +146,13 @@ const PhotoAndChartContainer = styled.div`
   position: relative;
   display: flex;
   margin-bottom: 30px;
+
+  @media (max-width: 992px) {
+    display: block;
+  }
+  @media (max-width: 768px) {
+    display: flex;
+  }
 `;
 
 const SavedMessage = styled.span`
@@ -154,7 +161,6 @@ const SavedMessage = styled.span`
   right: -10px;
   color: red;
   font-size: var(--font-size-XS);
-  font-family: "Pretendard";
   font-weight: var(--font-weight-bold);
 `;
 
@@ -168,14 +174,33 @@ const PhotoBox = styled.div`
   margin-right: 20px;
   border-radius: 10px;
   overflow: hidden;
+  flex-basis: 0;
+  flex-grow: 0.54;
 
   img {
     height: 100%;
+
+    @media (max-width: 992px) {
+      border-radius: 10px;
+    }
+    @media (max-width: 768px) {
+      border-radius: 10px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: transparent;
+  }
+  @media (max-width: 576px) {
+    display: none;
   }
 `;
 
 const ChartDetails = styled.ul`
-  width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
 
   li {
     display: flex;
@@ -193,6 +218,7 @@ const ChartDetails = styled.ul`
   textarea {
     border: none;
     height: 20px;
+    padding: 0 5px;
     background-color: var(--color-gray-3);
     margin-right: 5px;
     font-family: "Pretendard";

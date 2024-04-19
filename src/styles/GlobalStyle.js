@@ -1,10 +1,5 @@
-import { RouterProvider } from "react-router-dom";
-import React, { useState } from "react";
-import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-import app from "./firebase";
-import { getAuth, signOut } from "firebase/auth";
-import "./font/font.css";
+import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -31,22 +26,17 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     font-family: "Pretendard", sans-serif;
+      width: 100vw;
+      box-sizing: border-box;
+       -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
   }
   a{
     text-decoration: none;
     color: inherit;
   }
 `;
-
-function App() {
-  return (
-    <>
-      <BrowserRouter>
-        <GlobalStyle />
-        <RootRouter />
-      </BrowserRouter>
-    </>
-  );
-}
-
-export default App;
+export default GlobalStyle;

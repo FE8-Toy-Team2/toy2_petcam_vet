@@ -1,33 +1,32 @@
-// import { useState } from 'react';
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
+import dayjs from "dayjs";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-const ClinicTodayList = ({ chartDatas }) => {
-  const today = new Date(); // 현재 날짜 및 시간을 가져옴
-
+const ClinicTodayList = ({ chartDatas, setSelectedChart }) => {
   return (
     <TodayListContainer>
-      <TodayListTitle>오늘의 진료 목록</TodayListTitle>
+      <TodayListTitle>오늘 진료</TodayListTitle>
       <TodayListArea>
-        {chartDatas.map(item => {
-          const timestamp = item.clinic_today.toDate(); // 파이어베이스 타임스탬프 변환
-          const hours = timestamp.getHours();           // 시간, 분을 문자열로
-          const minutes = timestamp.getMinutes();
-          const timeString = `${hours}시 ${minutes < 10 ? '0' : ''}${minutes}분`;
-          
-          // reservation_next의 날짜가 오늘인지 확인
-          const isToday = timestamp.getDate() === today.getDate() &&
-                         timestamp.getMonth() === today.getMonth() &&
-                         timestamp.getFullYear() === today.getFullYear();
+        {chartDatas.map((item) => {
+          const timestamp = item.clinic_today;
+          const isToday =
+            timestamp.split("T")[0] === dayjs().format("YYYY-MM-DD");
+          const timeString = dayjs(timestamp).format("HH:mm");
 
-          // 오늘의 예약인 경우에만 출력
           if (isToday) {
             return (
-              <TodayListItem key={item.id}>
-                {item.name}({item.guardian})({timeString}) 
+              <TodayListItem
+                to={`/chart/${item.id}`}
+                key={item.id}
+              >
+                <span>{item.name}</span>({item.guardian}&nbsp;/&nbsp;
+                {timeString})
               </TodayListItem>
             );
           } else {
-            return null; // 오늘의 예약이 아닌 경우 null 반환하여 출력하지 않음
+            return null;
           }
         })}
       </TodayListArea>
@@ -35,48 +34,85 @@ const ClinicTodayList = ({ chartDatas }) => {
   );
 };
 
-export default ClinicTodayList
+ClinicTodayList.propTypes = {
+  selectedChart: PropTypes.any.isRequired,
+  chartDatas: PropTypes.any.isRequired,
+  setSelectedChart: PropTypes.func.isRequired,
+};
+
+export default ClinicTodayList;
 
 const TodayListContainer = styled.div`
-  flex-grow: 0.5;
-  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0.3;
   flex-basis: 0;
-  
-  @media (max-width: 900px) {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  @media (max-width: 992px) {
     min-width: 150px;
     margin-right: 5px;
   }
-`
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
+  @media (max-width: 576px) {
+    margin-bottom: 20px;
+  }
+`;
 
 const TodayListTitle = styled.div`
-font-size: 20px;
-font-weight: var(--font-weight-bold);
-font-family: "Pretendard";
-`
+  display: flex;
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  font-family: "Pretendard";
+`;
 
 const TodayListArea = styled.div`
-  background-color: var(--color-gray-2);  
+  background-color: var(--color-gray-2);
   border-radius: 10px;
-  margin-top: 14px;  
+  margin-top: 14px;
   padding: 20px 10px;
   height: 100%;
-  box-sizing: border-box; 
   border: 2px solid var(--color-black);
   overflow-y: auto;
   -ms-overflow-style: none;
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     display: none;
   }
-`
-const TodayListItem = styled.a`
+  @media (max-width: 768px) {
+    min-height: 200px;
+    padding: 7px;
+  }
+  @media (max-width: 576px) {
+    padding: 5px;
+  }
+`;
+const TodayListItem = styled(Link)`
   display: block;
   font-size: 15px;
-  padding: 10px 5px;
+  padding: 5px 5px;
+  margin-bottom: 3px;
   font-family: "Pretendard";
   cursor: pointer;
+  word-break: keep-all;
+  background-color: var(--color-gray-3);
 
   &:hover {
     background-color: var(--color-brown);
-    color: #E3E2DE;
+    color: #e3e2de;
   }
-`
+
+  span {
+    font-weight: var(--font-weight-bold);
+  }
+
+  @media (max-width: 768px) {
+    height: fit-content;
+    flex-basis: 0;
+    flex-grow: 1;
+    text-align: center;
+    margin: 5px;
+  }
+`;

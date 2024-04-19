@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
 
 {
-  /* <SmallButton btnColor="버튼색을 넣으세요" textColor="버튼 텍스트 칼라를 넣으세요">등록</SmallButton>*/
+  /* <SmallButton btn_color="버튼색을 넣으세요" textColor="버튼 텍스트 칼라를 넣으세요">등록</SmallButton>*/
 }
 {
-  /* <NormalButton btnColor="버튼색을 넣으세요" textColor="버튼 텍스트 칼라를 넣으세요">등록</NormalButton>  */
+  /* <NormalButton btn_color="버튼색을 넣으세요" textColor="버튼 텍스트 칼라를 넣으세요">등록</NormalButton>  */
 }
 
 // 직은버튼
