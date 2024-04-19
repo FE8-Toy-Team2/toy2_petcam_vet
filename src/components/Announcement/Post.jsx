@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { AnnouncementListContext } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 import ListHeader from "./ListHeader";
+import PostNavigation from "./PostNavigation";
 
 const PostWrapper = styled.article`
   display: flex;
@@ -40,6 +41,7 @@ const Post = () => {
       {typeof content === "string"
         ? <PostContent dangerouslySetInnerHTML={{__html: content}}></PostContent>
         : ""}
+      <PostNavigation id={parseInt(id, 10)} />
     </PostWrapper>
   );
 };

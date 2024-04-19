@@ -39,9 +39,9 @@ const ListHeader = ({ date = "작성일", title = "제목", author = "작성자"
 };
 
 ListHeader.propTypes = {
-  date: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired
+  date: PropTypes.string,
+  title: PropTypes.string,
+  author: PropTypes.string
 }
 
 export default ListHeader;
