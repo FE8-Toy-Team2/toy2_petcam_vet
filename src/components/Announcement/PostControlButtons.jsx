@@ -64,7 +64,8 @@ const PostControlButtons = ({ id, dbId }) => {
 };
 
 PostControlButtons.propTypes = {
-  id: PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
+  dbId: PropTypes.string.isRequired
 };
 
 export default PostControlButtons;
