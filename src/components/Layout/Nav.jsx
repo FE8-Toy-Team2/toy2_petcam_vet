@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Clock from "./Clock";
+import { Link } from "react-router-dom";
 
 const Nav = ({ isLoggedIn, onLogout }) => {
   return (
@@ -16,9 +17,13 @@ const Nav = ({ isLoggedIn, onLogout }) => {
       </Buttons>
       <Navbar>
         <TextBox>
-          <Text>입원/퇴원 관리</Text>
+          <Text>
+            <Link to="chart">입원/퇴원 관리</Link>
+          </Text>
           <Text>동물등록</Text>
-          <Text>공지사항</Text>
+          <Text>
+            <Link to="announcement">공지사항</Link>
+          </Text>
         </TextBox>
       </Navbar>
     </Header>
@@ -33,12 +38,16 @@ const Header = styled.header`
   background-color: var(--color-black);
   position: sticky;
   top: 0;
+  z-index: 1000;
+  margin-bottom: 5rem;
 `;
+
 const Buttons = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
 `;
+
 const SignUpButton = styled.p`
   color: var(--color-darkgray);
   font-size: 13px;
@@ -50,6 +59,7 @@ const SignUpButton = styled.p`
     color: #fff;
   }
 `;
+
 const Button = styled.button`
   width: 60px;
   height: 20px;

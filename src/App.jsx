@@ -1,16 +1,11 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import React, { useState } from "react";
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-import Login from "./components/LoginSignup/Login";
-import Signup from "./components/LoginSignup/Signup";
-import Nav from "./components/Layout/Nav";
-import Footer from "./components/Layout/Footer";
 import app from "./firebase";
 import { getAuth, signOut } from "firebase/auth";
 import "./font/font.css";
-import ClinicLog from "./components/Chart/ClinicLog";
-import Layout from "./components/Layout/Layout";
+import router from "./router/router";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -65,12 +60,10 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <>
       <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Layout />} />
-      </Routes>
-    </BrowserRouter>
+      <RouterProvider router={router} />
+    </>
   );
 }
 
