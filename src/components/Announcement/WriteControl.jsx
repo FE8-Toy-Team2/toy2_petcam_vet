@@ -4,7 +4,6 @@ import { dataBase } from "../../firebase";
 import { NormalButton } from "../Buttons";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import Swal from "sweetalert2";
 
 const WriteControlWrapper = styled.div`
   display: flex;

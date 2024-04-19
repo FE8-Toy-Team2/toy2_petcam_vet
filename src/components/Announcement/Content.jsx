@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { onSnapshot, query } from "firebase/firestore";
+import { onSnapshot } from "firebase/firestore";
 import { AnnouncementListContext, announcementQuery, snapshotToArray } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 import List from "./List";

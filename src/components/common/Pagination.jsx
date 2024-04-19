@@ -56,14 +56,14 @@ const Pagination = ({ currentPage, totalPosts, setPage, postBlock, pageBlock }) 
 
   const totalPages = Math.ceil(totalPosts / postBlock);
   const totalPageBlock = Math.ceil(totalPages / pageBlock);
-  const pageArray = Array.from({ length: pageBlock }, (_v, i) => (currentPageBlock - 1) * 5 + 1 + i);
+  const pageArray = Array.from({ length: pageBlock }, (_v, i) => (currentPageBlock - 1) * pageBlock + 1 + i);
 
   const toPageBlock = (pageBlockWeight) => {
     if (currentPageBlock + pageBlockWeight > totalPageBlock || currentPageBlock + pageBlockWeight < 1) {
       return;
     }
 
-    const newPageIndex = (currentPageBlock - 1) * 5 + 1;
+    const newPageIndex = (currentPageBlock - 1) * pageBlock + 1;
     toPage(newPageIndex);
     setCurrentPageBlock(prev => prev + pageBlockWeight);
   };
