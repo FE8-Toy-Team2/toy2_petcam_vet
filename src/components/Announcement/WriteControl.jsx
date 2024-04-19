@@ -32,7 +32,7 @@ const WriteButton = ({ title, content, announcement }) => {
         date: new Date().valueOf().toString()
       });
     navigate("/announcement");
-  }
+  };
 
   return (
     <WriteControlWrapper>

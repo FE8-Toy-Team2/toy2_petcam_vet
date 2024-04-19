@@ -47,7 +47,7 @@ const Post = () => {
           ? <PostContent dangerouslySetInnerHTML={{__html: content}}></PostContent>
           : ""}
       </PostWrapper>
-      <PostControl id={parseInt(id, 10)} />
+      <PostControl id={parseInt(id, 10)} dbId={announcement.id} />
     </PostSection>
   );
 };
