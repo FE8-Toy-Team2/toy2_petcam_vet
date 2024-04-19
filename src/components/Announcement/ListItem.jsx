@@ -32,22 +32,27 @@ const ListRowStyle = styled.ul`
     display: flex;
     justify-content: flex-end;
   }
-  & li a {
+  & li button {
     color: inherit;
     text-decoration: none;
+    border: none;
+    background-color: inherit;
+    font: inherit;
     &:hover {
       text-decoration: underline;
+      cursor: pointer;
     }
   }
 `;
 
 const ListItem = ({ date, title, author, id }) => {
   const navigate = useNavigate();
+  const dateObjectFromString = new Date(Number(date));
 
   return (
     <ListRowStyle>
         <li>
-          {date}
+          {dateObjectFromString.getFullYear()}년 {dateObjectFromString.getMonth()+1}월 {dateObjectFromString.getDate()}일
         </li>
         <li>
           <button onClick={() => { navigate(`/announcement/${id}`)} }>
