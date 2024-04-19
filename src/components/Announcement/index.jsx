@@ -15,6 +15,7 @@ const AnnouncementWrapper = styled.main`
 const Announcement = () => {
   const newAnnouncementContext = useContext(AnnouncementListContext);
   const [announcements, setAnnouncements] = useState(newAnnouncementContext);
+  const [filter, setFilter] = useState("");
 
   return (
     <AnnouncementListContext.Provider value={[announcements, setAnnouncements]}>
@@ -24,8 +25,8 @@ const Announcement = () => {
             path=""
             element={
               <>
-                <Header />
-                <Content />
+                <Header setFilter={setFilter} />
+                <Content filter={filter} />
               </>
             }
           ></Route>
