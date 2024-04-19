@@ -12,7 +12,7 @@ export const SmallButton = styled.button`
   width: 50px;
   height: 30px;
   border: none;
-  background-color: ${(props) => props.btn_color};
+  background-color: ${(props) => props.btnColor};
   color: ${(props) => props.textColor};
   cursor: pointer;
 
@@ -33,7 +33,7 @@ export const NormalButton = styled.button`
   width: 130px;
   height: 40px;
   border: none;
-  background-color: ${(props) => props.btn_color};
+  background-color: ${(props) => props.btnColor};
   color: ${(props) => props.textColor};
   cursor: pointer;
 
