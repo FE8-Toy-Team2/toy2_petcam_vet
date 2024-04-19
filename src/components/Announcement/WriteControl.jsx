@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { doc, setDoc, collection, addDoc } from "firebase/firestore";
+import { doc, updateDoc, collection, addDoc } from "firebase/firestore";
 import { dataBase } from "../../firebase";
 import { NormalButton } from "../Buttons";
 import styled from "styled-components";
@@ -16,43 +16,22 @@ const WriteControlWrapper = styled.div`
 `;
 
 
-const WriteButton = ({ title, content }) => {
+const WriteButton = ({ title, content, announcement }) => {
   const navigate = useNavigate();
 
-  const updateInput = event => {
+  const updateInput = async (event) => {
     event.preventDefault();
-    console.log(title, content);
-    Swal.fire({
-      title: "정말 등록하시겠습니까?",
-      showDenyButton: true,
-      confirmButtonText: "예",
-      denyButtonText: "아니오"
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        // const Toast = Swal.mixin({
-        //   toast: true,
-        //   position: "top-end",
-        //   showConfirmButton: false,
-        //   timer: 3000,
-        //   timerProgressBar: true,
-        //   didOpen: (toast) => {
-        //     toast.onmouseenter = Swal.stopTimer;
-        //     toast.onmouseleave = Swal.resumeTimer;
-        //   }
-        // });
-        // Toast.fire({
-        //   icon: "success",
-        //   title: "등록했습니다."
-        // });
-        await addDoc(collection(dataBase, "announcement"), {
-          title: title,
-          content: JSON.stringify(content),
-          date: new Date().valueOf().toString()
-        }).then(() => {
-          navigate("/announcement");
-        });
-      }
-    });
+    announcement
+      ? await updateDoc(doc(dataBase, "announcement", announcement.id), { 
+        content: JSON.stringify(content),
+        date: new Date().valueOf().toString() 
+      })
+      : await addDoc(collection(dataBase, "announcement"), {
+        title: title,
+        content: JSON.stringify(content),
+        date: new Date().valueOf().toString()
+      });
+    navigate("/announcement");
   }
 
   return (
@@ -66,7 +45,8 @@ const WriteButton = ({ title, content }) => {
 
 WriteButton.propTypes = {
   title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired
+  content: PropTypes.string.isRequired,
+  announcement: PropTypes.object
 };
 
 export default WriteButton;

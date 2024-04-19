@@ -1,5 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import { NormalButton } from "../Buttons";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const PostControlButtonsWrapper = styled.ul`
   display: flex;
@@ -10,11 +12,13 @@ const PostControlButtonsWrapper = styled.ul`
   }
 `;
 
-const PostControlButtons = () => {
+const PostControlButtons = ({ id }) => {
+  const navigate = useNavigate();
+
   return (
     <PostControlButtonsWrapper>
       <li>
-        <NormalButton btnColor="var(--color-prime)">
+        <NormalButton btnColor="var(--color-prime)" onClick={() => { navigate(`/announcement/${id}/edit`); }}>
           수정하기
         </NormalButton>
       </li>
@@ -25,6 +29,10 @@ const PostControlButtons = () => {
       </li>
     </PostControlButtonsWrapper>
   );
+};
+
+PostControlButtons.propTypes = {
+  id: PropTypes.number.isRequired
 };
 
 export default PostControlButtons;

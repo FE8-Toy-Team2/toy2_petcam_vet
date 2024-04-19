@@ -100,7 +100,7 @@ const MyDOMExportPlugin = () => {
   );
 }
 
-const WriteEditor = ({ setTitle, setContent }) => {
+const WriteEditor = ({ title, setTitle, setContent, contentWritten }) => {
   const extensions = [
     StarterKit,
   ]
@@ -111,6 +111,11 @@ const WriteEditor = ({ setTitle, setContent }) => {
       setContent(editor.getHTML());
     },
   });
+  useEffect(() => {
+    if (contentWritten && editor) {
+      editor.commands.setContent(JSON.parse(contentWritten));
+    }
+  }, [contentWritten, editor]);
   const initialConfig = {
     namespace: "MyEditor",
     theme,
@@ -137,7 +142,12 @@ const WriteEditor = ({ setTitle, setContent }) => {
     //   </LexicalComposer>
     // </WriteEditorWrapper>
     <WriteEditorForm>
-      <WriteEditorTitleInput type="text" placeholder="여기에 제목을 입력해 주세요." onChange={event => { setTitle(event.target.value); }}/>
+      <WriteEditorTitleInput 
+        type="text" 
+        placeholder="여기에 제목을 입력해 주세요." 
+        value={title} 
+        onChange={event => { setTitle(event.target.value); }}
+      />
       <EditorContent editor={editor} />
       {/* <EditorProvider extensions={extensions} style={ContentStyle} onChange={(data) => { setText(data); console.log(text); }}></EditorProvider> */}
     </WriteEditorForm>
@@ -145,8 +155,10 @@ const WriteEditor = ({ setTitle, setContent }) => {
 };
 
 WriteEditor.propTypes = {
+  title: PropTypes.string.isRequired,
   setTitle: PropTypes.func.isRequired,
-  setContent: PropTypes.func.isRequired
-}
+  setContent: PropTypes.func.isRequired,
+  contentWritten: PropTypes.string.isRequired,
+};
 
 export default WriteEditor;

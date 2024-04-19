@@ -14,7 +14,7 @@ const PostControl = ({ id }) => {
   return (
     <PostControlWrapper>
       <PostNavigation id={id} />
-      <PostControlButtons />
+      <PostControlButtons id={id} />
     </PostControlWrapper>
   )
 }

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { AnnouncementListContext } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 import WriteEditor from "./WriteEditor";
 import WriteControl from "./WriteControl";
@@ -10,13 +12,24 @@ const WriteTitle = styled.h2`
 
 const Write = () => {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState({});
+  const [content, setContent] = useState("");
+  const { id } = useParams();
+  const [announcements] = useContext(AnnouncementListContext);
+  useEffect(() => {
+    if (id) {
+      setTitle(announcements[id-1].title);
+    }
+  }, [id, announcements]);
 
   return (
     <>
-      <WriteTitle>새 글 쓰기</WriteTitle>
-      <WriteEditor setTitle={setTitle} setContent={setContent} />
-      <WriteControl title={title} content={content} />
+      <WriteTitle>
+        {id 
+          ? "수정하기"
+          : "새 글 쓰기"}
+      </WriteTitle>
+      <WriteEditor title={title} setTitle={setTitle} setContent={setContent} contentWritten={id ? announcements[id-1].content : ""} />
+      <WriteControl title={title} content={content} announcement={id ? announcements[id-1] : null} />
     </>
   );
 };

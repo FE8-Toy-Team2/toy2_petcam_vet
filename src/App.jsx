@@ -67,6 +67,10 @@ function App() {
                 <Post />
               </>}
             ></Route>
+            <Route
+              path=":id/edit"
+              element={<AnnouncementWrite />}
+            ></Route>
           </Route>
         </Routes>
     </BrowserRouter>
