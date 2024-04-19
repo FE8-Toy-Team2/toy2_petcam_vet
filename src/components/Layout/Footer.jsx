@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 const Footer = () => {
   return (
+    <>
+    <FooterBlock></FooterBlock>
     <FooterContainer>
       <Heading>
         패스트캠퍼스 부트캠프
@@ -42,11 +44,17 @@ const Footer = () => {
         </Text>
       </TextContainer>
     </FooterContainer>
+    </>
   );
 };
 
 export default Footer;
 
+const FooterBlock = styled.div`
+  width: 100%;
+  height: 50px;
+  background-color: var(--color-gray-2);
+`
 const FooterContainer = styled.footer`
   width: 100%;
   height: 80px;

@@ -6,6 +6,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -27,7 +28,9 @@ const Login = ({ onLogin }) => {
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(`등록되지 않은 사용자입니다`);
+      if (errorCode === "auth/user-not-found") {
+        alert("등록되지 않은 사용자입니다");
+      }
     }
     setEmail("");
     setPassword("");
@@ -41,12 +44,12 @@ const Login = ({ onLogin }) => {
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
-      alert(`${email}님이 로그인하셨습니다`);
+      alert(`${user.email}님이 로그인하셨습니다`);
       onLogin();
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(`등록되지 않은 사용자입니다`);
+      // alert(`등록되지 않은 사용자입니다`);
     }
   };
 
@@ -71,7 +74,9 @@ const Login = ({ onLogin }) => {
         <LoginGoogle onClick={handleGoogleLogin} type="submit">
           Google 계정으로 로그인
         </LoginGoogle>
-        <SignupButton type="submit">회원가입</SignupButton>
+        <SignupButton type="submit">
+          <Link to="/signup">회원가입</Link>
+        </SignupButton>
       </Form>
     </Container>
   );
@@ -81,7 +86,7 @@ export default Login;
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,7 +95,6 @@ const Container = styled.div`
 const Form = styled.form`
   width: 300px;
   height: 415px;
-  margin-top: 60px;
   background-color: #fff;
   border-radius: 10px;
   justify-content: center;

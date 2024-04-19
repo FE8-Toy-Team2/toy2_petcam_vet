@@ -41,12 +41,11 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <GlobalStyle />
-        <RootRouter />
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <GlobalStyle />
+
+      <Layout />
+    </BrowserRouter>
   );
 }
 
