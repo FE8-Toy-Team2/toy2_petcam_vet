@@ -7,6 +7,7 @@ import Login from "../LoginSignup/Login";
 import Signup from "../LoginSignup/Signup";
 import Content from "../Announcement/Content"
 import ChartList from "../ChartList/ChartList"
+import RegisterForm from "../RegisterForm/Register"
 import { getAuth, signOut } from "firebase/auth";
 
 function Layout() {
@@ -38,6 +39,7 @@ function Layout() {
         <Route path="/signup" element={<Signup onLogin={handleLogin} isLoggedIn={isLoggedIn} />} />     
         <Route path="/announce" element={<Content />} />     
         <Route path="/chartlist" element={<ChartList />} />     
+        <Route path="/register" element={<RegisterForm />} />     
       </Routes>
       <Footer />
     </>
