@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { AnnouncementListContext } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
@@ -9,10 +9,11 @@ const AnnouncementWrapper = styled.main`
 `;
 
 const Announcement = () => {
-  const announcements = useContext(AnnouncementListContext);
+  const newAnnouncementContext = useContext(AnnouncementListContext);
+  const [announcements, setAnnouncements] = useState(newAnnouncementContext);
 
   return (
-    <AnnouncementListContext.Provider value={announcements}>
+    <AnnouncementListContext.Provider value={[announcements, setAnnouncements]}>
       <AnnouncementWrapper className="announcement">
         <Outlet />
       </AnnouncementWrapper>

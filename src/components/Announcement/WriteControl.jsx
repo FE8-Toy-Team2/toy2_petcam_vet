@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { doc, setDoc, collection, addDoc } from "firebase/firestore";
 import { dataBase } from "../../firebase";
 import { NormalButton } from "../Buttons";
@@ -16,6 +17,8 @@ const WriteControlWrapper = styled.div`
 
 
 const WriteButton = ({ title, content }) => {
+  const navigate = useNavigate();
+
   const updateInput = event => {
     event.preventDefault();
     console.log(title, content);
@@ -45,6 +48,8 @@ const WriteButton = ({ title, content }) => {
           title: title,
           content: JSON.stringify(content),
           date: new Date().valueOf().toString()
+        }).then(() => {
+          navigate("/announcement");
         });
       }
     });
@@ -61,7 +66,7 @@ const WriteButton = ({ title, content }) => {
 
 WriteButton.propTypes = {
   title: PropTypes.string.isRequired,
-  content: PropTypes.object.isRequired
+  content: PropTypes.string.isRequired
 };
 
 export default WriteButton;

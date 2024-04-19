@@ -1,5 +1,6 @@
-import { useState, useContext } from "react";
-import { AnnouncementListContext } from "../../context/AnnouncementListContext";
+import { useState, useContext, useEffect } from "react";
+import { onSnapshot, query } from "firebase/firestore";
+import { AnnouncementListContext, announcementQuery, snapshotToArray } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 import List from "./List";
 import Pagination from "../common/Pagination";
@@ -11,8 +12,15 @@ const ContentWrapper = styled.section`
 `;
 
 const Content = () => {
-  const announcements = useContext(AnnouncementListContext);
+  const [announcements, setAnnouncements] = useContext(AnnouncementListContext);
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    onSnapshot(announcementQuery, (snapshot) => {
+      console.log(snapshotToArray(snapshot));
+      setAnnouncements(snapshotToArray(snapshot));
+    });
+  }, [setAnnouncements]);
 
   return (
     <ContentWrapper>
