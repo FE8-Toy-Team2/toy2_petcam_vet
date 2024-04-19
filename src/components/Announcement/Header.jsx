@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Search from "../common/Search";
 import PostButton from "./PostButton";
@@ -19,12 +20,19 @@ const HeaderControl = styled.div`
 `;
 
 const Header = () => {
+  const { id } = useParams();
+
   return (
     <HeaderWrapper>
       <h2>공지사항</h2>
       <HeaderControl>
-        <Search />
-        <PostButton />
+        {id
+          ? ""
+          : <>
+              <Search />
+              <PostButton />
+            </>
+        }
       </HeaderControl>
     </HeaderWrapper>
   );

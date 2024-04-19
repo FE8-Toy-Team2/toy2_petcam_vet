@@ -2,7 +2,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const ListHeaderWrapper = styled.header`
-  width: 832px;
+  width: ${(props) => props.width};
   padding: 16px;
   background-color: var(--color-prime);
   border-radius: 10px;
@@ -26,9 +26,9 @@ const ListHeaderList = styled.ul`
   }
 `;
 
-const ListHeader = ({ date = "작성일", title = "제목", author = "작성자"}) => {
+const ListHeader = ({ date = "작성일", title = "제목", author = "작성자", width = "100%"}) => {
   return (
-    <ListHeaderWrapper>
+    <ListHeaderWrapper width={width}>
       <ListHeaderList>
         <li><h3>{date}</h3></li>
         <li><h3>{title}</h3></li>
@@ -41,7 +41,8 @@ const ListHeader = ({ date = "작성일", title = "제목", author = "작성자"
 ListHeader.propTypes = {
   date: PropTypes.string,
   title: PropTypes.string,
-  author: PropTypes.string
+  author: PropTypes.string,
+  width: PropTypes.string
 }
 
 export default ListHeader;

@@ -61,7 +61,11 @@ function App() {
             ></Route>
             <Route 
               path=":id"
-              element={<Post />}
+              element={
+              <>
+                <AnnouncementHeader />
+                <Post />
+              </>}
             ></Route>
           </Route>
         </Routes>

@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { AnnouncementListContext } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -20,20 +19,19 @@ const PostNavigationList = styled.ul`
 
 const PostNavigation = ({ id }) => {
   const [announcements] = useContext(AnnouncementListContext);
-  const navigate = useNavigate();
 
   return (
     <PostNavigtionWrapper>
       <PostNavigationList>
         {id > 1
           ? <li>
-              <span>이전 글</span>
+              <span>다음 글</span>
               <NavigateButton route={`/announcement/${id-1}`} text={announcements[id-2].title} />
             </li>
           : ""}
         {id < announcements.length - 1
           ? <li>
-              <span>다음 글</span>
+              <span>이전 글</span>
               <NavigateButton route={`/announcement/${id+1}`} text={announcements[id].title} />
             </li>
           : ""}

@@ -22,7 +22,7 @@ const List = ({ announcements, page }) => {
 
   return (
     <>
-      <ListHeader />
+      <ListHeader width="832px" />
       <ListItemsWrapper>
         {currentList.map((announcement, index) => 
           <li key={announcement.date}>

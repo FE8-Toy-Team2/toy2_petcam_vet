@@ -5,6 +5,10 @@ import styled from "styled-components";
 import ListHeader from "./ListHeader";
 import PostNavigation from "./PostNavigation";
 
+const PostSection = styled.section`
+  
+`;
+
 const PostWrapper = styled.article`
   display: flex;
   flex-direction: column;
@@ -36,13 +40,15 @@ const Post = () => {
   console.log(content);
 
   return (
-    <PostWrapper>
-      <ListHeader date={formattedDateString} title={announcement.title} />
-      {typeof content === "string"
-        ? <PostContent dangerouslySetInnerHTML={{__html: content}}></PostContent>
-        : ""}
+    <PostSection>
+      <PostWrapper>
+        <ListHeader date={formattedDateString} title={announcement.title} width="calc(100% - 2rem)"/>
+        {typeof content === "string"
+          ? <PostContent dangerouslySetInnerHTML={{__html: content}}></PostContent>
+          : ""}
+      </PostWrapper>
       <PostNavigation id={parseInt(id, 10)} />
-    </PostWrapper>
+    </PostSection>
   );
 };
 
