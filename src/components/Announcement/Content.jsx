@@ -20,7 +20,7 @@ const Content = () => {
   }
 
   const [announcements, setAnnouncements] = useContext(AnnouncementListContext);
-  const [page, setPage] = useState(searchParams.get("page"));
+  const [page, setPage] = useState(parseInt(searchParams.get("page"), 10));
 
   useEffect(() => {
     onSnapshot(announcementQuery, (snapshot) => {
