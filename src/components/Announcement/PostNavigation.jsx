@@ -28,7 +28,7 @@ const PostNavigation = ({ id }) => {
               <NavigateButton route={`/announcement/${id-1}`} text={announcements[id-2].title} />
             </li>
           : ""}
-        {id < announcements.length - 1
+        {id < announcements.length
           ? <li>
               <span>이전 글</span>
               <NavigateButton route={`/announcement/${id+1}`} text={announcements[id].title} />

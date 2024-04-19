@@ -41,13 +41,17 @@ const Post = () => {
 
   return (
     <PostSection>
-      <PostWrapper>
-        <ListHeader date={formattedDateString} title={announcement.title} width="calc(100% - 2rem)"/>
-        {typeof content === "string"
-          ? <PostContent dangerouslySetInnerHTML={{__html: content}}></PostContent>
-          : ""}
-      </PostWrapper>
-      <PostControl id={parseInt(id, 10)} dbId={announcement.id} />
+      {announcement 
+        ? <>
+          <PostWrapper>
+          <ListHeader date={formattedDateString} title={announcement.title} width="calc(100% - 2rem)"/>
+            {typeof content === "string"
+              ? <PostContent dangerouslySetInnerHTML={{__html: content}}></PostContent>
+              : ""}
+          </PostWrapper>
+          <PostControl id={parseInt(id, 10)} dbId={announcement.id} />
+        </>
+        : ""}
     </PostSection>
   );
 };
