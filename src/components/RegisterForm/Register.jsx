@@ -193,7 +193,7 @@ function RegisterForm() {
 
 const Container = styled.form`
   width: fit-content;
-  margin: auto;
+  margin: 80px auto;
   font-family: "Pretendard";
   font-weight: bold;
   color: var(--color-black);

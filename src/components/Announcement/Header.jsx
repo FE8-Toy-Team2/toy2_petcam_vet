@@ -9,7 +9,9 @@ const HeaderWrapper = styled.section`
   align-items: flex-end;
   padding: 48px 0;
   & > h2 {
-    font-size: 4rem;
+    margin-left: 110px;
+    font-size: 32px;
+    font-weight: 600;
   }
 `;
 
