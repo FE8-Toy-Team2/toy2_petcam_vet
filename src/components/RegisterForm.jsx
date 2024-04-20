@@ -1,11 +1,12 @@
 import { useState, useRef } from "react";
 import styled from "styled-components";
 import { dataBase, storage } from "../firebase";
-import { addDoc, doc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Swal from "sweetalert2";
 import { NormalButton } from "./Buttons";
 import { SmallButton } from "./Buttons";
 import dayjs from "dayjs";
+import { addDoc, collection } from "firebase/firestore";
 
 function RegisterForm() {
   const [previewImage, setPreviewImage] = useState(null);
@@ -24,13 +25,13 @@ function RegisterForm() {
     admit_to_hospital_out: "",
     clinic_text: "",
     clinic_today: dayjs().format("YYYY-MM-DDTHH:mm"),
-    reservation_next: "", 
+    reservation_next: "",
     id: "",
   });
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    console.log("Value type:", value); 
+    console.log("Value type:", value);
     if (id !== "file") {
       const trimmedValue = typeof value === "string" ? value.trim() : value;
       sectionDataRef.current[id] = trimmedValue;
@@ -50,7 +51,7 @@ function RegisterForm() {
       const imageName = `${dayjs().format("YYYYMMDDHHmmss")}_${file.name}`;
 
       sectionDataRef.current.file = file;
-      sectionDataRef.current.imageName = imageName; 
+      sectionDataRef.current.imageName = imageName;
     }
   };
 
@@ -61,49 +62,44 @@ function RegisterForm() {
     fileRef.current.value = null;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const dataValues = Object.values(sectionDataRef.current);
-    console.log(dataValues);
-    // if (!sectionDataRef.current.file || dataValues.some((value) => !value.trim)) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Oops...",
-    //     text: "모든 항목을 작성해주세요.",
-    //     timer: 6000,
-    //   });
-    //   return;
-    // }
-
     const file = fileRef.current.files[0];
-    const storageRef = storage.ref();
-    const imageName = `${dayjs().format("YYYYMMDDHHmmss")}_${file.name}`; 
-    const storageRoot = storageRef.child("images/" + imageName); 
-    const uploadTask = storageRoot.put(file);
-
-    uploadTask
-      .then((snapshot) => {
-        snapshot.ref.getDownloadURL().then((downloadURL) => {
-          const profileData = { ...sectionDataRef.current, image: downloadURL, imageName };
-          addDoc(doc(dataBase, "chartDatas"), profileData)
-            .then(() => {
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "등록되었습니다!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              return;
-            })
-            .catch((error) => {
-              console.error("프로필 등록 중 오류 발생:", error);
-            });
-        });
-      })
-      .catch((error) => {
-        console.error("파일 업로드 중 오류 발생:", error);
+    if (!file) {
+      Swal.fire({
+        icon: "error",
+        title: "파일을 선택해주세요.",
       });
+      return;
+    }
+
+    const storageRef = ref(storage, `images/${dayjs().format("YYYYMMDDHHmmss")}_${file.name}`);
+
+    try {
+      const snapshot = await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      // sectionDataRef.current에서 file 객체를 제거
+      const { file: _, ...profileData } = sectionDataRef.current;
+      profileData.image = downloadURL;
+      profileData.imageName = file.name; // 파일 이름 저장 (옵션)
+
+      await addDoc(collection(dataBase, "chartDatas"), profileData);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "등록되었습니다!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error("파일 업로드 또는 데이터 저장 중 오류 발생:", error);
+      Swal.fire({
+        icon: "error",
+        title: "등록 실패",
+        text: "에러 메시지: " + error.message,
+      });
+    }
   };
 
   const handleCancel = (e) => {
@@ -157,13 +153,7 @@ function RegisterForm() {
             alt="이미지 미리보기"
           />
           <div style={{ textAlign: "center" }}>
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
+            <input ref={fileRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
             <UploadButton
               onClick={(e) => {
                 e.preventDefault();
@@ -177,24 +167,9 @@ function RegisterForm() {
         </ImgInput>
 
         <Section>
-          <Input
-            id="guardian"
-            type="text"
-            placeholder="보호자명"
-            onChange={handleInputChange}
-          />
-          <Input
-            id="name"
-            type="text"
-            placeholder="이름"
-            onChange={handleInputChange}
-          />
-          <Input
-            id="species"
-            type="text"
-            placeholder="종"
-            onChange={handleInputChange}
-          />
+          <Input id="guardian" type="text" placeholder="보호자명" onChange={handleInputChange} />
+          <Input id="name" type="text" placeholder="이름" onChange={handleInputChange} />
+          <Input id="species" type="text" placeholder="종" onChange={handleInputChange} />
           <Select id="sex" onChange={handleInputChange}>
             <option value="">성별을 선택하세요</option>
             <option value="남">남</option>
@@ -206,19 +181,11 @@ function RegisterForm() {
             <option value="X">X</option>
           </Select>
           <Option>
-            <textarea
-              id="age"
-              placeholder="나이"
-              onChange={handleInputChange}
-            />
+            <textarea id="age" placeholder="나이" onChange={handleInputChange} />
             개월
           </Option>
           <Option>
-            <textarea
-              id="weight"
-              placeholder="체중"
-              onChange={handleInputChange}
-            />
+            <textarea id="weight" placeholder="체중" onChange={handleInputChange} />
             kg
           </Option>
         </Section>
@@ -231,8 +198,6 @@ const Container = styled.form`
   position: fixed;
   width: fit-content;
   margin: auto;
-  left: 600px;
-  top: 200px;
   font-family: "Pretendard";
   font-weight: bold;
   color: var(--color-black);
