@@ -4,6 +4,7 @@ import { dataBase } from "../../firebase";
 import { NormalButton } from "../Buttons";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import Swal from "sweetalert2";
 
 const WriteControlWrapper = styled.div`
   display: flex;
@@ -18,8 +19,30 @@ const WriteControlWrapper = styled.div`
 const WriteButton = ({ title, content, announcement }) => {
   const navigate = useNavigate();
 
+  const printEmptyTitleAlert = () => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    Toast.fire({
+      icon: "error",
+      title: "제목을 입력해 주세요."
+    });
+  }
+
   const updateInput = async (event) => {
     event.preventDefault();
+    if (!title.length) {
+      printEmptyTitleAlert();
+      return;
+    }
     announcement
       ? await updateDoc(doc(dataBase, "announcement", announcement.id), { 
         content: JSON.stringify(content),
