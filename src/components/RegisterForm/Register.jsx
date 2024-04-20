@@ -1,176 +1,134 @@
-import { dataBase, storage } from "../../firebase";
-import { setDoc, doc } from "firebase/firestore"; // Import doc from firebase.firestore
-// 내가 입력한 내용
-import React, { useState, useRef, useEffect } from "react";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import app from "../../firebase";
-// import firebase from 'firebase'
-
+import { useState, useRef } from "react";
 import styled from "styled-components";
+import { dataBase, storage } from "../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Swal from "sweetalert2";
-import { NormalButton } from "../Buttons";
-import { SmallButton } from "../Buttons";
-
-const db = getFirestore(app);
+import { NormalButton, SmallButton } from "../Buttons";
+import dayjs from "dayjs";
+import { addDoc, collection } from "firebase/firestore";
 
 function RegisterForm() {
-  const formData = {
+  const [previewImage, setPreviewImage] = useState(null);
+  const fileRef = useRef(null);
+  const sectionDataRef = useRef({
+    file: null,
     guardian: "",
     name: "",
+    age: "",
     species: "",
     sex: "",
     neutering: "",
-    age: "",
     weight: "",
-  };
+    admit_to_hospital: false,
+    admit_to_hospital_in: "",
+    admit_to_hospital_out: "",
+    clinic_text: "",
+    clinic_today: dayjs().format("YYYY-MM-DDTHH:mm"),
+    reservation_next: "",
+  });
 
-  const [formState, setFormState] = useState(formData);
-
-  const handleInputChange = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    setFormState((prev) => {
-      return { ...prev, [name]: value };
-    });
-  };
-
-  const addDoc = (event) => {
-    event.preventDefault();
-
-    db.collection("newdb")
-      .add({
-        name: formState.name,
-        species: formState.species,
-        sex: formState.sex,
-        neutering: formState.neutering,
-        age: formState.age,
-        weight: formState.weight,
-        guardian: formState.guardian,
-      })
-      .then((docRef) => {
-        const docId = docRef.id;
-        console.log(docId);
-      })
-      .catch((err) => {
-        console.log("Error " + err.message);
-      });
-  };
-
-  const handleSubmit = async () => {
-    try {
-      const profilesCollection = collection(db, "registerdata");
-      await addDoc(profilesCollection, formDataRef.current);
-      alert("Data successfully saved to Firestore!");
-    } catch (error) {
-      console.error("Error saving data to Firestore:", error);
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    console.log("Value type:", value);
+    if (id !== "file") {
+      const trimmedValue = typeof value === "string" ? value.trim() : value;
+      sectionDataRef.current[id] = trimmedValue;
     }
   };
 
-  const localImagePath = "./000603.png";
-  const [previewImage, setPreviewImage] = useState(localImagePath);
-
-  const fileRef = useRef(null);
-
-  // Function to handle file change
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
+    e.preventDefault();
+    const file = fileRef.current.files[0];
+    console.log(file);
     if (file) {
       const reader = new FileReader();
-      reader.onload = (event) => {
-        setPreviewImage(event.target.result);
+      reader.onload = () => {
+        setPreviewImage(reader.result);
       };
       reader.readAsDataURL(file);
+      const imageName = `${dayjs().format("YYYYMMDDHHmmss")}_${file.name}`;
+
+      sectionDataRef.current.file = file;
+      sectionDataRef.current.imageName = imageName;
     }
   };
 
-  // const handleFileChange = () => {
-  //   const file = fileRef.current.files[0];
-  //   console.log(file);
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       setPreviewImage(reader.result);
-  //       sectionDataRef.current.file = reader.result;
-  //       console.log(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-  // const handleFileChange = async () => {
-  //   const file = fileRef.current.files[0];
-  //   if (file) {
-  //     const storageRef = ref(storage, `images/${file.name}`);
-  //     await uploadBytes(storageRef, file);
-  //     const downloadURL = await getDownloadURL(storageRef);
-  //     setPreviewImage(downloadURL);
-  //     sectionDataRef.current.file = downloadURL;
-  //     console.log(downloadURL);
-  //   }
-  // };
-
-  const handleDeleteImage = (event) => {
-    event.preventDefault();
+  const handleDeleteImage = (e) => {
+    e.preventDefault();
     setPreviewImage(null);
     sectionDataRef.current.file = null;
     fileRef.current.value = null;
   };
 
-  // const handleSubmit = () => {
-  //   if (!sectionDataRef.current.file || Object.values(sectionDataRef.current).some((value) => !value)) {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Oops...",
-  //       text: "모든 항목을 작성해주세요!",
-  //     });
-  //     return;
-  //   }
-  //   if (sectionDataRef.current.neutering !== "O" && sectionDataRef.current.neutering !== "X") {
-  //     alert("중성화여부를 선택해주세요.");
-  //     return;
-  //   }
-  //   if (sectionDataRef.current.sex !== "남" && sectionDataRef.current.sex !== "여") {
-  //     alert("성별을 선택해주세요.");
-  //     return;
-  //   }
-  //   const file = fileRef.current.files[0];
-  //   const storageRef = storage.ref();
-  //   const storageRoot = storageRef.child("images/" + file.name);
-  //   const uploadTask = storageRoot.put(file);
-
-  //   uploadTask
-  //     .then((snapshot) => {
-  //       snapshot.ref.getDownloadURL().then((downloadURL) => {
-  //         const profileData = { ...sectionDataRef.current, image: downloadURL }; // Use sectionDataRef.current
-  //         setDoc(doc(dataBase, "profiles", "uniqueDocumentId"), profileData) // Set document in Firestore with a unique ID
-  //           .then(() => {
-  //             alert("프로필이 등록되었습니다.");
-  //             // 필요에 따라 페이지 리로드 또는 다른 동작 수행
-  //           })
-  //           .catch((error) => {
-  //             console.error("프로필 등록 중 오류 발생:", error);
-  //           });
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.error("파일 업로드 중 오류 발생:", error);
-  //     });
-  // };
-
-  const handleCancel = () => {
-    if (window.confirm("프로필 등록을 취소하시겠습니까?")) {
-      setPreviewImage(null);
-      fileRef.current.value = null;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const file = fileRef.current.files[0];
+    if (!file) {
+      Swal.fire({
+        icon: "error",
+        title: "파일을 선택해주세요.",
+      });
+      return;
     }
+
+    const storageRef = ref(storage, `images/${dayjs().format("YYYYMMDDHHmmss")}_${file.name}`);
+
+    try {
+      const snapshot = await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      const { file: _, ...profileData } = sectionDataRef.current;
+      profileData.image = downloadURL;
+      profileData.imageName = file.name;
+
+      await addDoc(collection(dataBase, "chartDatas"), profileData);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "등록되었습니다!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error("파일 업로드 또는 데이터 저장 중 오류 발생:", error);
+      Swal.fire({
+        icon: "error",
+        title: "등록 실패",
+        text: "에러 메시지: " + error.message,
+      });
+    }
+  };
+
+  const handleCancel = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "등록을 취소하시겠습니까??",
+      text: "삭제한 정보는 복구할 수 없습니다.",
+      icon: "warning",
+      timer: 3000,
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setPreviewImage(null);
+        fileRef.current.value = null;
+        Swal.fire({
+          title: "삭제완료",
+          text: "파일이 삭제되었습니다.",
+          icon: "success",
+          timer: 3000,
+        });
+      }
+    });
   };
 
   return (
     <Container>
       <Header>
-        <Title>등록하기</Title>
-        <SubmitButton onClick={addDoc} type="submit">
+        <Title style={{ marginLeft: "10px" }}>등록하기</Title>
+        <SubmitButton onClick={handleSubmit} type="submit">
           등록
         </SubmitButton>
         <CancelButton onClick={handleCancel}>취소</CancelButton>
@@ -187,20 +145,28 @@ function RegisterForm() {
               backgroundColor: "var(--color-gray-2)",
               borderRadius: "10px",
               boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+              margin: "0 0 30px 10px",
             }}
-            alt="Image Preview"
+            alt="이미지 미리보기"
           />
           <div style={{ textAlign: "center" }}>
             <input ref={fileRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
-            <UploadButton onClick={() => fileRef.current.click()}>파일 추가</UploadButton>
+            <UploadButton
+              onClick={(e) => {
+                e.preventDefault();
+                fileRef.current.click();
+              }}
+            >
+              파일 추가
+            </UploadButton>
             <DeleteButton onClick={handleDeleteImage}>삭제</DeleteButton>
           </div>
         </ImgInput>
 
         <Section>
-          <Input id="guardian" type="text" placeholder="보호자명" value={formState.guardian} onChange={handleInputChange} />
-          <Input id="name" type="text" placeholder="이름" value={formState.name} onChange={handleInputChange} />
-          <Input id="species" type="text" placeholder="종" value={formState.species} onChange={handleInputChange} />
+          <Input id="guardian" type="text" placeholder="보호자명" onChange={handleInputChange} />
+          <Input id="name" type="text" placeholder="이름" onChange={handleInputChange} />
+          <Input id="species" type="text" placeholder="종" onChange={handleInputChange} />
           <Select id="sex" onChange={handleInputChange}>
             <option value="">성별을 선택하세요</option>
             <option value="남">남</option>
@@ -212,11 +178,11 @@ function RegisterForm() {
             <option value="X">X</option>
           </Select>
           <Option>
-            <textarea id="age" placeholder="나이" value={formState.age} onChange={handleInputChange} />
+            <textarea id="age" placeholder="나이" onChange={handleInputChange} />
             개월
           </Option>
           <Option>
-            <textarea id="weight" placeholder="체중" value={formState.weight} onChange={handleInputChange} />
+            <textarea id="weight" placeholder="체중" onChange={handleInputChange} />
             kg
           </Option>
         </Section>
@@ -225,12 +191,9 @@ function RegisterForm() {
   );
 }
 
-export default RegisterForm;
-
 const Container = styled.form`
-  position: relative;
-  width: 900px;
-  margin: 0 auto;
+  width: fit-content;
+  margin: auto;
   font-family: "Pretendard";
   font-weight: bold;
   color: var(--color-black);
@@ -251,18 +214,22 @@ const Title = styled.h1`
   position: absolute;
   left: 0;
 `;
+
 const Inpobox = styled.div`
   display: flex;
 `;
+
 const SubmitButton = styled(NormalButton)`
   background-color: var(--color-prime);
   color: var(--color-black);
   margin-right: 16px;
 `;
+
 const CancelButton = styled(NormalButton)`
   background-color: var(--color-gray-2);
   color: var(--color-black);
 `;
+
 const ImgInput = styled.div`
   margin-top: 20px;
   margin-right: 30px;
@@ -271,7 +238,6 @@ const ImgInput = styled.div`
 const UploadButton = styled(SmallButton)`
   background-color: var(--color-prime);
   color: var(--color-black);
-  margin-top: 30px;
   margin-right: 16px;
   width: 90px;
 `;
@@ -337,3 +303,5 @@ const Option = styled.div`
     font-weight: var(--font-weight-bold);
   }
 `;
+
+export default RegisterForm;

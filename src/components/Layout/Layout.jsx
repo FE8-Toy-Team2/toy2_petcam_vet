@@ -14,7 +14,6 @@ import AnnouncementContent from "../Announcement/Content";
 import AnnouncementWrite from "../Announcement/Write";
 import Post from "../Announcement/Post";
 import Chart from "../../pages/Chart";
-import Home from "../Home";
 
 function Layout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
