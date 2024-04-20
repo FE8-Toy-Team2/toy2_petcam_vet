@@ -40,7 +40,7 @@ List.propTypes = {
   announcements: PropTypes.array.isRequired,
   page: PropTypes.number.isRequired,
   postBlock: PropTypes.number.isRequired,
-  filter: PropTypes.filter
+  filter: PropTypes.string
 };
 
 export default List;

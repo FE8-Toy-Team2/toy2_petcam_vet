@@ -41,13 +41,13 @@ const PostControlButtons = ({ id, dbId }) => {
           await deleteDoc(doc(dataBase, "announcement", dbId));
           navigate("/announcement");
           Toast.fire({
-            icon: "error",
+            icon: "success",
             title: "삭제했습니다."
           });
         } catch (error) {
           console.log(error);
           Toast.fire({
-            icon: "warning",
+            icon: "error",
             title: "오류로 인해 삭제에 실패했습니다."
           });
         }

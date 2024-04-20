@@ -25,7 +25,6 @@ const Content = ({ filter }) => {
 
   useEffect(() => {
     onSnapshot(announcementQuery, (snapshot) => {
-      console.log(snapshotToArray(snapshot));
       setAnnouncements(snapshotToArray(snapshot));
     });
   }, [setAnnouncements]);

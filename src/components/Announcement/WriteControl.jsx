@@ -32,7 +32,7 @@ const WriteButton = ({ title, content, announcement }) => {
       }
     });
     Toast.fire({
-      icon: "error",
+      icon: "warning",
       title: "제목을 입력해 주세요."
     });
   }
@@ -73,7 +73,7 @@ const WriteButton = ({ title, content, announcement }) => {
     } catch (error) {
       console.log(error);
       Toast.fire({
-        icon: "warning",
+        icon: "error",
         title: "오류로 인해 등록에 실패했습니다."
       });
     }
