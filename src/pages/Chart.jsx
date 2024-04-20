@@ -80,13 +80,7 @@ const Chart = () => {
     const currentTimeStamp = new Date().toLocaleString();
     const updatedChartData = {
       ...selectedChart,
-      clinic_text:
-        selectedChart.clinic_text +
-        "\n" +
-        "----- " +
-        currentTimeStamp +
-        " -----" +
-        "\n",
+      clinic_text: selectedChart.clinic_text + "\n" + "----- " + currentTimeStamp + " -----" + "\n",
     };
     updateChartData(updatedChartData);
   };
@@ -102,30 +96,16 @@ const Chart = () => {
   return (
     <Wrapper>
       <Contents>
-        <ClinicTodayList
-          chartDatas={chartDatas}
-          setSelectedChart={setSelectedChart}
-        />
+        <ClinicTodayList chartDatas={chartDatas} setSelectedChart={setSelectedChart} />
         {selectedChart && (
           <>
-            <ClinicEdit
-              selectedChart={selectedChart}
-              setSelectedChart={setSelectedChart}
-            />
-            <ClinicText
-              selectedChart={selectedChart}
-              setSelectedChart={setSelectedChart}
-            />
+            <ClinicEdit selectedChart={selectedChart} setSelectedChart={setSelectedChart} />
+            <ClinicText selectedChart={selectedChart} setSelectedChart={setSelectedChart} />
           </>
         )}
       </Contents>
       <BtnWrapper>
-        <NormalButton
-          className="submit"
-          type="submit"
-          btn_color="var(--color-prime)"
-          onClick={handleSaveButtonClick}
-        >
+        <NormalButton className="submit" type="submit" btnColor="var(--color-prime)" onClick={handleSaveButtonClick}>
           수정
         </NormalButton>
       </BtnWrapper>

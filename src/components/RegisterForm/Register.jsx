@@ -1,11 +1,10 @@
-
 import { dataBase, storage } from "../../firebase";
 import { setDoc, doc } from "firebase/firestore"; // Import doc from firebase.firestore
 // 내가 입력한 내용
-import React, { useState, useRef, useEffect } from 'react';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import app from '../../firebase'
+import React, { useState, useRef, useEffect } from "react";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import app from "../../firebase";
 // import firebase from 'firebase'
 
 import styled from "styled-components";
@@ -16,75 +15,75 @@ import { SmallButton } from "../Buttons";
 const db = getFirestore(app);
 
 function RegisterForm() {
-	
   const formData = {
-    guardian: '',
-		name: '',
-		species: '',
-		sex: '',
-		neutering: '',
-		age: '',
-		weight: '',
+    guardian: "",
+    name: "",
+    species: "",
+    sex: "",
+    neutering: "",
+    age: "",
+    weight: "",
   };
 
-	const [formState, setFormState] = useState(formData);
+  const [formState, setFormState] = useState(formData);
 
-const handleInputChange = (event) => {
-	event.preventDefault();	
-	const { name, value } = event.target;
-	setFormState((prev) => {
-		return {...prev, [name]: value }
-	})
-	
-};
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    setFormState((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
 
-const addDoc = (event) => {
-	event.preventDefault();
+  const addDoc = (event) => {
+    event.preventDefault();
 
-	db.collection('newdb').add({
-		name: formState.name,
-    species: formState.species,
-    sex: formState.sex,
-    neutering: formState.neutering,
-    age: formState.age,
-    weight: formState.weight,
-    guardian: formState.guardian,
-	}).then((docRef) => {
-		const docId = docRef.id;
-		console.log(docId);
-	}).catch((err) => {
-		console.log('Error ' + err.message)
-	})
-}
-	
-// const handleSubmit = async () => {
-// 	try {			
-// 		const profilesCollection = collection(db, 'registerdata');			
-// 		await addDoc(profilesCollection, formDataRef.current);			
-// 		alert('Data successfully saved to Firestore!');	} 
-// 		catch (error) {			
-// 		console.error('Error saving data to Firestore:', error);
-// 	}
-// };
-	
-	const localImagePath = './000603.png';	
+    db.collection("newdb")
+      .add({
+        name: formState.name,
+        species: formState.species,
+        sex: formState.sex,
+        neutering: formState.neutering,
+        age: formState.age,
+        weight: formState.weight,
+        guardian: formState.guardian,
+      })
+      .then((docRef) => {
+        const docId = docRef.id;
+        console.log(docId);
+      })
+      .catch((err) => {
+        console.log("Error " + err.message);
+      });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const profilesCollection = collection(db, "registerdata");
+      await addDoc(profilesCollection, formDataRef.current);
+      alert("Data successfully saved to Firestore!");
+    } catch (error) {
+      console.error("Error saving data to Firestore:", error);
+    }
+  };
+
+  const localImagePath = "./000603.png";
   const [previewImage, setPreviewImage] = useState(localImagePath);
-	
+
   const fileRef = useRef(null);
 
-    // Function to handle file change
-    const handleFileChange = (e) => {   		
-        const file = e.target.files[0];
+  // Function to handle file change
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
 
-        if (file) {
-					const reader = new FileReader();            
-            reader.onload = (event) => {
-                setPreviewImage(event.target.result);			
-            };
-            reader.readAsDataURL(file);
-    			} 
-        }
-			
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setPreviewImage(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // const handleFileChange = () => {
   //   const file = fileRef.current.files[0];
@@ -100,25 +99,24 @@ const addDoc = (event) => {
   //   }
   // };
 
-	// const handleFileChange = async () => {
-	// 	const file = fileRef.current.files[0];
-	// 	if (file) {
-	// 		const storageRef = ref(storage, `images/${file.name}`);			
-	// 		await uploadBytes(storageRef, file);	
-	// 		const downloadURL = await getDownloadURL(storageRef);			
-	// 		setPreviewImage(downloadURL);
-	// 		sectionDataRef.current.file = downloadURL;	
-	// 		console.log(downloadURL);
-	// 	}
-	// };
+  // const handleFileChange = async () => {
+  //   const file = fileRef.current.files[0];
+  //   if (file) {
+  //     const storageRef = ref(storage, `images/${file.name}`);
+  //     await uploadBytes(storageRef, file);
+  //     const downloadURL = await getDownloadURL(storageRef);
+  //     setPreviewImage(downloadURL);
+  //     sectionDataRef.current.file = downloadURL;
+  //     console.log(downloadURL);
+  //   }
+  // };
 
-  const handleDeleteImage = () => {
-		event.preventDefault();
+  const handleDeleteImage = (event) => {
+    event.preventDefault();
     setPreviewImage(null);
     sectionDataRef.current.file = null;
     fileRef.current.value = null;
   };
-
 
   // const handleSubmit = () => {
   //   if (!sectionDataRef.current.file || Object.values(sectionDataRef.current).some((value) => !value)) {
@@ -128,20 +126,20 @@ const addDoc = (event) => {
   //       text: "모든 항목을 작성해주세요!",
   //     });
   //     return;
-  //   }  
+  //   }
   //   if (sectionDataRef.current.neutering !== "O" && sectionDataRef.current.neutering !== "X") {
   //     alert("중성화여부를 선택해주세요.");
   //     return;
-  //   }  
+  //   }
   //   if (sectionDataRef.current.sex !== "남" && sectionDataRef.current.sex !== "여") {
   //     alert("성별을 선택해주세요.");
   //     return;
-  //   }  
+  //   }
   //   const file = fileRef.current.files[0];
   //   const storageRef = storage.ref();
   //   const storageRoot = storageRef.child("images/" + file.name);
   //   const uploadTask = storageRoot.put(file);
-  
+
   //   uploadTask
   //     .then((snapshot) => {
   //       snapshot.ref.getDownloadURL().then((downloadURL) => {
@@ -179,56 +177,30 @@ const addDoc = (event) => {
       </Header>
       <Inpobox>
         <ImgInput>
-        <img
-				src={previewImage}
-				style={{
-					width: '350px',
-					height: '350px',
-					objectFit: 'cover',
-					display: 'block',
-					backgroundColor: 'var(--color-gray-2)',
-					borderRadius: '10px',
-					boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-				}}
-				alt="Image Preview"
-			/>
+          <img
+            src={previewImage}
+            style={{
+              width: "350px",
+              height: "350px",
+              objectFit: "cover",
+              display: "block",
+              backgroundColor: "var(--color-gray-2)",
+              borderRadius: "10px",
+              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            }}
+            alt="Image Preview"
+          />
           <div style={{ textAlign: "center" }}>
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
-            <UploadButton onClick={() => fileRef.current.click()}>
-              파일 추가
-            </UploadButton>
+            <input ref={fileRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
+            <UploadButton onClick={() => fileRef.current.click()}>파일 추가</UploadButton>
             <DeleteButton onClick={handleDeleteImage}>삭제</DeleteButton>
           </div>
         </ImgInput>
 
         <Section>
-          <Input
-            id="guardian"
-            type="text"
-            placeholder="보호자명"
-						value={formState.guardian}
-            onChange={handleInputChange}
-          />
-          <Input
-            id="name"
-            type="text"
-            placeholder="이름"
-						value={formState.name}
-            onChange={handleInputChange}
-          />
-          <Input
-            id="species"
-            type="text"
-            placeholder="종"
-						value={formState.species}
-            onChange={handleInputChange}
-          />
+          <Input id="guardian" type="text" placeholder="보호자명" value={formState.guardian} onChange={handleInputChange} />
+          <Input id="name" type="text" placeholder="이름" value={formState.name} onChange={handleInputChange} />
+          <Input id="species" type="text" placeholder="종" value={formState.species} onChange={handleInputChange} />
           <Select id="sex" onChange={handleInputChange}>
             <option value="">성별을 선택하세요</option>
             <option value="남">남</option>
@@ -240,21 +212,11 @@ const addDoc = (event) => {
             <option value="X">X</option>
           </Select>
           <Option>
-            <textarea
-              id="age"
-              placeholder="나이"
-							value={formState.age}
-              onChange={handleInputChange}
-            />
+            <textarea id="age" placeholder="나이" value={formState.age} onChange={handleInputChange} />
             개월
           </Option>
           <Option>
-            <textarea
-              id="weight"
-              placeholder="체중"
-							value={formState.weight}
-              onChange={handleInputChange}
-            />
+            <textarea id="weight" placeholder="체중" value={formState.weight} onChange={handleInputChange} />
             kg
           </Option>
         </Section>
@@ -263,8 +225,7 @@ const addDoc = (event) => {
   );
 }
 
-
-export default RegisterForm
+export default RegisterForm;
 
 const Container = styled.form`
   position: relative;
@@ -311,7 +272,7 @@ const UploadButton = styled(SmallButton)`
   background-color: var(--color-prime);
   color: var(--color-black);
   margin-top: 30px;
- 	margin-right: 16px;
+  margin-right: 16px;
   width: 90px;
 `;
 
@@ -376,4 +337,3 @@ const Option = styled.div`
     font-weight: var(--font-weight-bold);
   }
 `;
-

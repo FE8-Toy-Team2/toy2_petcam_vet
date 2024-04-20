@@ -1,6 +1,6 @@
 import Footer from "./Footer";
 import Nav from "./Nav";
-import { Outlet, Route, Routes, createBrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import Login from "../LoginSignup/Login";
 import Signup from "../LoginSignup/Signup";
@@ -64,8 +64,8 @@ function Layout() {
           ></Route>
           <Route path=":id/edit" element={<AnnouncementWrite />}></Route>
         </Route>
-        <Route path="/chartlist" element={<ChartList />} />
-        <Route path="/chart" element={<Chart />} />
+        <Route path="/chart" element={<ChartList />} />
+        <Route path="chart/:id" element={<Chart />} />
         <Route path="/register" element={<RegisterForm />} />
       </Routes>
       <Footer />

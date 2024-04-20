@@ -7,6 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  background-color: #f6f6f6;
 `;
 
 export const ChartNav = styled.nav`

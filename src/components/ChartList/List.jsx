@@ -49,7 +49,7 @@ function List({ petState }) {
           <ChartListLi key={pet.id}>
             <ListLiLeft>
               <ListLiLeftImg src="../public/image/title_logo.gif" alt="테스트 이미지" />
-              <Link to="chart/:id">
+              <Link to={`/chart/${pet.id}`}>
                 <div>{pet.name}</div>
                 <div>{pet.species}</div>
               </Link>
@@ -59,7 +59,8 @@ function List({ petState }) {
                 {label}
               </SmallButton>
               <div>
-                <div>{pet.admit_to_hospital_in}</div> d<div>{pet.clinic_today}</div>
+                <div>{pet.admit_to_hospital_in}</div>
+                <div>{pet.clinic_today}</div>
               </div>
             </ListLiRight>
           </ChartListLi>

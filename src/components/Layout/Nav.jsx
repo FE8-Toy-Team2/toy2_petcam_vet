@@ -22,12 +22,11 @@ const Nav = ({ isLoggedIn, onLogout }) => {
       <Navbar>
         <TextBox>
           <Text>
-            <Link to="/chartlist">입원/퇴원 관리</Link>
+            <Link to="/chart">입원/퇴원 관리</Link>
           </Text>
           <Text>
-            <Link to="/chart">진료목록</Link>
+            <Link to="/register">동물등록</Link>
           </Text>
-          <Text>동물등록</Text>
           <Text>
             <Link to="/announcement">공지사항</Link>
           </Text>
@@ -45,6 +44,8 @@ const Header = styled.header`
   background-color: var(--color-black);
   position: sticky;
   top: 0;
+  margin-bottom: 4rem;
+  z-index: 1000; //가장 많이뺄수있는 수치로 넣었습니다
 `;
 const Buttons = styled.div`
   display: flex;
