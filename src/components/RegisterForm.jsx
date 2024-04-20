@@ -26,7 +26,6 @@ function RegisterForm() {
     clinic_text: "",
     clinic_today: dayjs().format("YYYY-MM-DDTHH:mm"),
     reservation_next: "",
-    id: "",
   });
 
   const handleInputChange = (e) => {
