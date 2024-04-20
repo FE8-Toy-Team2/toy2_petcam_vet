@@ -1,83 +1,163 @@
 import { useState, useRef } from "react";
 import styled from "styled-components";
 import { dataBase, storage } from "../firebase";
-import { setDoc, doc } from "firebase/firestore"; // Import doc from firebase.firestore
+import { addDoc, doc } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { NormalButton } from "./Buttons";
 import { SmallButton } from "./Buttons";
+import dayjs from "dayjs";
 
-function ResisterForm() {
+function RegisterForm() {
   const [previewImage, setPreviewImage] = useState(null);
+  const [file, setFile] = useState(null);
+  const [imageName, setImageName] = useState("");
+  const [guardian, setGuardian] = useState("");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [species, setSpecies] = useState("");
+  const [sex, setSex] = useState("");
+  const [neutering, setNeutering] = useState("");
+  const [weight, setWeight] = useState("");
+  const [admitToHospital, setAdmitToHospital] = useState(false);
+  const [admitToHospitalIn, setAdmitToHospitalIn] = useState("");
+  const [admitToHospitalOut, setAdmitToHospitalOut] = useState("");
+  const [clinicText, setClinicText] = useState("");
+  const [clinicToday, setClinicToday] = useState(
+    dayjs().format("YYYY-MM-DDTHH:mm")
+  );
+  const [reservationNext, setReservationNext] = useState("");
+  const [id, setId] = useState("");
+
   const fileRef = useRef(null);
-  const sectionDataRef = useRef({
-    file: null,
-    guardian: "",
-    name: "",
-    age: "",
-    species: "",
-    sex: "",
-    neutering: "",
-    weight: "",
-  });
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    sectionDataRef.current[id] = value;
+    switch (id) {
+      case "guardian":
+        setGuardian(value.trim());
+        break;
+      case "name":
+        setName(value.trim());
+        break;
+      case "age":
+        setAge(value.trim());
+        break;
+      case "species":
+        setSpecies(value.trim());
+        break;
+      case "sex":
+        setSex(value.trim());
+        break;
+      case "neutering":
+        setNeutering(value.trim());
+        break;
+      case "weight":
+        setWeight(value.trim());
+        break;
+      case "admit_to_hospital":
+        setAdmitToHospital(e.target.checked);
+        break;
+      case "admit_to_hospital_in":
+        setAdmitToHospitalIn(value.trim());
+        break;
+      case "admit_to_hospital_out":
+        setAdmitToHospitalOut(value.trim());
+        break;
+      case "clinic_text":
+        setClinicText(value.trim());
+        break;
+      case "clinic_today":
+        setClinicToday(value.trim());
+        break;
+      case "reservation_next":
+        setReservationNext(value.trim());
+        break;
+      case "id":
+        setId(value.trim());
+        break;
+      default:
+        break;
+    }
   };
 
-  const handleFileChange = () => {
+  const handleFileChange = (e) => {
+    e.preventDefault();
     const file = fileRef.current.files[0];
-    console.log(file);
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
         setPreviewImage(reader.result);
-        sectionDataRef.current.file = reader.result;
-        console.log(reader.result);
       };
       reader.readAsDataURL(file);
+      const imageName = `${dayjs().format("YYYYMMDDHHmmss")}_${file.name}`;
+      setFile(file);
+      setImageName(imageName);
     }
   };
 
-  const handleDeleteImage = () => {
+  const handleDeleteImage = (e) => {
+    e.preventDefault();
     setPreviewImage(null);
-    sectionDataRef.current.file = null;
+    setFile(null);
+    setImageName("");
     fileRef.current.value = null;
   };
 
-  const handleSubmit = () => {
-    if (!sectionDataRef.current.file || Object.values(sectionDataRef.current).some((value) => !value)) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      !file ||
+      !guardian ||
+      !name ||
+      !age ||
+      !species ||
+      !sex ||
+      !neutering ||
+      !weight
+    ) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "모든 항목을 작성해주세요!",
+        text: "모든 항목을 작성해주세요.",
+        timer: 6000,
       });
       return;
     }
-  
-    if (sectionDataRef.current.neutering !== "O" && sectionDataRef.current.neutering !== "X") {
-      alert("중성화여부를 선택해주세요.");
-      return;
-    }
-  
-    if (sectionDataRef.current.sex !== "남" && sectionDataRef.current.sex !== "여") {
-      alert("성별을 선택해주세요.");
-      return;
-    }
-  
-    const file = fileRef.current.files[0];
+
     const storageRef = storage.ref();
-    const storageRoot = storageRef.child("images/" + file.name);
+    const storageRoot = storageRef.child("images/" + imageName);
     const uploadTask = storageRoot.put(file);
-  
+
     uploadTask
       .then((snapshot) => {
         snapshot.ref.getDownloadURL().then((downloadURL) => {
-          const profileData = { ...sectionDataRef.current, image: downloadURL }; // Use sectionDataRef.current
-          setDoc(doc(dataBase, "profiles", "uniqueDocumentId"), profileData) // Set document in Firestore with a unique ID
+          const profileData = {
+            image: downloadURL,
+            imageName,
+            guardian,
+            name,
+            age,
+            species,
+            sex,
+            neutering,
+            weight,
+            admit_to_hospital: admitToHospital,
+            admit_to_hospital_in: admitToHospitalIn,
+            admit_to_hospital_out: admitToHospitalOut,
+            clinic_text: clinicText,
+            clinic_today: clinicToday,
+            reservation_next: reservationNext,
+            id,
+          };
+          addDoc(doc(dataBase, "chartDatas"), profileData)
             .then(() => {
-              alert("프로필이 등록되었습니다.");
-              // 필요에 따라 페이지 리로드 또는 다른 동작 수행
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "등록되었습니다!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
             })
             .catch((error) => {
               console.error("프로필 등록 중 오류 발생:", error);
@@ -89,17 +169,35 @@ function ResisterForm() {
       });
   };
 
-  const handleCancel = () => {
-    if (window.confirm("프로필 등록을 취소하시겠습니까?")) {
-      setPreviewImage(null);
-      fileRef.current.value = null;
-    }
+  const handleCancel = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "등록을 취소하시겠습니까??",
+      text: "삭제한 정보는 복구할 수 없습니다.",
+      icon: "warning",
+      timer: 3000,
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setPreviewImage(null);
+        fileRef.current.value = null;
+        Swal.fire({
+          title: "삭제완료",
+          text: "파일이 삭제되었습니다.",
+          icon: "success",
+          timer: 3000,
+        });
+      }
+    });
   };
 
   return (
     <Container>
       <Header>
-        <Title>등록하기</Title>
+        <Title style={{ marginLeft: "10px" }}>등록하기</Title>
         <SubmitButton onClick={handleSubmit} type="submit">
           등록
         </SubmitButton>
@@ -117,6 +215,7 @@ function ResisterForm() {
               backgroundColor: "var(--color-gray-2)",
               borderRadius: "10px",
               boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+              margin: "0 0 30px 10px",
             }}
             alt="이미지 미리보기"
           />
@@ -128,7 +227,12 @@ function ResisterForm() {
               onChange={handleFileChange}
               style={{ display: "none" }}
             />
-            <UploadButton onClick={() => fileRef.current.click()}>
+            <UploadButton
+              onClick={(e) => {
+                e.preventDefault();
+                fileRef.current.click();
+              }}
+            >
               파일 추가
             </UploadButton>
             <DeleteButton onClick={handleDeleteImage}>삭제</DeleteButton>
@@ -159,10 +263,7 @@ function ResisterForm() {
             <option value="남">남</option>
             <option value="여">여</option>
           </Select>
-          <Select
-            id="neutering"
-            onChange={handleInputChange}
-          >
+          <Select id="neutering" onChange={handleInputChange}>
             <option value="">중성화여부</option>
             <option value="O">O</option>
             <option value="X">X</option>
@@ -305,4 +406,4 @@ const Option = styled.div`
   }
 `;
 
-export default ResisterForm;
+export default RegisterForm;
