@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import styled from "styled-components";
-import { dataBase, storage } from "../firebase";
+import { dataBase, getStorage, ref, uploadBytes } from "firebase/storage";
 import { addDoc, doc } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { NormalButton } from "./Buttons";
@@ -9,80 +9,39 @@ import dayjs from "dayjs";
 
 function RegisterForm() {
   const [previewImage, setPreviewImage] = useState(null);
-  const [file, setFile] = useState(null);
-  const [imageName, setImageName] = useState("");
-  const [guardian, setGuardian] = useState("");
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [species, setSpecies] = useState("");
-  const [sex, setSex] = useState("");
-  const [neutering, setNeutering] = useState("");
-  const [weight, setWeight] = useState("");
-  const [admitToHospital, setAdmitToHospital] = useState(false);
-  const [admitToHospitalIn, setAdmitToHospitalIn] = useState("");
-  const [admitToHospitalOut, setAdmitToHospitalOut] = useState("");
-  const [clinicText, setClinicText] = useState("");
-  const [clinicToday, setClinicToday] = useState(
-    dayjs().format("YYYY-MM-DDTHH:mm")
-  );
-  const [reservationNext, setReservationNext] = useState("");
-  const [id, setId] = useState("");
-
   const fileRef = useRef(null);
+  const storage = getStorage();
+  const sectionDataRef = useRef({
+    file: null,
+    guardian: "",
+    name: "",
+    age: "",
+    species: "",
+    sex: "",
+    neutering: "",
+    weight: "",
+    admit_to_hospital: false,
+    admit_to_hospital_in: "",
+    admit_to_hospital_out: "",
+    clinic_text: "",
+    clinic_today: dayjs().format("YYYY-MM-DDTHH:mm"),
+    reservation_next: "",
+    id: "",
+  });
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    switch (id) {
-      case "guardian":
-        setGuardian(value.trim());
-        break;
-      case "name":
-        setName(value.trim());
-        break;
-      case "age":
-        setAge(value.trim());
-        break;
-      case "species":
-        setSpecies(value.trim());
-        break;
-      case "sex":
-        setSex(value.trim());
-        break;
-      case "neutering":
-        setNeutering(value.trim());
-        break;
-      case "weight":
-        setWeight(value.trim());
-        break;
-      case "admit_to_hospital":
-        setAdmitToHospital(e.target.checked);
-        break;
-      case "admit_to_hospital_in":
-        setAdmitToHospitalIn(value.trim());
-        break;
-      case "admit_to_hospital_out":
-        setAdmitToHospitalOut(value.trim());
-        break;
-      case "clinic_text":
-        setClinicText(value.trim());
-        break;
-      case "clinic_today":
-        setClinicToday(value.trim());
-        break;
-      case "reservation_next":
-        setReservationNext(value.trim());
-        break;
-      case "id":
-        setId(value.trim());
-        break;
-      default:
-        break;
+    console.log("Value type:", value);
+    if (id !== "file") {
+      const trimmedValue = typeof value === "string" ? value.trim() : value;
+      sectionDataRef.current[id] = trimmedValue;
     }
   };
 
   const handleFileChange = (e) => {
     e.preventDefault();
     const file = fileRef.current.files[0];
+    console.log(file);
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -90,64 +49,63 @@ function RegisterForm() {
       };
       reader.readAsDataURL(file);
       const imageName = `${dayjs().format("YYYYMMDDHHmmss")}_${file.name}`;
-      setFile(file);
-      setImageName(imageName);
+
+      sectionDataRef.current.file = file;
+      sectionDataRef.current.imageName = imageName;
     }
   };
 
   const handleDeleteImage = (e) => {
     e.preventDefault();
     setPreviewImage(null);
-    setFile(null);
-    setImageName("");
+    sectionDataRef.current.file = null;
     fileRef.current.value = null;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      !file ||
-      !guardian ||
-      !name ||
-      !age ||
-      !species ||
-      !sex ||
-      !neutering ||
-      !weight
-    ) {
+    
+    if (!sectionDataRef.current.file) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "모든 항목을 작성해주세요.",
+        text: "이미지 파일을 선택해주세요.",
+        timer: 6000,
+      });
+      return;
+    }
+  
+    const requiredFields = ['guardian', 'name', 'age', 'species', 'sex', 'neutering', 'weight'];
+    const missingFields = requiredFields.filter(field => !sectionDataRef.current[field].trim());
+    if (missingFields.length > 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${missingFields.join(', ')} 항목을 작성해주세요.`,
         timer: 6000,
       });
       return;
     }
 
-    const storageRef = storage.ref();
-    const storageRoot = storageRef.child("images/" + imageName);
-    const uploadTask = storageRoot.put(file);
+    const file = sectionDataRef.current.file;
+    const imageName = `${dayjs().format("YYYYMMDDHHmmss")}_${file.name}`;
+    const storageRef = ref(storage, "images/" + imageName); // storage 객체의 ref() 함수를 사용하여 storage reference를 얻습니다.
+    const uploadTask = uploadBytes(storageRef, file);
 
     uploadTask
       .then((snapshot) => {
         snapshot.ref.getDownloadURL().then((downloadURL) => {
           const profileData = {
+            ...sectionDataRef.current,
             image: downloadURL,
-            imageName,
-            guardian,
-            name,
-            age,
-            species,
-            sex,
-            neutering,
-            weight,
-            admit_to_hospital: admitToHospital,
-            admit_to_hospital_in: admitToHospitalIn,
-            admit_to_hospital_out: admitToHospitalOut,
-            clinic_text: clinicText,
-            clinic_today: clinicToday,
-            reservation_next: reservationNext,
-            id,
+            imageName: imageName,
+            admit_to_hospital: false,
+            admit_to_hospital_in: "",
+            admit_to_hospital_out: "",
+            clinic_text: "",
+            clinic_today: dayjs().format("YYYY-MM-DDTHH:mm"),
+            reservation_next: "",
+            id: "",
           };
           addDoc(doc(dataBase, "chartDatas"), profileData)
             .then(() => {
@@ -158,6 +116,7 @@ function RegisterForm() {
                 showConfirmButton: false,
                 timer: 1500,
               });
+              return;
             })
             .catch((error) => {
               console.error("프로필 등록 중 오류 발생:", error);

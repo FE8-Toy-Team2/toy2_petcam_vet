@@ -65,15 +65,15 @@ function RegisterForm() {
     e.preventDefault();
     const dataValues = Object.values(sectionDataRef.current);
     console.log(dataValues);
-    // if (!sectionDataRef.current.file || dataValues.some((value) => !value.trim)) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Oops...",
-    //     text: "모든 항목을 작성해주세요.",
-    //     timer: 6000,
-    //   });
-    //   return;
-    // }
+    if (!sectionDataRef.current.file || dataValues.some((value) => !value.trim)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "모든 항목을 작성해주세요.",
+        timer: 6000,
+      });
+      return;
+    }
 
     const file = fileRef.current.files[0];
     const storageRef = storage.ref();
