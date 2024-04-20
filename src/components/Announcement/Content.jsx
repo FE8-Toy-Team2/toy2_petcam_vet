@@ -24,25 +24,14 @@ const Content = () => {
 
   useEffect(() => {
     onSnapshot(announcementQuery, (snapshot) => {
-      console.log(snapshotToArray(snapshot));
       setAnnouncements(snapshotToArray(snapshot));
     });
   }, [setAnnouncements]);
 
   return (
     <ContentWrapper>
-      <List 
-        announcements={announcements} 
-        page={page} 
-        postBlock={5}
-      />
-      <Pagination
-        currentPage={page} 
-        totalPosts={announcements.length} 
-        setPage={setPage} 
-        postBlock={5}
-        pageBlock={5}
-      />
+      <List announcements={announcements} page={page} postBlock={5} />
+      <Pagination currentPage={page} totalPosts={announcements.length} setPage={setPage} postBlock={5} pageBlock={5} />
     </ContentWrapper>
   );
 };

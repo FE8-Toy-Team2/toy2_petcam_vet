@@ -14,6 +14,9 @@ import AnnouncementContent from "../Announcement/Content";
 import AnnouncementWrite from "../Announcement/Write";
 import Post from "../Announcement/Post";
 import Chart from "../../pages/Chart";
+import { Container } from "../ChartList/Styles";
+import Content from "../Announcement/Content";
+import Home from "../Home";
 
 function Layout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,7 +41,7 @@ function Layout() {
     <>
       <Nav isLoggedIn={isLoggedIn} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<div>hello</div>} />
+        <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/signup" element={<Signup onLogin={handleLogin} isLoggedIn={isLoggedIn} />} />
         <Route path="/announcement" element={<Announcement />}>

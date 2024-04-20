@@ -48,7 +48,11 @@ function List({ petState }) {
         return (
           <ChartListLi key={pet.id}>
             <ListLiLeft>
-              <ListLiLeftImg src="../public/image/title_logo.gif" alt="테스트 이미지" />
+              {pet.image !== "" ? (
+                <ListLiLeftImg src={pet.image} alt="유저이미지" />
+              ) : (
+                <ListLiLeftImg src="../public/image/default_img.jpeg" alt="테스트 이미지" />
+              )}
               <Link to={`/chart/${pet.id}`}>
                 <div>{pet.name}</div>
                 <div>{pet.species}</div>
