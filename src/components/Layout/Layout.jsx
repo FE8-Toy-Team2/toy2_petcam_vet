@@ -1,16 +1,20 @@
-import Clock from "./Clock";
 import Footer from "./Footer";
 import Nav from "./Nav";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes, createBrowserRouter } from "react-router-dom";
 import { useState } from "react";
 import Login from "../LoginSignup/Login";
 import Signup from "../LoginSignup/Signup";
-import Content from "../Announcement/Content";
 import ChartList from "../ChartList/ChartList";
 import RegisterForm from "../RegisterForm/Register";
 import { getAuth, signOut } from "firebase/auth";
 
-import { Outlet } from "react-router-dom";
+import Announcement from "../Announcement";
+import AnnouncementHeader from "../Announcement/Header";
+import AnnouncementContent from "../Announcement/Content";
+import AnnouncementWrite from "../Announcement/Write";
+import Post from "../Announcement/Post";
+import Chart from "../../pages/Chart";
+import Home from "../Home";
 
 function Layout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,12 +41,31 @@ function Layout() {
       <Routes>
         <Route path="/" element={<div>hello</div>} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route
-          path="/signup"
-          element={<Signup onLogin={handleLogin} isLoggedIn={isLoggedIn} />}
-        />
-        <Route path="/announce" element={<Content />} />
+        <Route path="/signup" element={<Signup onLogin={handleLogin} isLoggedIn={isLoggedIn} />} />
+        <Route path="/announcement" element={<Announcement />}>
+          <Route
+            path=""
+            element={
+              <>
+                <AnnouncementHeader />
+                <AnnouncementContent />
+              </>
+            }
+          ></Route>
+          <Route path="write" element={<AnnouncementWrite />}></Route>
+          <Route
+            path=":id"
+            element={
+              <>
+                <AnnouncementHeader />
+                <Post />
+              </>
+            }
+          ></Route>
+          <Route path=":id/edit" element={<AnnouncementWrite />}></Route>
+        </Route>
         <Route path="/chartlist" element={<ChartList />} />
+        <Route path="/chart" element={<Chart />} />
         <Route path="/register" element={<RegisterForm />} />
       </Routes>
       <Footer />

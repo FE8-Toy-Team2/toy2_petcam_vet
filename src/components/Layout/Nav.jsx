@@ -1,25 +1,36 @@
 import React from "react";
 import styled from "styled-components";
 import Clock from "./Clock";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Nav = ({ isLoggedIn, onLogout }) => {
   return (
     <Header>
       <Buttons>
         <Clock />
-        <SignUpButton><Link to="/signup">회원가입</Link></SignUpButton>
+        <SignUpButton>
+          <Link to="/signup">회원가입</Link>
+        </SignUpButton>
         {isLoggedIn ? (
           <Button onClick={onLogout}>로그아웃</Button>
         ) : (
-          <Button><Link to="/login">로그인</Link></Button>
+          <Button>
+            <Link to="/login">로그인</Link>
+          </Button>
         )}
       </Buttons>
       <Navbar>
         <TextBox>
-          <Text><Link to="/chartlist">입원/퇴원 관리</Link></Text>
+          <Text>
+            <Link to="/chartlist">입원/퇴원 관리</Link>
+          </Text>
+          <Text>
+            <Link to="/chart">진료목록</Link>
+          </Text>
           <Text>동물등록</Text>
-          <Text><Link to="/announce">공지사항</Link></Text>
+          <Text>
+            <Link to="/announcement">공지사항</Link>
+          </Text>
         </TextBox>
       </Navbar>
     </Header>

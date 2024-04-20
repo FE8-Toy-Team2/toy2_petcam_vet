@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  ChartListUl,
-  ChartListLi,
-  ListLiLeft,
-  ListLiLeftImg,
-  ListLiRight,
-} from "./Styles.jsx";
+import { ChartListUl, ChartListLi, ListLiLeft, ListLiLeftImg, ListLiRight } from "./Styles.jsx";
 import { SmallButton } from "../Buttons.jsx";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { dataBase } from "../../firebase.js";
 import { Link } from "react-router-dom";
 
@@ -23,10 +17,7 @@ function List({ petState }) {
   const [petInfo, setPetInfo] = useState([]);
 
   const fetchData = async () => {
-    const dataQuery = query(
-      collection(dataBase, "chartDatas"),
-      orderBy("admit_to_hospital_in", "asc")
-    );
+    const dataQuery = query(collection(dataBase, "chartDatas"), orderBy("admit_to_hospital_in", "asc"));
     const dataResult = await getDocs(dataQuery);
     const petInfoData = dataResult.docs.map((doc) => doc.data());
     setPetInfo(petInfoData);
@@ -53,16 +44,11 @@ function List({ petState }) {
     <ChartListUl>
       <div>{filteredPets.length} 마리등록</div>
       {filteredPets.map((pet) => {
-        const { btnColor, textColor, label } = getButtonProps(
-          pet.admit_to_hospital
-        );
+        const { btnColor, textColor, label } = getButtonProps(pet.admit_to_hospital);
         return (
           <ChartListLi key={pet.id}>
             <ListLiLeft>
-              <ListLiLeftImg
-                src="../public/image/title_logo.gif"
-                alt="테스트 이미지"
-              />
+              <ListLiLeftImg src="../public/image/title_logo.gif" alt="테스트 이미지" />
               <Link to="chart/:id">
                 <div>{pet.name}</div>
                 <div>{pet.species}</div>
@@ -73,8 +59,7 @@ function List({ petState }) {
                 {label}
               </SmallButton>
               <div>
-                <div>{pet.admit_to_hospital_in}</div> d
-                <div>{pet.clinic_today}</div>
+                <div>{pet.admit_to_hospital_in}</div> d<div>{pet.clinic_today}</div>
               </div>
             </ListLiRight>
           </ChartListLi>
