@@ -37,12 +37,20 @@ const PostControlButtons = ({ id, dbId }) => {
             toast.onmouseleave = Swal.resumeTimer;
           }
         });
-        await deleteDoc(doc(dataBase, "announcement", dbId));
-        navigate("/announcement");
-        Toast.fire({
-          icon: "error",
-          title: "삭제했습니다."
-        });
+        try {
+          await deleteDoc(doc(dataBase, "announcement", dbId));
+          navigate("/announcement");
+          Toast.fire({
+            icon: "error",
+            title: "삭제했습니다."
+          });
+        } catch (error) {
+          console.log(error);
+          Toast.fire({
+            icon: "warning",
+            title: "오류로 인해 삭제에 실패했습니다."
+          });
+        }
       }
     });
   };

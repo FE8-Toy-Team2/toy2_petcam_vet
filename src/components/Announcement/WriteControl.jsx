@@ -43,7 +43,19 @@ const WriteButton = ({ title, content, announcement }) => {
       printEmptyTitleAlert();
       return;
     }
-    announcement
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    try {
+      announcement
       ? await updateDoc(doc(dataBase, "announcement", announcement.id), { 
         content: JSON.stringify(content),
         date: new Date().valueOf().toString() 
@@ -53,7 +65,18 @@ const WriteButton = ({ title, content, announcement }) => {
         content: JSON.stringify(content),
         date: new Date().valueOf().toString()
       });
-    navigate("/announcement");
+      navigate("/announcement");
+      Toast.fire({
+        icon: "success",
+        title: "등록했습니다."
+      });
+    } catch (error) {
+      console.log(error);
+      Toast.fire({
+        icon: "warning",
+        title: "오류로 인해 등록에 실패했습니다."
+      });
+    }
   };
 
   return (
