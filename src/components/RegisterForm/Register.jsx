@@ -217,7 +217,11 @@ const Container = styled.form`
   font-weight: bold;
   color: var(--color-black);
   margin-top: 5rem;
+  padding: 1rem;
+  border-radius: 10px;
   background-color: var(--color-gray-1);
+  box-shadow: 1px 1px 10px var(--color-darkgray);
+  margin-bottom: 1rem;
 `;
 
 const Header = styled.div`

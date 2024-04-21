@@ -6,7 +6,6 @@ import List from "../ChartList/List";
 const Main = styled.main`
   width: 100%;
   min-height: 100vh;
-  background-color: #f6f6f6;
   display: flex;
   justify-content: center;
 `;
