@@ -126,6 +126,7 @@ const Wrapper = styled.div`
   gap: 10px;
   justify-content: flex-start;
   box-sizing: border-box;
+  background-color: var(--color-gray-1);
 `;
 
 const Contents = styled.div`
@@ -151,35 +152,4 @@ const BtnWrapper = styled.div`
   height: 60px;
 `;
 
-// const ClinicContainer = styled.div`
-//   display: flex;
-//   width: 100%;
-//   height: 100%;
-//   box-sizing: border-box;
-//   gap: 10px;
-//   @media (max-width: 768px) {
-//     padding: 15px;
-//     display: block;
-//     position: relative;
-//   }
 
-//   @media (max-width: 576px) {
-//     padding: 15px;
-//     display: block;
-//     position: relative;
-//   }
-// `;
-
-// const ClinicButtonArea = styled.div`
-//   display: flex;
-//   max-width: 1440px;
-//   margin: auto;
-//   position: relative;
-
-//   @media (max-width: 768px) {
-//     margin-right: 15px;
-//   }
-//   @media (max-width: 576px) {
-//     margin-right: 15px;
-//   }
-// `;
