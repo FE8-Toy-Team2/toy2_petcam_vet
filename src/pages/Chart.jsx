@@ -120,10 +120,10 @@ export default Chart;
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  max-width: 1440px;
-  gap: 10px;
   width: 100%;
+  flex-direction: column;
+   margin: auto;
+  gap: 10px;
   justify-content: flex-start;
   box-sizing: border-box;
 `;
