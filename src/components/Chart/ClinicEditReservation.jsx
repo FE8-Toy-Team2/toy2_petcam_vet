@@ -90,7 +90,7 @@ input  {
   font-family: "Prentendard";  
   background-color: var(--color-gray-2);
   border: 1px solid var(--color-black);
-  font-size: 14px;  
+  font-size: var(--font-size-M); 
 }
 
 input:focus{
@@ -100,7 +100,7 @@ input:focus{
 input[type='datetime-local'] {
   padding: 0 5px;
   border: none;
-  font-size: 15px;
+  font-size: var(--font-size-M);
   background-color: var(--color-gray-3);
 }
 
@@ -108,7 +108,7 @@ input[type='date']{
   margin: 0 5px;
   padding: 0 5px;
   border: none;
-  font-size: 15px;
+  font-size: var(--font-size-M);
   background-color: var(--color-gray-3);
 }
 

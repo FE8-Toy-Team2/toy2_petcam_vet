@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ChartListUl, ChartListLi, ListLiLeft, ListLiLeftImg, ListLiRight } from "./Styles.jsx";
 import { SmallButton } from "../Buttons.jsx";
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, doc } from "firebase/firestore";
 import { dataBase } from "../../firebase.js";
 import { Link } from "react-router-dom";
 
@@ -38,6 +38,8 @@ function List({ petState }) {
     }
   });
 
+
+
   return (
     <ChartListUl>
       <div>{filteredPets.length} 마리등록</div>
@@ -51,7 +53,7 @@ function List({ petState }) {
               ) : (
                 <ListLiLeftImg src="../public/image/default_img.jpeg" alt="테스트 이미지" />
               )}
-              <Link to={`/chart/${pet.id}`}>
+              <Link to={`/chart/${pet.id}`}> {/* Firestore 문서의 이름을 사용하여 링크 생성 */}
                 <div>{pet.name}</div>
                 <div>{pet.species}</div>
               </Link>

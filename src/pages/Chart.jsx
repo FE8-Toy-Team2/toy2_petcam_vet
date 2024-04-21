@@ -6,8 +6,11 @@ import ClinicEdit from "../components/Chart/ClinicEdit";
 import { NormalButton } from "../components/Buttons";
 import { dataBase } from "../firebase";
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
+// import { getStorage } from "firebase/storage";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
+
+
 
 const Chart = () => {
   const { id } = useParams();
@@ -27,6 +30,8 @@ const Chart = () => {
     sex: true,
     species: "",
     weight: "",
+    imageName: "",
+    image: ""
   });
   const chartDatasCollectionRef = collection(dataBase, "chartDatas");
 
@@ -117,12 +122,17 @@ export default Chart;
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  max-width: 1440px;
-  gap: 10px;
   width: 100%;
+  flex-direction: column;
+   margin: auto;
+  gap: 10px;
   justify-content: flex-start;
   box-sizing: border-box;
+  background-color: var(--color-gray-2);
+
+  @media (max-width: 576px) {
+    display: block;
+  }
 `;
 
 const Contents = styled.div`
@@ -135,6 +145,9 @@ const Contents = styled.div`
   padding: 30px 30px 0 30px;
   justify-content: space-between;
   gap: 10px;
+  @media (max-width: 576px) {
+    display: block;
+  }
 `;
 
 const BtnWrapper = styled.div`
@@ -143,40 +156,8 @@ const BtnWrapper = styled.div`
   flex-basis: 0;
   flex-grow: 0.1;
   margin: 0 30px;
-
   align-items: center;
   height: 60px;
 `;
 
-const ClinicContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  gap: 10px;
-  @media (max-width: 768px) {
-    padding: 15px;
-    display: block;
-    position: relative;
-  }
 
-  @media (max-width: 576px) {
-    padding: 15px;
-    display: block;
-    position: relative;
-  }
-`;
-
-const ClinicButtonArea = styled.div`
-  display: flex;
-  max-width: 1440px;
-  margin: auto;
-  position: relative;
-
-  @media (max-width: 768px) {
-    margin-right: 15px;
-  }
-  @media (max-width: 576px) {
-    margin-right: 15px;
-  }
-`;
