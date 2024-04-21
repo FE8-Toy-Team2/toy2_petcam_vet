@@ -6,6 +6,9 @@ import Swal from "sweetalert2";
 import { icons } from "@tiptap/pm/menu";
 
 const ChartSection = styled.section`
+  h3 {
+    margin-bottom: 2rem;
+  }
 `;
 
 const FriendToday = styled.li`

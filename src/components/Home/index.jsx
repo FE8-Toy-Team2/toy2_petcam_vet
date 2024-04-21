@@ -50,7 +50,6 @@ const MainUnits = styled.div`
   }
   h3 {
     font-size: 2rem;
-    margin-bottom: 2rem;
   }
 `;
 
