@@ -217,6 +217,7 @@ const Container = styled.form`
   font-weight: bold;
   color: var(--color-black);
   margin-top: 5rem;
+  background-color: var(--color-gray-1);
 `;
 
 const Header = styled.div`
