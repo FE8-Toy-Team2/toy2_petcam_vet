@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import HomeAnnouncement from "./HomeAnnouncement";
 import List from "./ChartList/List";
 
 const Main = styled.main`
@@ -45,6 +46,7 @@ function Home() {
           <div>동물등록 하러가기</div>
           <div>차트 리스트 보러가기</div>
         </MainGrid>
+        <HomeAnnouncement />
       </MainContent>
     </Main>
   );
