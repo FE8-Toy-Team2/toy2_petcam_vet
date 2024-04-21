@@ -7,7 +7,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  background-color: #f6f6f6;
+  background-color: var(--color-gray-2);
 `;
 
 export const ChartNav = styled.nav`
