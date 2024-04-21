@@ -17,6 +17,7 @@ import Chart from "../../pages/Chart";
 import { Container } from "../ChartList/Styles";
 import Content from "../Announcement/Content";
 import Home from "../Home";
+import Swal from 'sweetalert2'
 
 function Layout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,7 +31,10 @@ function Layout() {
     signOut(auth)
       .then(() => {
         setIsLoggedIn(false);
-        alert("로그아웃하셨습니다");
+        // alert("로그아웃하셨습니다");
+        Swal.fire({
+          text: "로그아웃하셨습니다"
+        });
       })
       .catch((error) => {
         alert("에러 발생", error);

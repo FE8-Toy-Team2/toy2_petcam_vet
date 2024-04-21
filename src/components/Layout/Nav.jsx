@@ -2,8 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import Clock from "./Clock";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Nav = ({ isLoggedIn, onLogout }) => {
+  
+  const location = useLocation();
+
   return (
     <Header>
       <Buttons>
@@ -19,19 +23,20 @@ const Nav = ({ isLoggedIn, onLogout }) => {
           </Button>
         )}
       </Buttons>
-      <Navbar>
-        <TextBox>
-          <Text>
-            <Link to="/chart">입원/퇴원 관리</Link>
-          </Text>
-          <Text>
-            <Link to="/register">동물등록</Link>
-          </Text>
-          <Text>
-            <Link to="/announcement">공지사항</Link>
-          </Text>
-        </TextBox>
-      </Navbar>
+     <Navbar>
+          <LogoLink to="/"></LogoLink>
+          <TextBox>
+            <Text className={location.pathname === "/chart" ? "active" : ""}>
+              {isLoggedIn ? <Link to="/chart">입원/퇴원 관리</Link> : <Link to="/login">입원/퇴원 관리</Link>}
+            </Text>
+            <Text className={location.pathname === "/register" ? "active" : ""}>
+              {isLoggedIn ? <Link to="/register">동물등록</Link> : <Link to="/login">동물등록</Link>}
+            </Text>
+            <Text className={location.pathname === "/announcement" ? "active" : ""}>
+              <Link to="/announcement">공지사항</Link>
+            </Text>
+          </TextBox>
+        </Navbar>
     </Header>
   );
 };
@@ -82,6 +87,15 @@ const Button = styled.button`
     color: #e3e2de;
   }
 `;
+const LogoLink = styled(Link)`
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 150px;
+  margin-left: 30px;
+  background: url("../img/petcam_logo.svg") no-repeat center center;
+  cursor: pointer;
+`;
 const Navbar = styled.div`
   width: 100%;
   height: 60px;
@@ -90,15 +104,7 @@ const Navbar = styled.div`
   position: absolute;
   display: flex;
   box-shadow: 1px 1px 7px var(--color-darkgray);
-
-  &::before {
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    width: 150px;
-    margin-left: 30px;
-    background: url("../img/petcam_logo.svg") no-repeat center center;
-  }
+  opacity: 0.9;
 `;
 const TextBox = styled.div`
   display: flex;
@@ -107,12 +113,22 @@ const TextBox = styled.div`
 const Text = styled.p`
   font-family: var(--font-weight-bold);
   color: var(--color-black);
-  margin: auto 25px;
+  margin: auto 25px; 
   font-size: 15px;
   cursor: pointer;
   transition: 0.3s;
-
-  &:hover {
-    color: var(--color-darkgray);
+  position: relative;
+  
+  &:hover,
+  &.active {
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      width: 100%;
+      height: 3px;
+      background-color: var(--color-prime);
+    }
   }
 `;
