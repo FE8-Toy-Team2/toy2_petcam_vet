@@ -1,16 +1,17 @@
 import { useState, useRef } from "react";
 import styled from "styled-components";
-import { dataBase, getStorage, ref, uploadBytes } from "firebase/storage";
-import { addDoc, doc } from "firebase/firestore";
+import { dataBase, storage } from "../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Swal from "sweetalert2";
-import { NormalButton } from "./Buttons";
-import { SmallButton } from "./Buttons";
+import { NormalButton, SmallButton } from "../Buttons";
 import dayjs from "dayjs";
+import { addDoc, collection } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 function RegisterForm() {
+  let navigate = useNavigate();
   const [previewImage, setPreviewImage] = useState(null);
   const fileRef = useRef(null);
-  const storage = getStorage();
   const sectionDataRef = useRef({
     file: null,
     guardian: "",
@@ -26,15 +27,28 @@ function RegisterForm() {
     clinic_text: "",
     clinic_today: dayjs().format("YYYY-MM-DDTHH:mm"),
     reservation_next: "",
-    id: "",
+    image: "",
+  });
+
+  const [requiredFields, setRequiredFields] = useState({
+    guardian: false,
+    name: false,
+    age: false,
+    species: false,
+    sex: false,
+    neutering: false,
+    weight: false,
   });
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    console.log("Value type:", value);
     if (id !== "file") {
       const trimmedValue = typeof value === "string" ? value.trim() : value;
       sectionDataRef.current[id] = trimmedValue;
+      setRequiredFields((prevFields) => ({
+        ...prevFields,
+        [id]: !!trimmedValue,
+      }));
     }
   };
 
@@ -62,70 +76,49 @@ function RegisterForm() {
     fileRef.current.value = null;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!sectionDataRef.current.file) {
+    const file = fileRef.current.files[0];
+    if (!file) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "이미지 파일을 선택해주세요.",
-        timer: 6000,
+        title: "파일을 선택해주세요.",
       });
       return;
     }
-  
-    const requiredFields = ['guardian', 'name', 'age', 'species', 'sex', 'neutering', 'weight'];
-    const missingFields = requiredFields.filter(field => !sectionDataRef.current[field].trim());
-    if (missingFields.length > 0) {
+    const allFieldsFilled = Object.values(requiredFields).every((field) => field);
+    if (!allFieldsFilled) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: `${missingFields.join(', ')} 항목을 작성해주세요.`,
-        timer: 6000,
+        title: "모든 필수 입력 필드를 채워주세요.",
       });
       return;
     }
 
-    const file = sectionDataRef.current.file;
-    const imageName = `${dayjs().format("YYYYMMDDHHmmss")}_${file.name}`;
-    const storageRef = ref(storage, "images/" + imageName); // storage 객체의 ref() 함수를 사용하여 storage reference를 얻습니다.
-    const uploadTask = uploadBytes(storageRef, file);
+    const storageRef = ref(storage, `images/${dayjs().format("YYYYMMDDHHmmss")}_${file.name}`);
 
-    uploadTask
-      .then((snapshot) => {
-        snapshot.ref.getDownloadURL().then((downloadURL) => {
-          const profileData = {
-            ...sectionDataRef.current,
-            image: downloadURL,
-            imageName: imageName,
-            admit_to_hospital: false,
-            admit_to_hospital_in: "",
-            admit_to_hospital_out: "",
-            clinic_text: "",
-            clinic_today: dayjs().format("YYYY-MM-DDTHH:mm"),
-            reservation_next: "",
-            id: "",
-          };
-          addDoc(doc(dataBase, "chartDatas"), profileData)
-            .then(() => {
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "등록되었습니다!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              return;
-            })
-            .catch((error) => {
-              console.error("프로필 등록 중 오류 발생:", error);
-            });
-        });
-      })
-      .catch((error) => {
-        console.error("파일 업로드 중 오류 발생:", error);
+    try {
+      const snapshot = await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      const { file: _, ...profileData } = sectionDataRef.current;
+      profileData.image = downloadURL;
+      profileData.imageName = file.name;
+
+      await addDoc(collection(dataBase, "chartDatas"), profileData);
+      Swal.fire({
+        title: "등록되었습니다!",
+        showConfirmButton: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/chart");
+        }
       });
+    } catch (error) {
+      console.error("파일 업로드 또는 데이터 저장 중 오류 발생:", error);
+      Swal.fire({
+        title: "등록 실패",
+        text: "에러 메시지: " + error.message,
+      });
+    }
   };
 
   const handleCancel = (e) => {
@@ -133,7 +126,6 @@ function RegisterForm() {
     Swal.fire({
       title: "등록을 취소하시겠습니까??",
       text: "삭제한 정보는 복구할 수 없습니다.",
-      icon: "warning",
       timer: 3000,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -146,7 +138,6 @@ function RegisterForm() {
         Swal.fire({
           title: "삭제완료",
           text: "파일이 삭제되었습니다.",
-          icon: "success",
           timer: 3000,
         });
       }
@@ -179,13 +170,7 @@ function RegisterForm() {
             alt="이미지 미리보기"
           />
           <div style={{ textAlign: "center" }}>
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
+            <input ref={fileRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
             <UploadButton
               onClick={(e) => {
                 e.preventDefault();
@@ -199,24 +184,9 @@ function RegisterForm() {
         </ImgInput>
 
         <Section>
-          <Input
-            id="guardian"
-            type="text"
-            placeholder="보호자명"
-            onChange={handleInputChange}
-          />
-          <Input
-            id="name"
-            type="text"
-            placeholder="이름"
-            onChange={handleInputChange}
-          />
-          <Input
-            id="species"
-            type="text"
-            placeholder="종"
-            onChange={handleInputChange}
-          />
+          <Input id="guardian" type="text" placeholder="보호자명" onChange={handleInputChange} />
+          <Input id="name" type="text" placeholder="이름" onChange={handleInputChange} />
+          <Input id="species" type="text" placeholder="종" onChange={handleInputChange} />
           <Select id="sex" onChange={handleInputChange}>
             <option value="">성별을 선택하세요</option>
             <option value="남">남</option>
@@ -228,19 +198,11 @@ function RegisterForm() {
             <option value="X">X</option>
           </Select>
           <Option>
-            <textarea
-              id="age"
-              placeholder="나이"
-              onChange={handleInputChange}
-            />
+            <textarea id="age" placeholder="나이" onChange={handleInputChange} />
             개월
           </Option>
           <Option>
-            <textarea
-              id="weight"
-              placeholder="체중"
-              onChange={handleInputChange}
-            />
+            <textarea id="weight" placeholder="체중" onChange={handleInputChange} />
             kg
           </Option>
         </Section>
@@ -250,15 +212,11 @@ function RegisterForm() {
 }
 
 const Container = styled.form`
-  position: fixed;
   width: fit-content;
   margin: auto;
-  left: 600px;
-  top: 200px;
-  font-family: "Pretendard";
   font-weight: bold;
   color: var(--color-black);
-  border-radius: 10px;
+  margin-top: 5rem;
 `;
 
 const Header = styled.div`

@@ -7,18 +7,18 @@ import { styled } from "styled-components";
   /* <NormalButton btn_color="버튼색을 넣으세요" textColor="버튼 텍스트 칼라를 넣으세요">등록</NormalButton>  */
 }
 
-// 작은버튼
+// 직은버튼
 export const SmallButton = styled.button`
   width: 50px;
   height: 30px;
   border: none;
-  background-color: ${(props) => props.btnColor};
+  background-color: ${(props) => props.btn_color};
   color: ${(props) => props.textColor};
   cursor: pointer;
 
   font-size: var(--font-size-M);
   font-family: "Pretendard";
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   transition: 0.3s;
   border-radius: 10px;
 
@@ -33,13 +33,13 @@ export const NormalButton = styled.button`
   width: 130px;
   height: 40px;
   border: none;
-  background-color: ${(props) => props.btnColor};
+  background-color: ${(props) => props.btn_color};
   color: ${(props) => props.textColor};
   cursor: pointer;
 
   font-size: var(--font-size-L);
   font-family: "Pretendard";
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   transition: 0.3s;
   border-radius: 10px;
 
