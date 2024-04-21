@@ -7,6 +7,9 @@ const ClinicEditPhotoAndChart = ({ selectedChart, setSelectedChart }) => {
   const [showSavedMessage, setShowSavedMessage] = useState(false);
   const [data, setData] = useState(selectedChart);
 
+
+
+
   const handleChange = (e, isChecked = undefined) => {
     // if (timerMap[id]) {
     //   clearTimeout(timerMap[id]);
@@ -32,15 +35,18 @@ const ClinicEditPhotoAndChart = ({ selectedChart, setSelectedChart }) => {
     setData(selectedChart);
   }, [selectedChart]);
 
-  const imageURL = `https://storage.googleapis.com/toy2-petcam-vet.appspot.com/images/${data.imageName}`;
-  const imageAltName = `${data.imageName}`;
+  // const imageURL = `https://storage.googleapis.com/toy2-petcam-vet.appspot.com/images/${data.imageName}`;
+  // const imageAltName = `${data.imageName}`;
 
 
   return (
     <PhotoAndChartContainer>
       {showSavedMessage && <SavedMessage>저장 완료!</SavedMessage>}
       <PhotoBox>
-        <img src={imageURL} alt={imageAltName} />
+        {selectedChart && (
+          <img src={data.image} alt={data.image} />
+          // <img src={`https://firebasestorage.googleapis.com/v0/b/toy2-petcam-vet.appspot.com/o/images%2F${selectedChart.imageName}?alt=media`} alt={`${selectedChart.imageName}`} />
+        )}
       </PhotoBox>
       <ChartDetails>
         <li>

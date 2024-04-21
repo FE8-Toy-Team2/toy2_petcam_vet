@@ -6,6 +6,7 @@ import ClinicEdit from "../components/Chart/ClinicEdit";
 import { NormalButton } from "../components/Buttons";
 import { dataBase } from "../firebase";
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
+// import { getStorage } from "firebase/storage";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 
@@ -27,7 +28,8 @@ const Chart = () => {
     sex: true,
     species: "",
     weight: "",
-    imageName: ""
+    imageName: "",
+    image: ""
   });
   const chartDatasCollectionRef = collection(dataBase, "chartDatas");
 
