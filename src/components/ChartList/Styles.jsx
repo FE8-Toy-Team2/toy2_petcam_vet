@@ -11,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const ChartNav = styled.nav`
-  width: 90%;
+  width: 80%;
   margin-top: 2rem;
 
   border-bottom: 1px solid #dddddd;
@@ -27,9 +27,6 @@ export const ChartNavUl = styled.ul`
 export const ChartNavLi = styled.li`
   padding: 0.5rem 1rem;
   cursor: pointer;
-  &:active {
-    border-bottom: 2px solid red;
-  }
 `;
 
 export const ChartListUl = styled.ul`
