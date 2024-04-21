@@ -94,7 +94,7 @@ const Navbar = styled.div`
     vertical-align: middle;
     width: 150px;
     margin-left: 30px;
-    background: url("../img/petcam_logo.svg") no-repeat center center;
+    background: url("/petcam_logo.svg") no-repeat center center;
   }
 `;
 const TextBox = styled.div`

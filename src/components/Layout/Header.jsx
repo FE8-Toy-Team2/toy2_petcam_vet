@@ -96,7 +96,7 @@ const LogoLink = styled(Link)`
   vertical-align: middle;
   width: 150px;
   margin-left: 30px;
-  background: url("../public/petcam_logo.svg") no-repeat center center;
+  background: url("/petcam_logo.svg") no-repeat center center;
   cursor: pointer;
 `;
 const Navbar = styled.div`
