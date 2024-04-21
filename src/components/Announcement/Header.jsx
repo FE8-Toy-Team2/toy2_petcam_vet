@@ -1,14 +1,16 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Search from "../common/Search";
 import PostButton from "./PostButton";
 
 const HeaderWrapper = styled.section`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-end;
   padding: 48px 0;
   & > h2 {
-    font-size: 4rem;
+    font-size: 2rem;
+    font-weight: 600;
   }
 `;
 
@@ -19,12 +21,20 @@ const HeaderControl = styled.div`
 `;
 
 const Header = () => {
+  const { id } = useParams();
+
   return (
     <HeaderWrapper>
       <h2>공지사항</h2>
       <HeaderControl>
-        <Search />
-        <PostButton />
+        {id ? (
+          ""
+        ) : (
+          <>
+            <Search />
+            <PostButton />
+          </>
+        )}
       </HeaderControl>
     </HeaderWrapper>
   );

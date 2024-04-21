@@ -35,9 +35,31 @@ const RootRouter = () => {
       />
       <RouterWrapper>
         <Routes>
-          <Route path="/" element={<ChartList />} />
+          <Route path="/" element={<Home />} />
           <Route path="/chart/*" element={<ChartList />} />
           <Route path="/chart/:id" element={<Chart />} />
+          <Route path="/announcement" element={<Announcement />}>
+            <Route
+              path=""
+              element={
+                <>
+                  <AnnouncementHeader />
+                  <AnnouncementContent />
+                </>
+              }
+            ></Route>
+            <Route path="write" element={<AnnouncementWrite />}></Route>
+            <Route
+              path=":id"
+              element={
+                <>
+                  <AnnouncementHeader />
+                  <Post />
+                </>
+              }
+            ></Route>
+            <Route path=":id/edit" element={<AnnouncementWrite />}></Route>
+          </Route>
           {/* <Route path= /> */}
         </Routes>
       </RouterWrapper>

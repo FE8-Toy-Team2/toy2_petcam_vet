@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { Link } from 'react-router-dom';
 
 
-const Signup = ({ onLogin }) => {
+const Signup = ({ onLogin, isLoggedIn }) => {
 
 	const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +35,11 @@ const Signup = ({ onLogin }) => {
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(`다시 입력해주세요`)
+			if (errorCode === 'auth/email-already-in-use') {
+				alert('이미 등록된 이메일 주소입니다.');
+			} else {
+				alert('다시 입력해주세요');
+			}
     }
 		setEmail('')
 		setPassword('')	
@@ -51,8 +56,7 @@ const Signup = ({ onLogin }) => {
 			onLogin()
     } catch (error) {
       const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(`등록되지 않은 사용자입니다`)
+      const errorMessage = error.message;      
     }
   };
 
@@ -81,8 +85,11 @@ const Signup = ({ onLogin }) => {
         />			
 				<Button type="submit">회원가입</Button>
 				<Divider></Divider>
-				<LoginGoogle onClick={handleGoogleLogin} type="submit">Google 계정으로 로그인</LoginGoogle>
-				<SignupButton type="submit">로그인</SignupButton>
+				<LoginGoogle onClick={handleGoogleLogin} type="submit" 
+					style={{ marginBottom: isLoggedIn ? '20px' : '5px' }}>Google 계정으로 로그인</LoginGoogle>				
+				{!isLoggedIn && 
+				<SignupButton type="submit"><Link to="/login">로그인</Link></SignupButton>					
+				}
 			</Form>
     </Container>
 	)
@@ -94,18 +101,16 @@ export default Signup
 
 const Container = styled.div`
 	width: 100%;
-  height: 100vh;
+  height: 80vh;
   display: flex;  
 	justify-content: center;
   align-items: center;
 	background-color: var(--color-gray-2);
 `
 const Form = styled.form`
-	width: 300px;
-	height: 488px;	
+	width: 300px;	
 	background-color: #fff;
 	border-radius: 10px;
-	margin: 90px;
 	justify-content: center;
 	align-items: center;
 	box-shadow: 1px 1px 10px var(--color-darkgray);	
@@ -182,6 +187,7 @@ const SignupButton = styled.button`
 	width: 256px;
 	height: 44px;
 	margin: 5px 20px;
+	margin-bottom: 17px;
 	border-radius: 10px;
 	border: none;
 	color: var(--color-darkgray);
