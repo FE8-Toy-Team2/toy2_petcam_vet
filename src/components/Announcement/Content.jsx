@@ -12,7 +12,7 @@ const ContentWrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 60%;
+  width: 80%;
 `;
 
 const Content = ({ filter }) => {

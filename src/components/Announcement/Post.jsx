@@ -7,7 +7,7 @@ import PostControl from "./PostControl";
 
 const PostSection = styled.section`
   align-self: center;
-  width: 80%;
+  width: 100%;
 `;
 
 const PostWrapper = styled.article`

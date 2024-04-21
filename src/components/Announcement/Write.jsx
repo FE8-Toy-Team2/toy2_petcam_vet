@@ -8,7 +8,7 @@ import WriteControl from "./WriteControl";
 
 const WriteWrapper = styled.section`
   align-self: center;
-  width: 80%;
+  width: 100%;
 `;
 
 const Write = () => {
