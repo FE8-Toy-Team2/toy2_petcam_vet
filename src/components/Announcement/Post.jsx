@@ -28,16 +28,10 @@ const PostContent = styled.div`
 const Post = () => {
   const { id } = useParams();
   const [announcements] = useContext(AnnouncementListContext);
-  console.log(announcements);
   const announcement = announcements[id-1];
-  console.log(announcement);
   const content = JSON.parse(announcement.content);
-  console.log(content);
   const dateObjectFromString = new Date(Number(announcement.date));
-  console.log(typeof content.date);
-  console.log(dateObjectFromString);
   const formattedDateString = `${dateObjectFromString.getFullYear()}년 ${dateObjectFromString.getMonth()+1}월 ${dateObjectFromString.getDate()}일`;
-  console.log(content);
 
   return (
     <PostSection>
