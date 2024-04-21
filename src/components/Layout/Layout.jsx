@@ -1,6 +1,6 @@
 import Footer from "./Footer";
 import Nav from "./Nav";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Login from "../LoginSignup/Login";
 import Signup from "../LoginSignup/Signup";
@@ -10,12 +10,12 @@ import { getAuth, signOut } from "firebase/auth";
 
 import Announcement from "../Announcement";
 import Chart from "../../pages/Chart";
-import { Container } from "../ChartList/Styles";
 import Home from "../Home";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 function Layout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  let navigate = useNavigate();
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -28,7 +28,12 @@ function Layout() {
         setIsLoggedIn(false);
         // alert("로그아웃하셨습니다");
         Swal.fire({
-          text: "로그아웃하셨습니다"
+          text: "로그아웃하셨습니다",
+          showConfirmButton: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/");
+          }
         });
       })
       .catch((error) => {

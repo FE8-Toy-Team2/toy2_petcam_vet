@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth";
-import { Link } from "react-router-dom";
-import Swal from 'sweetalert2'
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = ({ onLogin }) => {
+  let navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,14 +14,15 @@ const Login = ({ onLogin }) => {
 
     const auth = getAuth();
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       Swal.fire({
-        text: `${email}님이 로그인하셨습니다`
+        text: `${email}님이 로그인하셨습니다`,
+        showConfirmButton: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/");
+        }
       });
       onLogin();
     } catch (error) {
@@ -49,13 +46,17 @@ const Login = ({ onLogin }) => {
       const user = userCredential.user;
       // alert(`${user.email}님이 로그인하셨습니다`);
       Swal.fire({
-        text: `${user.email}님이 로그인하셨습니다`
+        text: `${user.email}님이 로그인하셨습니다`,
+        showConfirmButton: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/");
+        }
       });
       onLogin();
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-    
     }
   };
 
@@ -63,18 +64,8 @@ const Login = ({ onLogin }) => {
     <Container>
       <Form onSubmit={handleLogin}>
         <Logo></Logo>
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="이메일"
-        />
-        <Input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="비밀번호"
-        />
+        <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="이메일" />
+        <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호" />
         <Button type="submit">로그인</Button>
         <Divider></Divider>
         <LoginGoogle onClick={handleGoogleLogin} type="submit">
