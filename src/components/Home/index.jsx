@@ -5,13 +5,12 @@ import List from "../ChartList/List";
 
 const Main = styled.main`
   width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
+  min-height: 80vh;
 `;
 
 const MainContent = styled.section`
   width: 80%;
+  margin: 0 auto;
   margin-top: 5rem;
   display: flex;
   align-items: center;

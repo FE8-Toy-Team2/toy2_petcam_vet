@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { getDocs, collection, query } from "firebase/firestore";
 import { dataBase } from "../../firebase";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import { icons } from "@tiptap/pm/menu";
 
 const ChartSection = styled.section`
 `;
@@ -36,7 +38,26 @@ const Chart = () => {
   }
 
   useEffect(() => {
-    fetchData();
+    try {
+      fetchData();
+    } catch (error) {
+      console.log(error);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "오류로 인해 목록 갱신에 실패했습니다."
+      });
+    }
   }, []);
 
   return (

@@ -7,8 +7,8 @@ import PostControlButtons from "./PostControlButtons";
 
 const PostControlWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
   margin-top: 1rem;
 `;
 

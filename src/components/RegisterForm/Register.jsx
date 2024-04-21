@@ -213,6 +213,7 @@ function RegisterForm() {
 
 const Container = styled.form`
   width: fit-content;
+  min-height: 80vh;
   margin: auto;
   font-weight: bold;
   color: var(--color-black);

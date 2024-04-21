@@ -10,7 +10,8 @@ import Write from "./Write";
 import Post from "./Post";
 
 const AnnouncementWrapper = styled.main`
-  width: 80%;
+  width: 60%;
+  min-height: 80vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
