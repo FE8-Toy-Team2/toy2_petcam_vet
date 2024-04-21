@@ -4,7 +4,7 @@ import NavigateButton from "./NavigateButton";
 
 const ListRowStyle = styled.ul`
   position: relative;
-  width: 832px;
+  width: 100%;
   display: flex;
   &::after {
     content: "";

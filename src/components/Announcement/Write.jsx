@@ -5,9 +5,9 @@ import styled from "styled-components";
 import WriteEditor from "./WriteEditor";
 import WriteControl from "./WriteControl";
 
-const WriteTitle = styled.h2`
-  font-size: 4rem;
-  padding: 48px 0;
+const WriteWrapper = styled.section`
+  align-self: center;
+  width: 80%;
 `;
 
 const Write = () => {
@@ -22,15 +22,10 @@ const Write = () => {
   }, [id, announcements]);
 
   return (
-    <>
-      <WriteTitle>
-        {id 
-          ? "수정하기"
-          : "새 글 쓰기"}
-      </WriteTitle>
+    <WriteWrapper>
       <WriteEditor title={title} setTitle={setTitle} setContent={setContent} contentWritten={id ? announcements[id-1].content : ""} />
       <WriteControl title={title} content={content} announcement={id ? announcements[id-1] : null} />
-    </>
+    </WriteWrapper>
   );
 };
 

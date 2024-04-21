@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Search from "../common/Search";
@@ -20,14 +19,12 @@ const HeaderControl = styled.div`
   gap: 8px;
 `;
 
-const Header = ({ setFilter }) => {
-  const { id } = useParams();
-
+const Header = ({ title, setFilter }) => {
   return (
     <HeaderWrapper>
-      <h2>공지사항</h2>
+      <h2>{title}</h2>
       <HeaderControl>
-        {id ? "" :
+        {!setFilter ? "" :
           <>
             <Search setFilter={setFilter} />
             <PostButton />
@@ -38,6 +35,7 @@ const Header = ({ setFilter }) => {
 };
 
 Header.propTypes = {
+  title: PropTypes.string.isRequired,
   setFilter: PropTypes.func
 };
 

@@ -6,7 +6,8 @@ import ListHeader from "./ListHeader";
 import PostControl from "./PostControl";
 
 const PostSection = styled.section`
-  
+  align-self: center;
+  width: 80%;
 `;
 
 const PostWrapper = styled.article`

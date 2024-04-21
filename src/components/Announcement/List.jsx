@@ -4,6 +4,7 @@ import ListHeader from "./ListHeader";
 import ListItem from "./ListItem";
 
 const ListItemsWrapper = styled.ul`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 48px;
@@ -17,7 +18,7 @@ const List = ({ announcements, page, postBlock = 0, filter }) => {
 
   return (
     <>
-      <ListHeader width="832px" />
+      <ListHeader width="100%" />
       <ListItemsWrapper>
         {currentList.map((announcement, index) =>  {
           return announcement.title.match(filter) 

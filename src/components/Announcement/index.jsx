@@ -8,8 +8,10 @@ import Write from "./Write";
 import Post from "./Post";
 
 const AnnouncementWrapper = styled.main`
-  width: 1080px;
+  width: 80%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Announcement = () => {
@@ -25,26 +27,36 @@ const Announcement = () => {
             path=""
             element={
               <>
-                <Header setFilter={setFilter} />
+                <Header title="공지사항" setFilter={setFilter} />
                 <Content filter={filter} />
               </>
             }
           ></Route>
           <Route
             path="write"
-            element={<Write />}
+            element={
+            <>
+              <Header title="새 글 쓰기" />
+              <Write />
+            </>
+          }
           ></Route>
           <Route 
             path=":id"
             element={
             <>
-              <Header />
+              <Header title="공지사항" />
               <Post />
             </>}
           ></Route>
           <Route
             path=":id/edit"
-            element={<Write />}
+            element={
+              <>
+                <Header title="수정하기" />
+                <Write />
+              </>
+            }
           ></Route>
         </Routes>
       </AnnouncementWrapper>

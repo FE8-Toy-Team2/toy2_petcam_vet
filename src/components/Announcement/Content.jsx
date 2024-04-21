@@ -8,9 +8,11 @@ import List from "./List";
 import Pagination from "../common/Pagination";
 
 const ContentWrapper = styled.section`
+  align-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 60%;
 `;
 
 const Content = ({ filter }) => {
