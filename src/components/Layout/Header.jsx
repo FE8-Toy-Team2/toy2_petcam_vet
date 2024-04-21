@@ -26,8 +26,12 @@ const Nav = ({ isLoggedIn, onLogout }) => {
         <Navbar>
           <LogoLink to="/"></LogoLink>
           <TextBox>
-            <Text className={location.pathname === "/chart" ? "active" : ""}>{isLoggedIn ? <Link to="/chart">입원/퇴원 관리</Link> : <Link to="/login">입원/퇴원 관리</Link>}</Text>
-            <Text className={location.pathname === "/register" ? "active" : ""}>{isLoggedIn ? <Link to="/register">동물등록</Link> : <Link to="/login">동물등록</Link>}</Text>
+            <Text className={location.pathname === "/chart" ? "active" : ""}>
+              {isLoggedIn ? <Link to="/chart">입원/퇴원 관리</Link> : <Link to="/login">입원/퇴원 관리</Link>}
+            </Text>
+            <Text className={location.pathname === "/register" ? "active" : ""}>
+              {isLoggedIn ? <Link to="/register">동물등록</Link> : <Link to="/login">동물등록</Link>}
+            </Text>
             <Text className={location.pathname === "/announcement" ? "active" : ""}>
               <Link to="/announcement">공지사항</Link>
             </Text>
@@ -49,6 +53,7 @@ const Wrapper = styled.header`
   background-color: var(--color-black);
   position: sticky;
   top: 0;
+  margin-bottom: 10rem;
 `;
 const Buttons = styled.div`
   display: flex;

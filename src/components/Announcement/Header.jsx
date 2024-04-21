@@ -5,12 +5,11 @@ import PostButton from "./PostButton";
 
 const HeaderWrapper = styled.section`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-end;
   padding: 48px 0;
   & > h2 {
-    margin-left: 110px;
-    font-size: 32px;
+    font-size: 2rem;
     font-weight: 600;
   }
 `;
@@ -28,11 +27,14 @@ const Header = () => {
     <HeaderWrapper>
       <h2>공지사항</h2>
       <HeaderControl>
-        {id ? "" :
+        {id ? (
+          ""
+        ) : (
           <>
             <Search />
             <PostButton />
-          </>}
+          </>
+        )}
       </HeaderControl>
     </HeaderWrapper>
   );

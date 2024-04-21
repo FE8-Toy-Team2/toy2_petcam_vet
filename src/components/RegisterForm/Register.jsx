@@ -6,8 +6,10 @@ import Swal from "sweetalert2";
 import { NormalButton, SmallButton } from "../Buttons";
 import dayjs from "dayjs";
 import { addDoc, collection } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 function RegisterForm() {
+  let navigate = useNavigate();
   const [previewImage, setPreviewImage] = useState(null);
   const fileRef = useRef(null);
   const sectionDataRef = useRef({
@@ -84,11 +86,13 @@ function RegisterForm() {
 
       await addDoc(collection(dataBase, "chartDatas"), profileData);
       Swal.fire({
-        position: "top-end",
         icon: "success",
         title: "등록되었습니다!",
-        showConfirmButton: false,
-        timer: 1500,
+        showConfirmButton: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/chart");
+        }
       });
     } catch (error) {
       console.error("파일 업로드 또는 데이터 저장 중 오류 발생:", error);
@@ -194,11 +198,10 @@ function RegisterForm() {
 
 const Container = styled.form`
   width: fit-content;
-  margin: 80px auto;
-  font-family: "Pretendard";
+  margin: auto;
   font-weight: bold;
   color: var(--color-black);
-  border-radius: 10px;
+  margin-top: 5rem;
 `;
 
 const Header = styled.div`
