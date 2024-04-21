@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Link } from 'react-router-dom';
-
+import Swal from 'sweetalert2'
 
 const Signup = ({ onLogin, isLoggedIn }) => {
 
@@ -19,7 +19,7 @@ const Signup = ({ onLogin, isLoggedIn }) => {
     event.preventDefault();
 		
 		if (password !== confirmPassword) {
-      alert('비밀번호가 일치하지 않습니다');
+      alert('비밀번호가 일치하지 않습니다');			
       return;
     }
 		if (!validatePassword(password)) {
@@ -31,7 +31,7 @@ const Signup = ({ onLogin, isLoggedIn }) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      alert(`${email}님이 회원으로 등록되셨습니다`)
+      alert(`${email}님이 회원으로 등록되셨습니다`)			
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -52,7 +52,10 @@ const Signup = ({ onLogin, isLoggedIn }) => {
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
-      alert(`${user.email}님이 로그인하셨습니다`)
+      // alert(`${user.email}님이 로그인하셨습니다`)
+			Swal.fire({
+        text: `${user.email}님이 로그인하셨습니다`
+      });
 			onLogin()
     } catch (error) {
       const errorCode = error.code;

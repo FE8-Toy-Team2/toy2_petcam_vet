@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -23,7 +24,9 @@ const Login = ({ onLogin }) => {
         password
       );
       const user = userCredential.user;
-      alert(`${email}님이 로그인하셨습니다`);
+      Swal.fire({
+        text: `${email}님이 로그인하셨습니다`
+      });
       onLogin();
     } catch (error) {
       const errorCode = error.code;
@@ -44,12 +47,15 @@ const Login = ({ onLogin }) => {
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
-      alert(`${user.email}님이 로그인하셨습니다`);
+      // alert(`${user.email}님이 로그인하셨습니다`);
+      Swal.fire({
+        text: `${user.email}님이 로그인하셨습니다`
+      });
       onLogin();
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // alert(`등록되지 않은 사용자입니다`);
+    
     }
   };
 
