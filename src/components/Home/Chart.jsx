@@ -19,7 +19,7 @@ const FriendToday = styled.li`
 
 const Chart = () => {
   const [friendsToday, setFriendsToday] = useState([]);
-  
+
   const fetchData = async () => {
     const dataQuery = query(collection(dataBase, "chartDatas"));
     const dataResult = await getDocs(dataQuery);
@@ -38,7 +38,7 @@ const Chart = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   return (
     <ChartSection>
       <h3>오늘 진료인 친구들</h3>
