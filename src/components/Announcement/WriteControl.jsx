@@ -15,7 +15,6 @@ const WriteControlWrapper = styled.div`
   }
 `;
 
-
 const WriteButton = ({ title, content, announcement }) => {
   const navigate = useNavigate();
 
@@ -91,7 +90,7 @@ const WriteButton = ({ title, content, announcement }) => {
 WriteButton.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  announcement: PropTypes.object
+  announcement: PropTypes.object,
 };
 
 export default WriteButton;

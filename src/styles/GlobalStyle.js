@@ -1,8 +1,5 @@
-import { BrowserRouter } from "react-router-dom";
-import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-import "./font/font.css";
-import Layout from "./components/Layout/Layout";
+import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -29,21 +26,17 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     font-family: "Pretendard", sans-serif;
+      width: 100vw;
+      box-sizing: border-box;
+       -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
   }
   a{
     text-decoration: none;
     color: inherit;
   }
 `;
-
-function App() {
-  return (
-    <BrowserRouter>
-      <GlobalStyle />
-
-      <Layout />
-    </BrowserRouter>
-  );
-}
-
-export default App;
+export default GlobalStyle;
