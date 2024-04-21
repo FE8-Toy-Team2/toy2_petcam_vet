@@ -214,10 +214,6 @@ function RegisterForm() {
 const Container = styled.form`
   width: fit-content;
   margin: auto;
-<<<<<<< HEAD:src/components/RegisterForm/Register.jsx
-=======
-  font-family: "Pretendard";
->>>>>>> 3e909f1a1bcac97555b66b5e369ed9d97640d78f:src/components/RegisterForm.jsx
   font-weight: bold;
   color: var(--color-black);
   margin-top: 5rem;
