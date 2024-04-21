@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Link } from 'react-router-dom';
-
+import Swal from 'sweetalert2'
 
 const Signup = ({ onLogin, isLoggedIn }) => {
 
@@ -10,20 +10,22 @@ const Signup = ({ onLogin, isLoggedIn }) => {
   const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 
-	const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[^\s]).{8,}$/;
-    return passwordRegex.test(password);
-  };
+	
 
   const handleSignup = async (event) => {
     event.preventDefault();
 		
-		if (password !== confirmPassword) {
-      alert('비밀번호가 일치하지 않습니다');
-      return;
-    }
+		const validatePassword = (password) => {
+			const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[^\s]).{8,}$/;
+			return passwordRegex.test(password);
+		};
+
 		if (!validatePassword(password)) {
-      alert('비밀번호는 최소 8자 이상이어야 하며, 대소문자, 숫자, 특수문자를 포함해야 합니다.');
+			alert('비밀번호는 최소 8자 이상이어야 하며, 대소문자, 숫자, 특수문자를 포함해야 합니다.');
+			return;
+		}
+		if (password !== confirmPassword) {
+      alert('비밀번호가 일치하지 않습니다');			
       return;
     }
 
@@ -31,7 +33,7 @@ const Signup = ({ onLogin, isLoggedIn }) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      alert(`${email}님이 회원으로 등록되셨습니다`)
+      alert(`${email}님이 회원으로 등록되셨습니다`)			
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -52,11 +54,12 @@ const Signup = ({ onLogin, isLoggedIn }) => {
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
-      alert(`${user.email}님이 로그인하셨습니다`)
+      Swal.fire({
+        text: `${user.email}님이 로그인하셨습니다`
+      });
 			onLogin()
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;      
+      console.error('Error signing up:', error);      
     }
   };
 

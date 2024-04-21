@@ -7,7 +7,7 @@ import { styled } from "styled-components";
   /* <NormalButton btn_color="버튼색을 넣으세요" textColor="버튼 텍스트 칼라를 넣으세요">등록</NormalButton>  */
 }
 
-// 직은버튼
+// 작은버튼
 export const SmallButton = styled.button`
   width: 50px;
   height: 30px;

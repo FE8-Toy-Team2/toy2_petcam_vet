@@ -30,12 +30,25 @@ function RegisterForm() {
     image: "",
   });
 
+  const [requiredFields, setRequiredFields] = useState({
+    guardian: false,
+    name: false,
+    age: false,
+    species: false,
+    sex: false,
+    neutering: false,
+    weight: false,
+  });
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    console.log("Value type:", value);
     if (id !== "file") {
       const trimmedValue = typeof value === "string" ? value.trim() : value;
       sectionDataRef.current[id] = trimmedValue;
+      setRequiredFields((prevFields) => ({
+        ...prevFields,
+        [id]: !!trimmedValue,
+      }));
     }
   };
 
@@ -68,8 +81,14 @@ function RegisterForm() {
     const file = fileRef.current.files[0];
     if (!file) {
       Swal.fire({
-        icon: "error",
         title: "파일을 선택해주세요.",
+      });
+      return;
+    }
+    const allFieldsFilled = Object.values(requiredFields).every((field) => field);
+    if (!allFieldsFilled) {
+      Swal.fire({
+        title: "모든 필수 입력 필드를 채워주세요.",
       });
       return;
     }
@@ -86,7 +105,6 @@ function RegisterForm() {
 
       await addDoc(collection(dataBase, "chartDatas"), profileData);
       Swal.fire({
-        icon: "success",
         title: "등록되었습니다!",
         showConfirmButton: true,
       }).then((result) => {
@@ -97,7 +115,6 @@ function RegisterForm() {
     } catch (error) {
       console.error("파일 업로드 또는 데이터 저장 중 오류 발생:", error);
       Swal.fire({
-        icon: "error",
         title: "등록 실패",
         text: "에러 메시지: " + error.message,
       });
@@ -109,7 +126,6 @@ function RegisterForm() {
     Swal.fire({
       title: "등록을 취소하시겠습니까??",
       text: "삭제한 정보는 복구할 수 없습니다.",
-      icon: "warning",
       timer: 3000,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -122,7 +138,6 @@ function RegisterForm() {
         Swal.fire({
           title: "삭제완료",
           text: "파일이 삭제되었습니다.",
-          icon: "success",
           timer: 3000,
         });
       }
@@ -202,6 +217,11 @@ const Container = styled.form`
   font-weight: bold;
   color: var(--color-black);
   margin-top: 5rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: var(--color-gray-1);
+  box-shadow: 1px 1px 10px var(--color-darkgray);
+  margin-bottom: 1rem;
 `;
 
 const Header = styled.div`

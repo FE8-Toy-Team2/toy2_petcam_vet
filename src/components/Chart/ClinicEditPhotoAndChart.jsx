@@ -7,6 +7,9 @@ const ClinicEditPhotoAndChart = ({ selectedChart, setSelectedChart }) => {
   const [showSavedMessage, setShowSavedMessage] = useState(false);
   const [data, setData] = useState(selectedChart);
 
+
+
+
   const handleChange = (e, isChecked = undefined) => {
     // if (timerMap[id]) {
     //   clearTimeout(timerMap[id]);
@@ -36,7 +39,9 @@ const ClinicEditPhotoAndChart = ({ selectedChart, setSelectedChart }) => {
     <PhotoAndChartContainer>
       {showSavedMessage && <SavedMessage>저장 완료!</SavedMessage>}
       <PhotoBox>
-        <img src="https://i.natgeofe.com/n/5f35194b-af37-4f45-a14d-60925b280986/NationalGeographic_2731043_3x4.jpg" />
+        {selectedChart && (
+          <img src={data.image} alt={data.image} />
+        )}
       </PhotoBox>
       <ChartDetails>
         <li>
@@ -212,6 +217,7 @@ const ChartDetails = styled.ul`
 
   span {
     font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-M);
     width: 60px;
   }
 
@@ -222,7 +228,7 @@ const ChartDetails = styled.ul`
     background-color: var(--color-gray-3);
     margin-right: 5px;
     font-family: "Pretendard";
-    font-size: 16px;
+    font-size: var(--font-size-M);
     resize: none;
   }
 
