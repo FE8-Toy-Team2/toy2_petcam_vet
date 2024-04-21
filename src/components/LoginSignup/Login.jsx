@@ -157,7 +157,7 @@ const LoginGoogle = styled.button`
     height: 18px;
     width: 18px;
     margin-right: 15px;
-    background: url("../img/Google__G__logo.svg") no-repeat center center;
+    background: url("../public/Google__G__logo.svg") no-repeat center center;
   }
 `;
 const SignupButton = styled.button`
