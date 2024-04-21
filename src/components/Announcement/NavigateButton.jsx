@@ -8,6 +8,7 @@ const NavigateButtonWrapper = styled.button`
   border: none;
   background-color: inherit;
   font: inherit;
+  padding: 0;
   &:hover {
     text-decoration: underline;
     cursor: pointer;

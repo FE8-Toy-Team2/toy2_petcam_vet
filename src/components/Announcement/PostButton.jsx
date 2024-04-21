@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Pencil from "../../assets/pencil.svg?react";
 
 const PostButtonStyle = styled.button`
+  width: 100%;
   padding: 3px;
   border: none;
   border-radius: 5px;

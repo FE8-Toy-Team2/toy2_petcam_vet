@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 const PostControlButtonsWrapper = styled.ul`
   display: flex;
+  align-self: flex-end;
   align-items: center;
   gap: 8px;
   & button {
