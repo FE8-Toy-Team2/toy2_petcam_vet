@@ -7,9 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "firebase deploy"
   },
   "dependencies": {
+    "@tiptap/react": "^2.3.0",
     "dayjs": "^1.11.10",
     "firebase": "^10.10.0",
     "lexical": "^0.14.3",
