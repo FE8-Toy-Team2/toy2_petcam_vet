@@ -128,7 +128,7 @@ const Wrapper = styled.div`
   gap: 10px;
   justify-content: flex-start;
   box-sizing: border-box;
-  background-color: var(--color-gray-1);
+  background-color: var(--color-gray-2);
 
   @media (max-width: 576px) {
     display: block;

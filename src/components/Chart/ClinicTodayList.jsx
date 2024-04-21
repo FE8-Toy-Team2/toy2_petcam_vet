@@ -68,7 +68,7 @@ const TodayListContainer = styled.div`
 
 const TodayListTitle = styled.div`
   display: flex;
-  font-size: 20px;
+  font-size: var(--font-size-XL);
   font-weight: var(--font-weight-bold);
   font-family: "Pretendard";
 `;
@@ -95,7 +95,7 @@ const TodayListArea = styled.div`
 `;
 const TodayListItem = styled(Link)`
   display: block;
-  font-size: 15px;
+  font-size: var(--font-size-M);
   padding: 5px 5px;
   margin-bottom: 3px;
   font-family: "Pretendard";

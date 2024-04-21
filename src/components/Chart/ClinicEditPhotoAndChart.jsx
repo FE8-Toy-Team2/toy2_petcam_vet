@@ -217,6 +217,7 @@ const ChartDetails = styled.ul`
 
   span {
     font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-M);
     width: 60px;
   }
 
@@ -227,7 +228,7 @@ const ChartDetails = styled.ul`
     background-color: var(--color-gray-3);
     margin-right: 5px;
     font-family: "Pretendard";
-    font-size: 16px;
+    font-size: var(--font-size-M);
     resize: none;
   }
 

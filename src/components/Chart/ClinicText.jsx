@@ -54,14 +54,14 @@ const TextContainer = styled.div`
 `;
 
 const TextTitle = styled.div`
-  font-size: 20px;
+  font-size: var(--font-size-XL);
   font-weight: var(--font-weight-bold);
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
   line-height: 1.55;
-  font-size: 16px;
+  font-size: var(--font-size-M);
   border-radius: 10px;
   margin-top: 14px;
   padding: 20px;
