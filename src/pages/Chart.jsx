@@ -10,6 +10,8 @@ import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 
+
+
 const Chart = () => {
   const { id } = useParams();
   const [chartDatas, setChartDatas] = useState([]);
@@ -127,6 +129,10 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   box-sizing: border-box;
   background-color: var(--color-gray-1);
+
+  @media (max-width: 576px) {
+    display: block;
+  }
 `;
 
 const Contents = styled.div`
@@ -139,6 +145,9 @@ const Contents = styled.div`
   padding: 30px 30px 0 30px;
   justify-content: space-between;
   gap: 10px;
+  @media (max-width: 576px) {
+    display: block;
+  }
 `;
 
 const BtnWrapper = styled.div`
@@ -147,7 +156,6 @@ const BtnWrapper = styled.div`
   flex-basis: 0;
   flex-grow: 0.1;
   margin: 0 30px;
-
   align-items: center;
   height: 60px;
 `;
