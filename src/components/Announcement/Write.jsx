@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { LogInContext } from "../../context/LogInContext";
 import { AnnouncementListContext } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 import WriteEditor from "./WriteEditor";
@@ -14,7 +15,16 @@ const Write = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { id } = useParams();
+  const navigate = useNavigate();
+  const isLoggedIn = useContext(LogInContext);
   const [announcements] = useContext(AnnouncementListContext);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  });
+
   useEffect(() => {
     if (id) {
       setTitle(announcements[id-1].title);
