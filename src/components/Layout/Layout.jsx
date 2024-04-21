@@ -39,7 +39,7 @@ function Layout() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/signup" element={<Signup onLogin={handleLogin} isLoggedIn={isLoggedIn} />} />
-        <Route path="/announcement/*" element={<Announcement />} />
+        <Route path="/announcement/*" element={<Announcement isLoggedIn={isLoggedIn} />} />
         <Route path="/chart" element={<ChartList />} />
         <Route path="chart/:id" element={<Chart />} />
         <Route path="/register" element={<RegisterForm />} />

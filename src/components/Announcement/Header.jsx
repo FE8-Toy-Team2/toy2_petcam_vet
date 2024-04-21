@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { LogInContext } from "../../context/LogInContext";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Search from "../common/Search";
@@ -20,6 +22,8 @@ const HeaderControl = styled.div`
 `;
 
 const Header = ({ title, setFilter }) => {
+  const isLoggedIn = useContext(LogInContext);
+
   return (
     <HeaderWrapper>
       <h2>{title}</h2>
@@ -27,7 +31,9 @@ const Header = ({ title, setFilter }) => {
         {!setFilter ? "" :
           <>
             <Search setFilter={setFilter} />
-            <PostButton />
+            {isLoggedIn
+              ? <PostButton />
+              : ""}
           </>
         }
       </HeaderControl>
