@@ -32,11 +32,15 @@ const ClinicEditPhotoAndChart = ({ selectedChart, setSelectedChart }) => {
     setData(selectedChart);
   }, [selectedChart]);
 
+  const imageURL = `https://storage.googleapis.com/toy2-petcam-vet.appspot.com/images/${data.imageName}`;
+  const imageAltName = `${data.imageName}`;
+
+
   return (
     <PhotoAndChartContainer>
       {showSavedMessage && <SavedMessage>저장 완료!</SavedMessage>}
       <PhotoBox>
-        <img src="https://i.natgeofe.com/n/5f35194b-af37-4f45-a14d-60925b280986/NationalGeographic_2731043_3x4.jpg" />
+        <img src={imageURL} alt={imageAltName} />
       </PhotoBox>
       <ChartDetails>
         <li>
