@@ -5,8 +5,7 @@ import PostButton from "./PostButton";
 
 const HeaderWrapper = styled.section`
   display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
+  justify-content: space-between;
   padding: 48px 0;
   & > h2 {
     font-size: 2rem;
