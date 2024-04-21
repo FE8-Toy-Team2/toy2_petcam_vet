@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@tiptap/react": "^2.3.0",
+    "@tiptap/starter-kit": "^2.3.0",
     "dayjs": "^1.11.10",
     "firebase": "^10.10.0",
     "lexical": "^0.14.3",
