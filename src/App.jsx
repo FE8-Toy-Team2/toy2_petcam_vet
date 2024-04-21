@@ -1,7 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-import app from "./firebase";
 import "./font/font.css";
 import Layout from "./components/Layout/Layout";
 

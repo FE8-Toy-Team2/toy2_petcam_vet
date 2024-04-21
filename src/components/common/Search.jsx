@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
-import SearchIcon from "../../../public/search.svg?react";
-// TODO: Search 컴포넌트 로직 구현
+import PropTypes from "prop-types"
 
 const SearchWrapper = styled.div`
   position: relative;
@@ -14,30 +13,16 @@ const SearchInput = styled.input`
   height: 24px;
 `;
 
-const SearchButton = styled.button`
-  position: absolute;
-  top: 6px;
-  right: 4px;
-  padding: 0;
-  border: none;
-  background-color: inherit;
-  cursor: pointer;
-  & > svg {
-    width: 18px;
-    height: 18px;
-  }
-`;
-
-const Search = () => {
+const Search = ({ setFilter }) => {
   const [query, setQuery] = useState("");
 
-  const handleChange = event => {
+  const handleChange = useCallback(event => {
     setQuery(event.target.value);
-  };
+  }, []);
 
-  const handleClick = () => {
-    console.log(query);
-  };
+  useEffect(() => {
+    setFilter(query);
+  }, [query, setFilter]);
 
   return (
     <SearchWrapper>
@@ -47,11 +32,12 @@ const Search = () => {
         placeholder="검색"
         onChange={handleChange}
       />
-      <SearchButton type="button" onClick={handleClick} >
-        <SearchIcon />
-      </SearchButton>
     </SearchWrapper>
   );
+};
+
+Search.propTypes = {
+  setFilter: PropTypes.func
 };
 
 export default Search;

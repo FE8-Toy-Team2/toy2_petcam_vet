@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import PaginationButton from "./PaginationButton";
-import ArrowPrev from "../../../public/arrow-prev.svg?react";
-import ArrowNext from "../../../public/arrow-next.svg?react";
+import ArrowPrev from "../../assets/arrow-prev.svg?react";
+import ArrowNext from "../../assets/arrow-next.svg?react";
 
 const PaginationNav = styled.nav`
   display: flex;
@@ -39,25 +39,28 @@ const Pagination = ({ currentPage, totalPosts, setPage, postBlock, pageBlock }) 
   const [currentPageBlock, setCurrentPageBlock] = useState(Math.ceil(currentPage / postBlock));
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const toPage = (pageIndex) => {
+  const toPage = useCallback((pageIndex) => {
     searchParams.set("page", pageIndex);
     setSearchParams(searchParams);
     setPage(pageIndex);
-  };
+  }, [searchParams, setSearchParams, setPage]);
 
   const totalPages = Math.ceil(totalPosts / postBlock);
   const totalPageBlock = Math.ceil(totalPages / pageBlock);
   const pageArray = Array.from({ length: pageBlock }, (_v, i) => (currentPageBlock - 1) * pageBlock + 1 + i);
 
-  const toPageBlock = (pageBlockWeight) => {
+  const toPageBlock = useCallback((pageBlockWeight) => {
     if (currentPageBlock + pageBlockWeight > totalPageBlock || currentPageBlock + pageBlockWeight < 1) {
       return;
     }
 
+    setCurrentPageBlock(prev => prev + pageBlockWeight);
+  }, [currentPageBlock, totalPageBlock]);
+
+  useEffect(() => {
     const newPageIndex = (currentPageBlock - 1) * pageBlock + 1;
     toPage(newPageIndex);
-    setCurrentPageBlock(prev => prev + pageBlockWeight);
-  };
+  }, [currentPageBlock]);
 
   return (
     <PaginationNav>

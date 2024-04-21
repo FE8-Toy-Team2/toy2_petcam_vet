@@ -4,7 +4,7 @@ import NavigateButton from "./NavigateButton";
 
 const ListRowStyle = styled.ul`
   position: relative;
-  width: 832px;
+  width: 100%;
   display: flex;
   &::after {
     content: "";
@@ -18,6 +18,7 @@ const ListRowStyle = styled.ul`
   & > li:first-child {
     flex-basis: 10rem;
     flex-grow: 0;
+    flex-shrink: 0;
   }
   & > li:nth-child(2) {
     flex-grow: 1;
@@ -29,6 +30,7 @@ const ListRowStyle = styled.ul`
   & > li:last-child {
     flex-basis: 5rem;
     flex-grow: 0;
+    flex-shrink: 0;
     display: flex;
     justify-content: flex-end;
   }
