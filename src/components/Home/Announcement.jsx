@@ -4,7 +4,9 @@ import { AnnouncementListContext } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 
 const HomeAnnouncementWrapper = styled.section`
-  /* align-self: flex-start; */
+  p {
+    margin-bottom: 1rem;
+  }
 `;
 
 const HomeAnnoucementListButton = styled.button`

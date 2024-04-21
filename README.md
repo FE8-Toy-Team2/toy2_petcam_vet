@@ -11,7 +11,7 @@ Pet캠동물병원에서 진료받는 반려동물을 관리하기 위한 동물
 
 #### <u>배포링크</u>
 
-https://fekemon.netlify.app/
+https://toy2-petcam-vet.web.app/
 
 <hr>
 

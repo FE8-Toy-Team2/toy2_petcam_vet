@@ -105,7 +105,7 @@ const Logo = styled.div`
   vertical-align: middle;
   height: 18px;
   margin: 48px auto;
-  background: url("../public/petcam_logo.svg") no-repeat center center;
+  background: url("/petcam_logo.svg") no-repeat center center;
 `;
 const Input = styled.input`
   width: 250px;
@@ -166,7 +166,7 @@ const LoginGoogle = styled.button`
     height: 18px;
     width: 18px;
     margin-right: 15px;
-    background: url("../img/Google__G__logo.svg") no-repeat center center;
+    background: url("/Google__G__logo.svg") no-repeat center center;
   }
 `;
 const SignupButton = styled.button`

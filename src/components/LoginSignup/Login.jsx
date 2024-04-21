@@ -102,7 +102,7 @@ const Logo = styled.div`
   vertical-align: middle;
   height: 18px;
   margin: 48px auto;
-  background: url("../img/petcam_logo.svg") no-repeat center center;
+  background: url("/petcam_logo.svg") no-repeat center center;
 `;
 const Input = styled.input`
   width: 250px;
