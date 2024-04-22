@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { LogInContext } from "../../context/LogInContext";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import Search from "../common/Search";
 import PostButton from "./PostButton";
 
 const HeaderWrapper = styled.section`
   display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
+  justify-content: space-between;
   padding: 48px 0;
   & > h2 {
     font-size: 2rem;
@@ -20,24 +21,29 @@ const HeaderControl = styled.div`
   gap: 8px;
 `;
 
-const Header = () => {
-  const { id } = useParams();
+const Header = ({ title, setFilter }) => {
+  const isLoggedIn = useContext(LogInContext);
 
   return (
     <HeaderWrapper>
-      <h2>공지사항</h2>
+      <h2>{title}</h2>
       <HeaderControl>
-        {id ? (
-          ""
-        ) : (
+        {!setFilter ? "" :
           <>
-            <Search />
-            <PostButton />
+            <Search setFilter={setFilter} />
+            {isLoggedIn
+              ? <PostButton />
+              : ""}
           </>
-        )}
+        }
       </HeaderControl>
     </HeaderWrapper>
   );
+};
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+  setFilter: PropTypes.func
 };
 
 export default Header;

@@ -1,20 +1,30 @@
 import { useState, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { LogInContext } from "../../context/LogInContext";
 import { AnnouncementListContext } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 import WriteEditor from "./WriteEditor";
 import WriteControl from "./WriteControl";
 
-const WriteTitle = styled.h2`
-  font-size: 4rem;
-  padding: 48px 0;
+const WriteWrapper = styled.section`
+  align-self: center;
+  width: 100%;
 `;
 
 const Write = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { id } = useParams();
+  const navigate = useNavigate();
+  const isLoggedIn = useContext(LogInContext);
   const [announcements] = useContext(AnnouncementListContext);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  });
+
   useEffect(() => {
     if (id) {
       setTitle(announcements[id-1].title);
@@ -22,15 +32,10 @@ const Write = () => {
   }, [id, announcements]);
 
   return (
-    <>
-      <WriteTitle>
-        {id 
-          ? "수정하기"
-          : "새 글 쓰기"}
-      </WriteTitle>
+    <WriteWrapper>
       <WriteEditor title={title} setTitle={setTitle} setContent={setContent} contentWritten={id ? announcements[id-1].content : ""} />
       <WriteControl title={title} content={content} announcement={id ? announcements[id-1] : null} />
-    </>
+    </WriteWrapper>
   );
 };
 

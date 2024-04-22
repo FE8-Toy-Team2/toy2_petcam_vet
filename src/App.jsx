@@ -1,7 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-import app from "./firebase";
 import "./font/font.css";
 import Layout from "./components/Layout/Layout";
 
@@ -27,6 +26,9 @@ const GlobalStyle = createGlobalStyle`
     --font-size-L: 1.1rem;
     --font-size-XL: 1.2rem;
     --font-size-XXL: 1.5rem;
+  }
+  #root{
+    background-color: var(--color-gray-2);
   }
   body{
     font-family: "Pretendard", sans-serif;

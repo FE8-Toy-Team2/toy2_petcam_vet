@@ -5,11 +5,17 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const ClinicTodayList = ({ chartDatas, setSelectedChart }) => {
+
+  const sortByClinicToday = (a, b) => {
+    return new Date(a.clinic_today) - new Date(b.clinic_today);
+  };
+  const sortedChartDatas = chartDatas.slice().sort(sortByClinicToday);
+
   return (
     <TodayListContainer>
       <TodayListTitle>오늘 진료</TodayListTitle>
       <TodayListArea>
-        {chartDatas.map((item) => {
+        {sortedChartDatas.map((item) => {
           const timestamp = item.clinic_today;
           const isToday =
             timestamp.split("T")[0] === dayjs().format("YYYY-MM-DD");
@@ -17,10 +23,7 @@ const ClinicTodayList = ({ chartDatas, setSelectedChart }) => {
 
           if (isToday) {
             return (
-              <TodayListItem
-                to={`/chart/${item.id}`}
-                key={item.id}
-              >
+              <TodayListItem to={`/chart/${item.id}`} key={item.id}>
                 <span>{item.name}</span>({item.guardian}&nbsp;/&nbsp;
                 {timeString})
               </TodayListItem>
@@ -33,6 +36,7 @@ const ClinicTodayList = ({ chartDatas, setSelectedChart }) => {
     </TodayListContainer>
   );
 };
+
 
 ClinicTodayList.propTypes = {
   selectedChart: PropTypes.any.isRequired,
@@ -48,8 +52,8 @@ const TodayListContainer = styled.div`
   flex-grow: 0.3;
   flex-basis: 0;
   box-sizing: border-box;
-  width: 100%;
   height: 100%;
+  
   @media (max-width: 992px) {
     min-width: 150px;
     margin-right: 5px;
@@ -64,7 +68,7 @@ const TodayListContainer = styled.div`
 
 const TodayListTitle = styled.div`
   display: flex;
-  font-size: 20px;
+  font-size: var(--font-size-XL);
   font-weight: var(--font-weight-bold);
   font-family: "Pretendard";
 `;
@@ -73,7 +77,7 @@ const TodayListArea = styled.div`
   background-color: var(--color-gray-2);
   border-radius: 10px;
   margin-top: 14px;
-  padding: 10px 10px;
+  padding: 10px 10px;  
   height: 100%;
   border: 2px solid var(--color-black);
   overflow-y: auto;
@@ -91,7 +95,7 @@ const TodayListArea = styled.div`
 `;
 const TodayListItem = styled(Link)`
   display: block;
-  font-size: 15px;
+  font-size: var(--font-size-M);
   padding: 5px 5px;
   margin-bottom: 3px;
   font-family: "Pretendard";

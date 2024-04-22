@@ -17,6 +17,10 @@ const ListHeaderList = styled.ul`
   }
   & > li:nth-child(2) {
     flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
   }
   & > li:last-child {
     flex-basis: 5rem;

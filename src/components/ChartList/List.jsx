@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ChartListUl, ChartListLi, ListLiLeft, ListLiLeftImg, ListLiRight } from "./Styles.jsx";
 import { SmallButton } from "../Buttons.jsx";
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, doc } from "firebase/firestore";
 import { dataBase } from "../../firebase.js";
 import { Link } from "react-router-dom";
 
@@ -19,7 +19,7 @@ function List({ petState }) {
   const fetchData = async () => {
     const dataQuery = query(collection(dataBase, "chartDatas"), orderBy("admit_to_hospital_in", "asc"));
     const dataResult = await getDocs(dataQuery);
-    const petInfoData = dataResult.docs.map((doc) => doc.data());
+    const petInfoData = dataResult.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     setPetInfo(petInfoData);
   };
 
@@ -29,16 +29,16 @@ function List({ petState }) {
 
   const filteredPets = petInfo.filter((pet) => {
     switch (petState) {
-      case "당일":
-        return pet.clinic_today; // 예를 들어, 오늘 진료를 받는다는 속성이 있다고 가정
       case true:
         return pet.admit_to_hospital === true;
       case false:
         return pet.admit_to_hospital === false;
       default:
-        return true; // "전체보기"와 일치하는 기타 상태들
+        return true;
     }
   });
+
+
 
   return (
     <ChartListUl>
@@ -53,7 +53,7 @@ function List({ petState }) {
               ) : (
                 <ListLiLeftImg src="../public/image/default_img.jpeg" alt="테스트 이미지" />
               )}
-              <Link to={`/chart/${pet.id}`}>
+              <Link to={`/chart/${pet.id}`}> {/* Firestore 문서의 이름을 사용하여 링크 생성 */}
                 <div>{pet.name}</div>
                 <div>{pet.species}</div>
               </Link>

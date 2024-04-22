@@ -16,6 +16,18 @@ const PostNavigationList = styled.ul`
   }
 `;
 
+const PostNavigationItem = styled.li`
+  display: flex;
+  gap: 8px;
+`;
+
+const PostNavigationButtonWrapper = styled.div`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+`;
+
 const PostNavigation = ({ id }) => {
   const [announcements] = useContext(AnnouncementListContext);
 
@@ -23,16 +35,20 @@ const PostNavigation = ({ id }) => {
     <PostNavigtionWrapper>
       <PostNavigationList>
         {id > 1
-          ? <li>
+          ? <PostNavigationItem>
               <span>다음 글</span>
-              <NavigateButton route={`/announcement/${id-1}`} text={announcements[id-2].title} />
-            </li>
+              <PostNavigationButtonWrapper>
+                <NavigateButton route={`/announcement/${id-1}`} text={announcements[id-2].title} />
+              </PostNavigationButtonWrapper>
+            </PostNavigationItem>
           : ""}
         {id < announcements.length
-          ? <li>
+          ? <PostNavigationItem>
               <span>이전 글</span>
-              <NavigateButton route={`/announcement/${id+1}`} text={announcements[id].title} />
-            </li>
+              <PostNavigationButtonWrapper>
+                <NavigateButton route={`/announcement/${id+1}`} text={announcements[id].title} />
+              </PostNavigationButtonWrapper>
+            </PostNavigationItem>
           : ""}
       </PostNavigationList>
     </PostNavigtionWrapper>

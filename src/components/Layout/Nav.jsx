@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 const Nav = ({ isLoggedIn, onLogout }) => {
-  
   const location = useLocation();
 
   return (
@@ -23,20 +22,20 @@ const Nav = ({ isLoggedIn, onLogout }) => {
           </Button>
         )}
       </Buttons>
-     <Navbar>
-          <LogoLink to="/"></LogoLink>
-          <TextBox>
-            <Text className={location.pathname === "/chart" ? "active" : ""}>
-              {isLoggedIn ? <Link to="/chart">입원/퇴원 관리</Link> : <Link to="/login">입원/퇴원 관리</Link>}
-            </Text>
-            <Text className={location.pathname === "/register" ? "active" : ""}>
-              {isLoggedIn ? <Link to="/register">동물등록</Link> : <Link to="/login">동물등록</Link>}
-            </Text>
-            <Text className={location.pathname === "/announcement" ? "active" : ""}>
-              <Link to="/announcement">공지사항</Link>
-            </Text>
-          </TextBox>
-        </Navbar>
+      <Navbar>
+        <LogoLink to="/"></LogoLink>
+        <TextBox>
+          <Text className={location.pathname === "/chart" ? "active" : ""}>
+            {isLoggedIn ? <Link to="/chart">입원/퇴원 관리</Link> : <Link to="/login">입원/퇴원 관리</Link>}
+          </Text>
+          <Text className={location.pathname === "/register" ? "active" : ""}>
+            {isLoggedIn ? <Link to="/register">동물등록</Link> : <Link to="/login">동물등록</Link>}
+          </Text>
+          <Text className={location.pathname === "/announcement" ? "active" : ""}>
+            <Link to="/announcement">공지사항</Link>
+          </Text>
+        </TextBox>
+      </Navbar>
     </Header>
   );
 };
@@ -93,7 +92,7 @@ const LogoLink = styled(Link)`
   vertical-align: middle;
   width: 150px;
   margin-left: 30px;
-  background: url("../img/petcam_logo.svg") no-repeat center center;
+  background: url("/petcam_logo.svg") no-repeat center center;
   cursor: pointer;
 `;
 const Navbar = styled.div`
@@ -113,12 +112,12 @@ const TextBox = styled.div`
 const Text = styled.p`
   font-family: var(--font-weight-bold);
   color: var(--color-black);
-  margin: auto 25px; 
+  margin: auto 25px;
   font-size: 15px;
   cursor: pointer;
   transition: 0.3s;
   position: relative;
-  
+
   &:hover,
   &.active {
     &::after {

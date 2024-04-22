@@ -24,6 +24,9 @@ const GlobalStyle = createGlobalStyle`
     --font-size-XL: 1.2rem;
     --font-size-XXL: 1.5rem;
   }
+  #root{
+    background-color: var(--color-gray-2);
+  }
   body{
     font-family: "Pretendard", sans-serif;
       width: 100vw;

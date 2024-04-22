@@ -57,7 +57,7 @@ const EditContainer = styled.div`
 `;
 
 const EditTitle = styled.div`
-  font-size: 20px;
+  font-size: var(--font-size-XL);
   font-weight: var(--font-weight-bold);
 `;
 const EditArea = styled.div`

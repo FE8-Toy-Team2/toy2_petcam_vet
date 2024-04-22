@@ -7,11 +7,11 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  background-color: #f6f6f6;
+  background-color: var(--color-gray-2);
 `;
 
 export const ChartNav = styled.nav`
-  width: 90%;
+  width: 80%;
   margin-top: 2rem;
 
   border-bottom: 1px solid #dddddd;
@@ -27,9 +27,6 @@ export const ChartNavUl = styled.ul`
 export const ChartNavLi = styled.li`
   padding: 0.5rem 1rem;
   cursor: pointer;
-  &:active {
-    border-bottom: 2px solid red;
-  }
 `;
 
 export const ChartListUl = styled.ul`
