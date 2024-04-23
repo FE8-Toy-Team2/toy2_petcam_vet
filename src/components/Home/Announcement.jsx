@@ -1,6 +1,7 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AnnouncementListContext } from "../../context/AnnouncementListContext";
+import { getDocs } from "firebase/firestore";
+import { AnnouncementListContext, announcementQuery, snapshotToArray } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 
 const HomeAnnouncementWrapper = styled.section`
@@ -23,8 +24,18 @@ const HomeAnnoucementListButton = styled.button`
 
 const Announcement = () => {
   const newAnnouncementContext = useContext(AnnouncementListContext);
-  const [announcements, setAnnouncements] = useState(newAnnouncementContext.filter(announcement => Number(announcement.date) > new Date().valueOf() - 1000 * 60 * 60 * 24));
+  const [announcements, setAnnouncements] = useState(newAnnouncementContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(announcementQuery);
+      const newAnnouncementListContext = snapshotToArray(querySnapshot);
+      const filteredAnnouncementList = newAnnouncementListContext.filter(announcement => Number(announcement.date) > new Date().valueOf() - 1000 * 60 * 60 * 24);
+      setAnnouncements(filteredAnnouncementList);
+    }
+    fetchData();
+  });
 
   return (
     <AnnouncementListContext.Provider value={[announcements, setAnnouncements]}>
