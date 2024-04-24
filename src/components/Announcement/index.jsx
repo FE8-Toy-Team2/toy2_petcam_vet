@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import { getDocs, onSnapshot } from "firebase/firestore";
 import { LogInContext } from "../../context/LogInContext";
-import { AnnouncementListContext } from "../../context/AnnouncementListContext";
+import { AnnouncementListContext, announcementQuery, snapshotToArray } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Header from "./Header";
@@ -21,6 +22,21 @@ const Announcement = ({ isLoggedIn }) => {
   const newAnnouncementContext = useContext(AnnouncementListContext);
   const [announcements, setAnnouncements] = useState(newAnnouncementContext);
   const [filter, setFilter] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(announcementQuery);
+      const newAnnouncementListContext = snapshotToArray(querySnapshot);
+      setAnnouncements(newAnnouncementListContext);
+    }
+    fetchData();
+  });
+
+  useEffect(() => {
+    onSnapshot(announcementQuery, (snapshot) => {
+      setAnnouncements(snapshotToArray(snapshot));
+    });
+  }, [setAnnouncements]);
 
   return (
     <LogInContext.Provider value={isLoggedIn}>

@@ -1,7 +1,6 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useSearchParams } from "react-router-dom";
-import { onSnapshot } from "firebase/firestore";
-import { AnnouncementListContext, announcementQuery, snapshotToArray } from "../../context/AnnouncementListContext";
+import { AnnouncementListContext } from "../../context/AnnouncementListContext";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import List from "./List";
@@ -22,14 +21,8 @@ const Content = ({ filter }) => {
     setSearchParams(searchParams);
   }
 
-  const [announcements, setAnnouncements] = useContext(AnnouncementListContext);
+  const [announcements] = useContext(AnnouncementListContext);
   const [page, setPage] = useState(parseInt(searchParams.get("page"), 10));
-
-  useEffect(() => {
-    onSnapshot(announcementQuery, (snapshot) => {
-      setAnnouncements(snapshotToArray(snapshot));
-    });
-  }, [setAnnouncements]);
 
   return (
     <ContentWrapper>
