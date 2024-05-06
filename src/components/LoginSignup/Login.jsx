@@ -9,11 +9,21 @@ const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  
   const handleLogin = async (event) => {
     event.preventDefault();
 
+    if (!email) {
+      alert("이메일을 입력해주세요.");
+      return;
+    }
+    if (!password) {
+      alert("비밀번호를 입력해주세요.");
+      return;
+    }
+
     const auth = getAuth();
-    try {
+    try { 
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       Swal.fire({
@@ -39,9 +49,9 @@ const Login = ({ onLogin }) => {
   const handleGoogleLogin = async (event) => {
     event.preventDefault();
 
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
     try {
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
       // alert(`${user.email}님이 로그인하셨습니다`);

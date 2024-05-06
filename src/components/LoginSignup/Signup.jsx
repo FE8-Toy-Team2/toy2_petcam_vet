@@ -1,16 +1,26 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Signup = ({ onLogin, isLoggedIn }) => {
+  let navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignup = async (event) => {
     event.preventDefault();
+
+    if (!email) {
+      alert("이메일을 입력해주세요.");
+      return;
+    }
+    if (!password) {
+      alert("비밀번호를 입력해주세요.");
+      return;
+    }
 
     const validatePassword = (password) => {
       const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[^\s]).{8,}$/;
@@ -30,7 +40,11 @@ const Signup = ({ onLogin, isLoggedIn }) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      alert(`${email}님이 회원으로 등록되셨습니다`);
+      alert(`${email}님이 회원으로 등록되셨습니다`).then((result) => {
+        if (result) {
+          navigate("/login");
+        }
+      });
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -53,11 +67,16 @@ const Signup = ({ onLogin, isLoggedIn }) => {
       const user = userCredential.user;
       Swal.fire({
         text: `${user.email}님이 로그인하셨습니다`,
-      });
+      }).then((result) => {
+        if (result) {
+          navigate("/");
+        }
+      })
       onLogin();
     } catch (error) {
       console.error("Error signing up:", error);
     }
+    
   };
 
   return (

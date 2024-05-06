@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 
 function Layout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     setIsLoggedIn(true);
